@@ -1,0 +1,19 @@
+
+For example: 
+  “””
+  Redesign the “Average Daily Screen Time by Age Group” bar chart while preserving the bar chart form. 
+  First, shorten the title to “Screen Time by Age”
+  Reasoning: The Word Count (Title) loading is strongly negative (-0.63), suggesting shorter or simplified titles. 
+
+  Then, add direct annotations above each bar showing numeric values (e.g., “6.5 hrs/day” for 18–24). Include callouts for key insights like “Highest usage among young adults” for 18–24 and “Screen time decreases with age” for 55+.
+  Reasoning: Both Annotation (0.65) and Word Count (Annotation) (0.65) have very strong positive loadings. According to definitions, annotations are short-form text placed directly within the display and anchored to data points. These high loadings indicate annotations should be the primary explanatory mechanism in the redesign.
+
+  Use simple arrows to connect annotations to their target bars.
+  Reasoning: Arrows have a positive loading (0.19), supporting their use as auxiliary visual elements. By definition, arrows direct attention toward specific chart areas, which aligns with Factor 2’s emphasis on annotation-driven explanation.
+
+  Simplify the caption to attribution only (“Source: National Survey, 2024”).
+  Reasoning: Present Metadata has a near-zero loading (0.03), meaning metadata is not emphasized in this factor. By definition, captions typically contain explanatory or supplementary text — but given annotation loadings, captions should be minimal and not serve as a primary explanatory channel.
+
+  Keep all text black or dark gray.
+  Reasoning: Style has a slightly negative loading (-0.21), which suggests avoiding decorative or aesthetic color usage in the text information.
+  “””

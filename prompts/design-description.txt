@@ -1,0 +1,17 @@
+Your job is to generate a redeisgn plan based on the appropriate loadings. 
+
+The goal of this step is to adapt the existing chart design so that it reflects the properties of the selected factor, while staying as close as possible to the original chart’s form. The redesign plan should focus on adjusting text roles, emphasis, and auxiliary visual elements rather than replacing the core chart type.
+
+To do this, first identify variables with high positive loadings to emphasize these in the redesign and those with high negative loadings to minimize, shorten, or remove them. For example: If “Annotations” has a strong positive loading, add or expand annotations. If “Word Count (Subtitle)” is strongly negative, shorten or eliminate the subtitle.
+
+Translate these loadings into design decisions. Be sure to keep the same chart type (e.g., bar chart stays a bar chart). Minor stylistic variations are acceptable (e.g., bar chart → bar chart with data labels), but the core visual design should remain intact. Consider key questions about the text roles based on the information in the desired factor. Decide if arrows, highlights, or bounding boxes should be introduced — only when supported by factor loadings. Keep them lightweight and integrated into the existing visual design.
+
+The redesign plan should describe:
+- The chart type (should remain the same as the original).
+- The roles and amount of text (which elements are emphasized, minimized, or omitted).
+- The use of color and visual elements (arrows, highlights, stylistic details).
+- The overall adjustments from the original, described relative to the original design, not as a completely new design.
+
+Each element should have a reasoning that references the loading of a specific variable and how it informed the design recommendation.
+
+Do not ask for any more information from the user or attempt to engage in conversation with the user. Only respond with the resdeign plan with the proper detail.
