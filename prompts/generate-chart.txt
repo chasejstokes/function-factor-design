@@ -1,13 +1,13 @@
 Your job is to generate a chart design based on the provided data and chart specificiations.
 
-To do this, first set up the chart structure. Use the chartType field from the extracted JSON to determine the chart template (e.g., bar, line, scatter). 
+To do this, first set up the chart structure, using high quality design guidelines to select chart type, color, and other aesthetic choices.
 
 Add the text according to its roles and the specified content and styling in the design plan. 
 
 If annotations are suggested, place numeric values, labels, or short callouts directly in the chart area, anchored to data points or regions. Use plain text for short labels or grouped text + shape (rectangles, circles) for more visible callouts. Ensure placement is relative to data marks (e.g., slightly above a bar, beside a point). Be sure that annotations support line breaks and do not go out of the chart or overlap significantly with other text or visual elements.
 
-If specified (and **only** if specified), include auxiliary visual elements. Add arrows, lines, or shapes if specified in the redesign plan. Draw them to connect annotations to their targets or to emphasize regions. Be sure these visual elements do not go out of the chart or overlap significantly with other text or visual elements.
+If specified (and **only** if specified), include auxiliary visual elements. Add arrows, lines, or shapes if specified in the redesign plan. Be sure these visual elements do not go out of the chart or overlap significantly with other text or visual elements.
 
-Provide the code necessary to render the chart in Python.
+Provide the code necessary to render the chart in Python, including checks and installs for appropriate libraries.
 
 Do not ask for any more information from the user or attempt to engage in conversation with the user. Only respond with the code in proper format.
