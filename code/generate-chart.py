@@ -7,6 +7,15 @@ import re
 
 MAX_RETRIES = 3
 
+with open("prompts/design-description.txt", "r", encoding="utf-8") as f:
+    DESIGN_PROMPT = f.read()
+
+with open("prompts/generate-chart.txt", "r", encoding="utf-8") as f:
+    CHART_PROMPT = f.read()
+
+with open("prompts/recode.txt", "r", encoding="utf-8") as f:
+    RECODE_PROMPT = f.read()
+
 
 def call_gpt5mini(system_prompt: str, user_prompt: str, image_path: str = None) -> str:
     """
@@ -60,9 +69,9 @@ def extract_gpt5_text(result: dict) -> str:
         return f"Error parsing response: {e}"
 
 
-def design_plan_factor(system_prompt, chart_data, factor) -> str:
+def design_plan_factor(chart_data, factor) -> str:
     user_prompt = f"Make a design plan for this data that fits Factor {factor}. {chart_data}"
-    response = call_gpt5mini(system_prompt, user_prompt)
+    response = call_gpt5mini(DESIGN_PROMPT, user_prompt)
     return response
 
 
@@ -121,14 +130,14 @@ chart_image2 = """
     """
 
 
-def generate_chart(system_prompt, design_plan, chart_info) -> str:
+def generate_chart(design_plan, chart_info) -> str:
     user_prompt = f"""Provide the code for a chart that follows the given design plan. 
                     {design_plan}
                     
                     Here is the chart data.
                     {chart_info}
-                    """
-    response = call_gpt5mini(system_prompt, user_prompt)
+        """
+    response = call_gpt5mini(CHART_PROMPT, user_prompt)
     return response
 
 
@@ -141,62 +150,93 @@ def clean_code_response(code_response, img_name):
     if "plt.show()" in clean_code:
         clean_code = clean_code.replace(
             "plt.show()",
-            f'plt.savefig("generated_images/design_{img_name}.png", dpi=300, bbox_inches="tight")\nplt.show()'
+            f'plt.savefig("generated/{img_name}_design.png", dpi=300, bbox_inches="tight")'
         )
     # plotly case
     elif "fig.show()" in clean_code:
         clean_code = clean_code.replace(
             "fig.show()",
-            f'fig.write_image("generated_images/design_{img_name}.png")\nfig.show()'
+            f'fig.write_image("generated/{img_name}_design.png")'
         )
 
     return clean_code
 
 
-def run_pipeline(design_prompt, chart_prompt, image_info, factor, img_name):
+def regenerate_chart_code(code, error):
+    user_prompt = f"""The following Python code failed with an error. 
+        Fix the error and return updated code that will run successfully.
+
+        ERROR: {error}
+
+        CODE: {code}
+
+        Return the updated code.
+        """
+    response = call_gpt5mini(RECODE_PROMPT, user_prompt)
+    return response
+
+
+def run_pipeline(image_info, factor, img_name):
 
     start = time.time()
     print("Beginning work on Image.")
 
-    # generate the design plan
-    design_plan = design_plan_factor(design_prompt, image_info, factor)
+    # Step 1: design plan
+    design_plan = design_plan_factor(image_info, factor)
     design_end = time.time()
     print(
         f"Made design plan. Took {round(design_end - start, 1)} seconds to complete.")
     # print(design_plan)
+    # save the design plan
+    design_plan_fname = f"generated/{img_name}_design_plan.txt"
+    with open(design_plan_fname, "w") as f:
+        f.write(design_plan)
 
+    # Step 2: generate + run chart with retries
     # write the code for the chart, allowing for retrying if the code does not work
-    for attempt in range(1, MAX_RETRIES + 1):
+    code_response_raw = None
+    last_error = None
+    for attempt in range(0, MAX_RETRIES):
         print(f"\n--- Attempt {attempt} at constructing chart code---")
 
-        code_response_raw = generate_chart(
-            chart_prompt, design_plan, image_info)
+        # Generate code
+        if attempt == 0:
+            code_response_raw = generate_chart(design_plan, image_info)
+        else:
+            print("Calling recoder to fix the error.")
+            code_response_raw = regenerate_chart_code(
+                code_response_raw, last_error)
+
         code_response = clean_code_response(code_response_raw, img_name)
 
-        # run the returned code
-        code_fname = f"generated_code/chart_code_{img_name}.py"
-
+        # save the returned code
+        code_fname = f"generated/{img_name}_chart_code.py"
         with open(code_fname, "w") as f:
             f.write(code_response)
+        # run the returned code
         chart_code = subprocess.run(
             ["python", code_fname],
             capture_output=True,
             text=True
         )
-        print("stdout:", chart_code.stdout)
-        print("stderr:", chart_code.stderr)
+
         if chart_code.returncode == 0:
             print("Chart script successful!")
             break
 
         if chart_code.returncode != 0:
             print("Chart script failed!")
+            last_error = chart_code.stderr
+            print("stderr:", last_error)
+            if attempt >= MAX_RETRIES:
+                print("All retries failed. Giving up.")
+                with open(f"generated/{img_name}_failed_code.py", "w") as cf:
+                    cf.write(code_response)
 
     code_end = time.time()
 
     print(
         f"Wrote the code. Took {round(code_end - design_end, 1)} seconds to complete. Pipeline took {round(code_end -start, 1)} seconds total.")
-    # print(code_response_raw)
 
     return
 
@@ -210,11 +250,5 @@ if __name__ == "__main__":
 
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-    with open("prompts/design-description.txt", "r", encoding="utf-8") as f:
-        design_prompt = f.read()
-
-    with open("prompts/generate-chart.txt", "r", encoding="utf-8") as f:
-        chart_prompt = f.read()
-
-    run_pipeline(design_prompt, chart_prompt, chart_image1, 2, "1")
+    run_pipeline(chart_image1, 4, "spain_factor4")
     # run_pipeline(design_prompt, chart_prompt, chart_image2, 4, "2")

@@ -1,13 +1,27 @@
-Your job is to generate a chart design based on the provided data and chart specificiations.
+Your task is to generate Python code that produces a chart consistent with the provided design plan and chart specifications.
 
-To do this, first set up the chart structure, using high quality design guidelines to select chart type, color, and other aesthetic choices.
+1. Implement the chart structure
+- Use the chart type specified in the design plan.
+- Reproduce the described structure, layout, and relationships between elements exactly as stated.
+- Ensure that axes, scales, legends, and data mappings match the intended chart form.
 
-Add the text according to its roles and the specified content and styling in the design plan. 
+2. Add and format text elements
+- Include all text and annotation components specified in the design plan (e.g., title, subtitle, axis labels, annotations, and any auxiliary visual elements).
+- Match each element’s role, content, and styling as described in the plan.
+- Place text and callouts directly in the chart area where relevant—anchored to data points or regions—and ensure they remain readable and within bounds.
+- Support line breaks, avoid overlap with other elements, and maintain clear alignment and spacing.
 
-If annotations are suggested, place numeric values, labels, or short callouts directly in the chart area, anchored to data points or regions. Use plain text for short labels or grouped text + shape (rectangles, circles) for more visible callouts. Ensure placement is relative to data marks (e.g., slightly above a bar, beside a point). Be sure that annotations support line breaks and do not go out of the chart or overlap significantly with other text or visual elements.
+3. (OPTIONAL) Implement any axuillary visual elements. 
+- Include auxiliary elements such as arrows, lines, or highlights only if explicitly specified in the design plan, and position them relative to the data or target elements described.
 
-If specified (and **only** if specified), include auxiliary visual elements. Add arrows, lines, or shapes if specified in the redesign plan. Be sure these visual elements do not go out of the chart or overlap significantly with other text or visual elements.
+4. Generate functional Python code
+- Provide complete, executable Python code that reproduces the chart described in the design plan.
+- Include imports, data setup, and rendering commands.
+- Ensure that all library calls are valid and compatible with current versions of the referenced packages (e.g., Matplotlib, Plotly, Seaborn).
+- If necessary, include installation checks for required libraries.
+- The code must run successfully and render the chart without user modification.
 
-Provide the code necessary to render the chart in Python, including checks and installs for appropriate libraries.
-
-Do not ask for any more information from the user or attempt to engage in conversation with the user. Only respond with the code in proper format.
+5. Output requirements
+- Respond only with the complete Python code block.
+- Do not include explanations, commentary, or additional text.
+- The code should run independently and produce a chart that directly reflects the design plan and specifications.

@@ -1,0 +1,14 @@
+Your task is to fix Python visualization code based on the provided error message.
+
+1. Correct only what is necessary
+- Modify the code only as needed to resolve the error and ensure it runs successfully.
+- Preserve all visual and structural aspects of the original design unless a change is absolutely required for functionality.
+
+2. Provide runnable Python code
+- Return complete, executable code that reproduces the intended chart.
+- Include imports and installation checks for any required libraries.
+- Ensure all functions and syntax follow current library standards.
+
+3. Output requirements
+- Respond only with the corrected Python code block.
+- Do not include explanations, commentary, or conversation.

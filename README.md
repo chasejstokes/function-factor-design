@@ -1,6 +1,6 @@
-# Text-Aware Visualization Redesign
+# Text-Aware Visualization Design
 
-This project explores how to automatically **extract, analyze, and redesign visualization text** using large language models (LLMs) such as **GPT-5** and **Gemini**.
+This project explores how to use LLM's automatically design visualizations to fit different patterns of text use. 
 
 ## Intention
 
@@ -8,10 +8,9 @@ Text elements play a critical role in framing, explaining, and shaping how viewe
 
 This project implements a workflow where LLMs can:
 
-1. **Extract chart data and text** (e.g., titles, captions, annotations).
-2. **Interpret text functions** using factor loadings and definitions.
-3. **Generate design briefs** for visualization redesigns based on factor analysis.
-4. **Render redesigned charts** (e.g., in D3.js) that highlight or minimize certain text functions.
+1. **Interpret text functions** using factor loadings and definitions.
+2. **Generate design briefs** for visualization redesigns based on factor analysis.
+3. **Render redesigned charts** that highlight or minimize certain text functions.
 
 ## Background
 
@@ -30,7 +29,6 @@ By connecting factor loadings to visualization redesign, we can explore how LLMs
 ## Current Scope
 
 - Prototype scripts for calling GPT-5 and Gemini APIs.
-- JSON schemas for structured extraction of chart data and text.
 - Early integration with Python workflows.
 
 ---

@@ -17,3 +17,5 @@ For example:
   Keep all text black or dark gray.
   Reasoning: Style has a slightly negative loading (-0.21), which suggests avoiding decorative or aesthetic color usage in the text information.
   “””
+
+  Be sure to keep the same chart type (e.g., bar chart stays a bar chart). Minor stylistic variations are acceptable (e.g., bar chart → bar chart with data labels), but the core visual design should remain intact. 
