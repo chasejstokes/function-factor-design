@@ -1,0 +1,100 @@
+Design plan
+
+Summary of interpretation (how loadings guide choices)
+- Emphasize: CompareValues (0.45), Logos (0.52), Style (0.56), WordCountTotal (0.54), Icons (0.41), Government (0.43), SummarizeValues (0.36), Annotation (0.32), PresentContext (0.32), Circles (0.31), Lines (0.30). These indicate: highlight direct numeric comparisons and summaries, use government branding and decorative styling, include concise inline annotations and small graphic cues (circles/icons/connector lines), and include multiple short text items rather than long paragraphs.
+- De-emphasize: WordCountSubtitle (-0.30). This calls for a very short or absent subtitle rather than a long explanatory subtitle. News (-0.27) suggests not to adopt a newsy layout or long-form narrative style.
+- Treat neutrals as secondary: IdentifyValues, Paragraph, PresentMetadata, SummarizeConceptsVariables — keep metadata and context but concise and secondary to annotated comparisons.
+
+1) Chart type
+- Primary chart: Dual-series time line chart (two lines) plotting budget balance (%) on the y-axis vs year (1999–2014) on the x-axis. Spain as one series, Euro‑Zone average as the other.
+  - Reasoning: CompareValues (0.45) and SummarizeValues (0.36) require direct, easy visual comparison across time. A dual-line chart makes differences and divergences explicit and supports numeric annotation of differences at key years.
+- Secondary elements: Emphasize zero baseline (horizontal rule) and lightly shaded positive/negative bands to make deficits (negative) vs surpluses (positive) immediately legible.
+  - Reasoning: Style (0.56) supports decorative—but informative—visual bands; PresentContext (0.32) benefits from a clear visual threshold (0).
+
+2) Text structure (which textual elements are included, their content, and relative position)
+- Title (top, bold): Short, declarative, 6–8 words.
+  - Example: “Spain vs Euro‑Zone: Budget Balance, 1999–2014”
+  - Loading tied: WordCountSubtitle (-0.30) — keep title succinct and avoid long subtitle; WordCountTotal (0.54) accepts many short text items elsewhere but not a long subtitle.
+- Subtitle: Omit or use a single short phrase (if necessary) — one short phrase ≤ 6 words, e.g., “% of GDP”.
+  - Reasoning: WordCountSubtitle is negative (−0.30): minimize subtitle length so it does not dominate or duplicate annotation content.
+- Legend: Compact legend at top-right with small icon swatches (Spain label with small Spanish flag icon; Euro‑Zone label with Euro/flag icon). Use short labels: “Spain” and “Euro‑Zone avg.”
+  - Loading tied: Icons (0.41) — use small pictorial symbols to reinforce series identity independent of data marks; Logos (0.52) — include source/logo area elsewhere.
+- Focus annotations (inline, anchored to data points): place 4–6 short annotations (1–2 line phrases, max 6–8 words each) anchored to critical years:
+  - Suggested annotation targets and text (examples):
+    - 2006 (Spain): “Spain +2.4% — peak surplus”
+    - 2007 (Spain): “Spain still > Euro avg”
+    - 2009 (Spain): “2009: Spain −11.2% (−4.9 pp vs EZ)”
+    - 2014 (comparison): “By 2014 gaps narrowed”
+  - Each annotation includes a short numeric comparison when relevant (e.g., “Spain −11.2% vs EZ −6.3%” or “−4.9 percentage points”).
+  - Loading tied: Annotation (0.32), CompareValues (0.45), SummarizeValues (0.36) — annotations should directly state comparisons and aggregates rather than long paragraphs.
+- Comparison callouts (small, slightly larger text than annotations): 2 callouts that summarize overall pattern (top-left and near end of timeline):
+  - Callout examples: “Spain swung from surplus (2004–07) to a deeper crisis deficit in 2009” and “By 2014 both remained in deficit but gaps smaller.”
+  - Keep callouts 1–2 short sentences each.
+  - Loading tied: PresentContext (0.32) and SummarizeValues (0.36) — brief contextual sentences help interpret trend drivers without a full paragraph.
+- Metadata / source line (bottom-left, small): single-line source attribution including government agency name and year, plus small official logo (see Logos).
+  - Example: “Source: Ministry of Finance, consolidated budget figures (1999–2014).”
+  - Loading tied: Logos (0.52) and Government (0.43) — prominently show government sourcing and branding; PresentMetadata (0.22) kept brief.
+
+3) Visual styling: color, highlights, arrows, icons, circles, lines, and typographic hierarchy
+- Color palette:
+  - Use a government‑friendly, decorative but legible palette (per Style 0.56): Spain series—warm saturated orange/red; Euro‑Zone series—desaturated blue. Both colors chosen from the government brand palette if available.
+  - Ensure colorblind-safe contrast (use orange vs strong blue) and distinguishable line styles (solid for Spain, dashed for Euro).
+  - Reasoning: Style (0.56) legitimizes decorative/brand-driven color use; maintain accessibility.
+- Line styling and data marks:
+  - Lines: 2px for primary lines; Spain slightly thicker (2.5px) to emphasize national focus (user wants Spain focus).
+  - Mark only a few key year points with circular emphasis (hollow circle outlines) where annotations attach (2006, 2009, 2014, and 2004/2007 as needed).
+  - Loading tied: Circles (0.31) and Lines (0.30) — use circles as emphasis marks and lines as connectors/callouts.
+- Value labeling and comparison markers:
+  - Do not label every point (IdentifyValues low). Instead, label only the selected important points with numeric values and a short delta where comparison is central (e.g., “−11.2% (Spain) vs −6.3% (EZ): −4.9 pp”).
+  - Where a direct comparison is stated, draw a subtle vertical connector or bracket between the two series at that year with an unobtrusive grey line and a small label showing the point difference.
+  - Loading tied: CompareValues (0.45) and SummarizeValues (0.36) — explicit numeric comparisons on selected years enhance comprehension of the differences the user cares about.
+- Annotations and connectors:
+  - Annotations are short, boxed or on translucent pill backgrounds (soft rounded rectangles) with 10–12pt sans-serif. Boxes use low-opacity fill derived from the same color as the associated series (10–12% opacity) and a thin border matching the series color.
+  - Connector lines from annotation box to circle are thin (0.8–1px) and slightly curved to avoid visual clutter.
+  - Loading tied: Annotation (0.32), Lines (0.30), Circles (0.31) — these elements are lightweight and integrated.
+- Icons and pictograms:
+  - Small icons beside legend entries: Spain flag (8–10px) and Euro symbol or EU flag for the Euro‑Zone. For two callouts, consider a small “warning” or “note” icon only if the annotation describes the crisis dip (very sparing).
+  - Loading tied: Icons (0.41) — use small pictorial symbols to reinforce meaning, sparingly and consistently.
+- Logos and branding:
+  - Place a small government logo (max 40–60px height or equivalent) bottom-right with the short source line on the bottom-left.
+  - Loading tied: Logos (0.52) and Government (0.43) — include as a visible credibility cue; keep logo unobtrusive so it doesn’t distract from data.
+- Typography and word-count management:
+  - Title: bold 16–18pt. Annotations: 10–12pt. Callouts: 12–13pt. Metadata: 8–9pt.
+  - Avoid paragraph blocks. Keep each textual element concise (annotations max 6–8 words; callouts 1–2 sentences).
+  - Loading tied: WordCountTotal (0.54) indicates textual information is present; combine that with WordCountSubtitle negative to avoid a long subtitle — distribute words as multiple short annotations rather than long blocks.
+- Gridlines, axes, and framing:
+  - Y-axis ticks every 2 percentage points or at useful values (e.g., −12, −10, −8, −6, −4, −2, 0, 2), with only minor horizontal gridlines in very light grey. Emphasize the zero line with a bolder line and slightly darker color.
+  - X-axis: year ticks every 2 years or every year with thin vertical gridlines suppressed to reduce clutter.
+  - Reasoning: minimalist axes preserve emphasis on the annotations and comparisons (CompareValues, SummarizeValues).
+- Interaction (if interactive):
+  - Hover state reveals exact values for any year and toggles a small transient annotation showing the difference between Spain and Euro‑Zone for that year (automatically computed).
+  - Loading tied: CompareValues (0.45), SummarizeValues (0.36) — interactive comparison supports the user’s stated focus.
+
+4) Specific elements called out by loading and how they are implemented
+- Annotation (0.32): add 4–6 concise inline annotations anchored to key years (2004–07 surpluses; 2009 deep deficit; 2014 narrowing). Improves readability by pointing users to the most salient deviations and supporting direct comparisons.
+- Circles (0.31) + Lines (0.30): use circular outlines on target points with thin connector lines to annotation boxes — visually links text to exact points without clutter.
+- CompareValues (0.45) + SummarizeValues (0.36): include explicit numeric comparison labels for the most relevant years (2009 and peak surplus years) and two short summary callouts that capture the overall swing and convergence. This makes the differences quantitatively obvious.
+- Icons (0.41): small national/EU icons in the legend and occasional note icons for crisis year annotation — improves quick identification of series and semantic cues.
+- Logos (0.52) + Government (0.43): include an official government logo and concise source line; leverages credibility and aligns with the high loading on source/branding.
+- Style (0.56) + WordCountTotal (0.54): apply a government-approved decorative color scheme and tidy typography; distribute a moderate amount of short text (many small annotations and callouts) rather than long paragraphs to satisfy the high overall word-count loading while maintaining clarity.
+- WordCountSubtitle (−0.30): omit or drastically shorten subtitle to avoid redundant long explanatory text and to keep attention on annotations and comparisons.
+
+5) Practical layout (positions)
+- Top center: Title (short).
+- Top-right: compact legend with tiny icons.
+- Main body: line chart fills center. Zero line emphasized and positive/negative bands lightly shaded.
+- Annotations: positioned near their target points with connectors; ensure no overlap with lines.
+- Two summary callouts: left margin near the start and right margin near the chart’s end (short sentences).
+- Bottom-left: one-line source metadata. Bottom-right: government logo.
+- Margins: leave breathing room so annotation boxes do not overlap and so the logo does not crowd the chart.
+
+6) Narrative guidance (how this supports the user’s goal)
+- The visual emphasis (line thickness, color, circle highlights), combined with selective numeric comparison labels and short annotations, directly supports the request to “focus on the differences between Spain and the Euro‑Zone Average values.” The plan uses CompareValues and SummarizeValues loadings to make numerical gaps explicit, uses Annotation/Circles/Lines to tie text to points (loadings ~0.30), and preserves government sourcing and branding (Logos/Government high) while keeping subtitle minimal (WordCountSubtitle negative) and avoiding long paragraphs (Paragraph lower loading).
+
+Implementation notes (concise)
+- Label only the highlighted years with full numeric comparisons (e.g., 2009: Spain −11.2% vs EZ −6.3% = −4.9 pp).
+- Keep annotation text short and anchored; use translucent pill backgrounds for legibility.
+- Use government palette for primary colors but ensure contrast and colorblind safety.
+- Keep the logo and source present but visually secondary to the chart content.
+
+End of plan.

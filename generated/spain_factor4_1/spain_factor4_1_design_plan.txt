@@ -1,0 +1,77 @@
+Chart type
+- Primary: Dual time-series line chart with an overlaid "difference area" (fill between Spain and Euro‑zone average) and selective point callouts.
+  - Rationale (CompareValues loading = 0.58; SummarizeValues = 0.65): A dual-line display makes direct, immediate comparisons possible. The filled area between lines encodes the magnitude and sign of the Spain–Euro gap to support both pointwise and aggregate comparisons.
+
+Text structure (content, inclusion, position, and length)
+- Title (top, large, bold)
+  - Content: "Spain vs Euro‑Zone: Budget Balance (1999–2014, % of GDP)"
+  - Reasoning (AxisAxes loading = 0.31; PresentContext = 0.34): Clear, factual title anchors the axes and contextual span (years and units) so readers immediately know what is compared.
+- Subtitle (directly under title, one concise sentence; moderate word count)
+  - Content: "Spain often outperformed in the mid‑2000s but suffered deeper deficits during the 2008–2011 crisis."
+  - Length guidance (WordCountSubtitle = 0.45; Subtitle = 0.38): Keep subtitle informative but concise (~10–15 words) so it supplies synthesis without dominating the visual hierarchy.
+  - Reasoning (SummarizeConceptsSynthesis = 0.71; PresentValencedSubtext = 0.7): Subtitle synthesizes the trend and uses slightly valenced phrasing to highlight the crisis-era impact, matching the high loading on summary and valenced subtext.
+- Legend (top-right, compact)
+  - Content: Two labeled line entries — "Spain" and "Euro‑zone average".
+  - Reasoning (CompareValues): Keeps the mapping between color/line style and country explicit to aid comparisons.
+- Summary box / caption (bottom-right or below chart)
+  - Content (short bullet lines):
+    - "Period averages: Spain = −2.66% GDP; Euro‑zone = −2.57% GDP (1999–2014)."
+    - "Spain outperformed in 8 of 16 years; peak Spain shortfall: 2009 (−11.2% vs −6.3%; gap −4.9 p.p.)."
+  - Reasoning (SummarizeValues & SummarizeConceptsSynthesis): Explicit aggregated numbers and counts synthesize the dataset and emphasize the comparative story requested.
+- Annotations (selective, small callouts near key points)
+  - Which to include (selectively, not on every point): 2004 (Spain surplus vs EZ deficit), 2006 (Spain peak surplus), 2009 (largest Spain deficit), and an annotation grouping 2008–2011 as "Crisis years: deeper deficits."
+  - Content: 1–2 short phrases with a single numeric value (e.g., "2009: Spain −11.2% vs EZ −6.3% (gap −4.9 p.p.)").
+  - Reasoning (CompareValues high; IdentifyValues negative ~ -0.28): Rather than labeling every point (which IdentifyValues loading suggests de‑emphasizing), label only the most informative comparative points to preserve clarity and direct attention.
+
+Visual styling (color, marks, axes, grid, connectors)
+- Colors and lines
+  - Spain: warm, saturated color (e.g., orange/red hue) and slightly thicker solid line (stroke ~2.5–3 px).
+  - Euro‑zone average: cool, desaturated blue and slightly thinner line (stroke ~2 px), optionally dashed.
+  - Difference area: fill the area between lines with a low‑opacity color that changes by sign:
+    - When Spain is worse (Spain < Euro): translucent red tint (low opacity ~12–20%) to visually emphasize deficit shortfalls.
+    - When Spain is better (Spain > Euro): translucent green/teal tint at low opacity (~12–20%).
+  - Reasoning (PresentValencedSubtext = 0.7; CompareValues & AxisAxes): Warm color and thicker weight for Spain emphasize the subject of interest; the divergence fill encodes comparative magnitude at a glance, reinforcing comparative interpretation.
+  - Accessibility: choose a colorblind‑safe pair (e.g., orange #E69F00 for Spain, blue #56B4E9 for Euro‑zone) and pair with line style differences (solid vs dashed) for redundancy.
+- Axes and scale
+  - Y‑axis labeled: "Budget balance (% of GDP)"; X‑axis labeled with years (1999–2014).
+  - Y range: symmetric around data extremes (e.g., from −12.5 to +3) with a prominent horizontal zero line (thicker, darker gray).
+  - Tick marks and numeric labels: clear, evenly spaced, moderate weight.
+  - Reasoning (AxisAxes loading = 0.31): Emphasizing axis labels, range, and zero reference improves interpretability of deficits vs surpluses and supports direct comparisons.
+- Grid and background
+  - Subtle horizontal gridlines (very light gray) to help read values but not distract.
+  - Clean white background, no decorative textures or social‑media styling.
+  - Reasoning (SocialMedia negative = −0.34): Avoid any platform-like styling; keep a professional, neutral background to foreground the data.
+- Markers and labels
+  - No markers for every point; only highlight annotated years with a filled circular marker matching the series color and a thin outline for contrast.
+  - Each annotated point has a short numeric label next to it (value and year).
+  - Do not label every datapoint (IdentifyValues is slightly negative).
+  - Reasoning (IdentifyValues ≈ −0.28; CompareValues positive): Selective labeling supports comparisons without cluttering the figure.
+- Auxiliary connectors (very light)
+  - Use thin leader lines (no heavy arrows) from callout boxes to the highlighted points when necessary. Keep these lines subtle (1 px, gray).
+  - Reasoning (Arrows loading = 0.21 is low): Avoid heavy arrows; thin connectors respect the guideline to introduce auxiliary elements only when supported, providing clarity without visual shouting.
+
+Layout and hierarchy
+- Size / proportions: wide aspect ratio (e.g., 16:9) so time runs horizontally and provides room for the difference area to be legible.
+- Visual hierarchy: Title (largest) → Subtitle (smaller, semibold) → Chart body → Summary box/annotations (smallest). Legend small but clear.
+- Fonts: clean sans serif (e.g., 11–12px axis labels, 14–16px subtitle, 18–20px title). Use weight differences to create hierarchy.
+- Reasoning (SummarizeConceptsSynthesis & AxisAxes): A clear typographic hierarchy supports quick comprehension and highlights the comparison narrative.
+
+How each recommendation ties to specific loadings and improves clarity
+- Emphasize comparisons (CompareValues = 0.58): Dual lines, difference fill, and selective numeric annotations directly surface where and by how much Spain differs from the Euro‑zone.
+- Provide synthesis (SummarizeConceptsSynthesis = 0.71; SummarizeValues = 0.65): Include a short subtitle and a compact summary box with period averages, counts, and peak gaps so viewers can grasp both trend and aggregated takeaways without computing.
+- Use valenced subtext sparingly but deliberately (PresentValencedSubtext = 0.7): A single, slightly emotive subtitle phrase draws attention to crisis‑era severity while the data/summary box supports objective numbers — balancing emotional emphasis with factual synthesis.
+- Prioritize axes and scale (AxisAxes = 0.31): Clear axis labeling, an emphasized zero line, and appropriate range make it easy to read surpluses vs deficits and compare magnitudes.
+- De‑emphasize wholesale point labeling (IdentifyValues ≈ −0.28): Avoid clutter and prevent the viewer being overwhelmed by numbers; selective labels give the needed context.
+- Avoid social media styling (SocialMedia = −0.34): Use a clean, publication‑style layout (no logos, hashtags, or informal visual tropes) to increase credibility for a policy/economic topic.
+- Limit auxiliary graphics (Arrows = 0.21): Use only thin leader lines for callouts, not heavy arrows, respecting the lower loading for arrows so the visualization stays elegant and not directive.
+
+Implementation checklist (for designer or developer)
+- Compute and display the difference area (Spain − Euro) with sign‑dependent color fill.
+- Plot Spain (thicker, warm color) and Euro average (thinner, cool color). Use dashed line as secondary cue.
+- Include title + one-line subtitle (10–15 words).
+- Add a small summary box with the period averages, count of years Spain outperformed, and the peak 2009 gap.
+- Annotate 2004, 2006, 2009, and the 2008–2011 group with short callouts and numeric values; use thin leader lines, no arrows.
+- Ensure axis labels, zero line, and ticks are prominent and units (% of GDP) are visible.
+- Avoid social‑media styling; use colorblind‑safe palette and redundant line-style encoding.
+
+This plan aligns the visual emphasis with the factor loadings: it foregrounds direct comparisons and synthesis, uses valenced language sparingly to call attention to the crisis, strengthens axis and scale cues for accurate reading, selectively annotates only the most informative points, and avoids social-media or decorative elements that contradict the loadings.

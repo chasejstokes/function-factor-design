@@ -1,0 +1,77 @@
+Chart type
+- Primary: Dual-line time-series chart (years 1999–2014) with point markers and a subtle filled band between the two lines to highlight when Spain is above vs below the Euro‑zone average.
+  - Why: line chart is the clearest conventional way to show trends and year-to-year differences. A filled band between lines is an intentional, lightweight ReplaceMappings device (Loading 0.33) that makes differences immediately visible without adding a separate complex encoding.
+
+Text structure (content and placement)
+- Title (very short): "Spain vs Euro‑Zone: Budget balance"
+  - Reason: WordCountTitle loading = -0.63 — keep the title concise and let annotation text carry detail.
+- Subtitle (one short line, beneath title): "Net balance, % of GDP — 1999–2014"
+  - Reason: Subtitle loading = 0.24 (mild positive) — include a compact clarifying line for units and range; keep it short so it doesn’t compete with annotations.
+- Direct line labels (no external legend): label each line by placing a small, bold inline label at the right end of each line — "Spain" (red) and "Euro‑Zone average" (blue).
+  - Reason: ReplaceMappings (0.33) and IdentifyValues (0.53) — prefer direct in-chart identification to a separate legend; this maps encoding directly to labels and reduces eye travel.
+- Data point value labels: show numeric value for every year adjacent to each marker, rendered in a low‑contrast, compact numeric label (e.g., 9–10pt), with a faint rounded background for legibility.
+  - Reason: IdentifyValues loading = 0.53 & WordCountAnnotation = 0.65 — the design should explicitly identify values. Labels for each point make exact comparisons immediate and satisfy the strong IdentifyValues signal.
+- Annotations (primary explanatory text blocks): create 3 concise callouts anchored to specific years/regions:
+  1. 2004–2007 — "Pre-crisis recovery: Spain moves into surplus (peak 2006: +2.4% vs EZ +1.1%)"
+  2. 2009 — "Crisis spike: Spain hits -11.2% (much worse than EZ -6.3%)"
+  3. 2012–2014 — "Partial convergence: Spain and EZ draw closer by 2014"
+  - Placement: small callout boxes with short headlines and a one-line explanation, connected to their anchor points by thin connector lines.
+  - Reason: Annotation loading = 0.65 and WordCountAnnotation = 0.65 — annotations should be a prominent textual element (not long paragraphs, but informative), highlighting the user’s stated interest in differences. Use callouts to explain the most important divergences rather than long title/subtitle text.
+- Units and axis labels: Y-axis labeled "Budget balance (% of GDP)" vertically on the left; X-axis ticks labeled by year at even intervals (every 1–2 years readable).
+  - Reason: IdentifyValues and ReplaceMappings emphasize clear mapping of values; axis label keeps encoding explicit.
+
+Visual styling (colors, marks, connectors, hierarchy)
+- Color palette:
+  - Spain line: clear medium red (e.g., #d64545)
+  - Euro zone line: medium blue (e.g., #2b7bd3)
+  - Filled band between lines: two very pale tints derived from the line colors — when Spain > EZ fill with pale red tint (opacity ~12%), when Spain < EZ fill with pale blue tint (opacity ~12%). No decorative gradients or brand-only colors.
+  - Reason: Style loading = -0.21 (avoid decorative use); colors should encode meaning. Using red/blue keeps a conventional contrast while the pale band encodes directional difference (ReplaceMappings 0.33).
+- Lines and markers:
+  - Lines: 2.5px stroke, slightly rounded joins, consistent thickness; use circular markers at each year.
+  - Markers: filled with same line color and small white outline for contrast, used as anchor points for data labels.
+  - Connector lines from callouts: thin (0.8–1px), neutral gray (#999), slightly curved to avoid clutter where needed (Lines loading = 0.25 supports light use of connector lines).
+  - Reason: Markers help attach IdentifyValues labels and anchor annotations; thin connectors keep focus on data.
+- Typography and visual hierarchy:
+  - Title: bold sans-serif, single line, small height.
+  - Subtitle: lighter weight, smaller size than title.
+  - Annotation text: same family as subtitle but slightly larger than data labels and bolder for the one-line headline; annotation body limited to one short sentence.
+  - Data labels: smallest text, muted color (e.g., 60% black) to avoid overpowering lines.
+  - Reason: WordCountTitle negative suggests minimal title; WordCountAnnotation positive suggests annotations should carry explanatory text. Typography hierarchy ensures annotations are prominent without creating visual clutter.
+- Remove external branding and governmental stylings:
+  - No government seals, official color schemes, or heavy formal styling.
+  - Reason: Government loading = -0.55 — de-emphasize official/government aesthetic; News loading = 0.46 suggests a clear, journalistic visual language (direct, readable, slightly bold).
+- Legend: do not include a separate legend box; rely on direct labels and color-coded values instead (ReplaceMappings).
+  - Reason: ReplaceMappings and IdentifyValues — direct labels reduce cognitive load and make mapping immediate.
+
+Data-labeling and clutter control
+- To avoid clutter while still labeling every value (IdentifyValues = 0.53):
+  - Use small numeric labels offset from markers so they do not overlap the lines; alternate label vertical offsets (above/below) in crowded years.
+  - Use low-contrast color for year-by-year labels; reserve stronger contrast for major annotated years (2006, 2009, 2014) where the annotation also repeats the key number.
+  - If the final product is interactive, allow hover to highlight a single year’s labels and temporarily de-emphasize others; if static, rely on subtle background shapes behind value labels to maintain legibility.
+  - Reason: Balances the high IdentifyValues loading with visual clarity.
+
+Auxiliary elements (used only because loadings support them)
+- Connectors/arrows: use them sparingly to link annotation boxes to their anchor points (Lines loading = 0.25 and Annotation 0.65 justify minimal use). Use thin gray curved connectors with a small arrowhead only if needed to avoid ambiguity.
+- Bounded annotation boxes: subtle border (1px, 20% opacity) and pale background (very light gray or tinted by line color at very low opacity) to separate annotation text from the plot.
+  - Reason: Keeps annotations visible without heavy decoration; aligns to high Annotation and WordCountAnnotation loadings.
+
+How each loading guided the decision (short mapping)
+- Annotation (0.65) & WordCountAnnotation (0.65): make annotations prominent and informative; annotate the three most meaningful divergence/convergence points with one-line explanations instead of packing detail into the title.
+- IdentifyValues (0.53): label values at every data point (compact numeric labels) so exact comparisons are immediately accessible.
+- News (0.46): adopt a clear, journalistic visual language — bold labeling, crisp colors, concise callouts — rather than formal government styling.
+- ReplaceMappings (0.33): replace the conventional external legend with direct inline labeling of lines and use a filled band between lines as a simple nontraditional mapping to emphasize differences.
+- CompareMappings (0.26) and Lines (0.25): provide short comparative language in annotations and use thin connector lines for clarity; avoid heavy explanatory paragraphs.
+- Subtitle (0.24) & PresentValenced Subtext (0.22): allow a short subtitle and keep annotations factual but slightly framed to call out the magnitude of divergence (e.g., "much worse than") where useful for interpretation.
+- Style (-0.21): avoid purely decorative colors or ornate flourishes; color must serve data encoding.
+- Title (-0.25) & WordCountTitle (-0.63): keep title extremely short and transfer descriptive content into annotations/subtitle.
+- Government (-0.55): avoid government branding, credentials or design signals.
+
+Practical layout summary (pixel/spacing guidance for a typical 900×500 chart)
+- Top area (left-aligned): very short title + one-line subtitle below (10–14% vertical height).
+- Main plotting area: 75–80% of height, with lines, markers, filled band, data labels, and inline end labels on the right edge.
+- Annotation callouts: positioned inside plotting area near their anchors but not overlapping other critical markers; connector lines to anchors.
+- Margin on right: modest extra space for direct end-line labels.
+- Footer (optional, small): small source note like "Source: compiled data" — very small, muted text (not government branding).
+
+Net effect
+- The display emphasizes precise numeric differences (IdentifyValues) and explanatory annotations (Annotation, WordCountAnnotation) while keeping the title terse (WordCountTitle negative) and avoiding government/formal styling (Government negative). Direct labeling and a subtle filled difference band (ReplaceMappings) make year-to-year comparisons and the large 2009 divergence especially clear, supporting the user’s desire to focus on Spain vs Euro‑Zone differences.

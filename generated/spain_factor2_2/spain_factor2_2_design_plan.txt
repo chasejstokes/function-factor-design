@@ -1,0 +1,109 @@
+Chart type
+- Dual-series time-series line chart with a difference band between series (single-panel).
+  - Two thin, directly-labeled lines (Spain; Euro‑Zone average), points marked at each year.
+  - A semi-transparent band filled between the two lines, colored by sign of (Spain − Euro‑Zone): green when Spain > EZ, red when Spain < EZ. The band visually encodes the user’s stated focus on differences while preserving the underlying values.
+
+Reasoning tied to loadings:
+- ReplaceMappings (0.33): the difference band is an unconventional but clear representation that replaces reliance on a separate comparison table/legend to show differences, making the comparison immediate.
+- IdentifyValues (0.53): the lines are directly labeled and every point is value-labeled (see Text Structure) so the mapping from data to meaning is explicit.
+- User request: “focus on the differences” is addressed by the band encoding and by annotations highlighting divergence years.
+
+Text structure (what text is included, what it says, and where)
+- Title (very short, top center; 3–5 words)
+  - Text: “Spain vs Euro‑Zone Budget”
+  - Style: bold, single line, minimal word count.
+  - Reasoning: WordCountTitle loading is strongly negative (−0.63) and Title loading weakly negative (−0.25). Keep title terse to match the factor loadings favoring short titles.
+
+- Subtitle (single short line, below title; small, lighter weight)
+  - Text: “Deficit/surplus (% of GDP), 1999–2014”
+  - Reasoning: Subtitle loading is modestly positive (0.24). Use a short subtitle to give timeframe and units without competing with annotations.
+
+- Direct line labels (inline, at the end of each series on the right)
+  - Text: “Spain” and “Euro‑Zone average” with their series color swatches.
+  - Reasoning: ReplaceMappings (0.33) and IdentifyValues (0.53) favor replacing a separate legend with inline labels that make the mapping immediate.
+
+- Point value labels (small numeric labels for every data point)
+  - Positioning: stagger labels above/below points to avoid overlap; use subtle connector (light line) where needed.
+  - Format: one decimal place with % sign (e.g., “−11.2%”).
+  - Styling: small, muted text with a 2–3 pt semi-opaque rounded white label background for legibility.
+  - Reasoning: IdentifyValues (0.53) strongly supports directly identifying all data values. Although this adds text, WordCountAnnotation (0.65) indicates the design can carry more annotation/label words relative to title, so include these labels but keep them visually low-ink and non-distracting.
+
+- Annotations (anchored callouts to specific years/events; placed near concerned points with light arrows)
+  - Number and content: 3 focused annotations (short sentences or 6–10 words each) for: the 2006–2007 Spain surplus peak, the 2008–2012 crisis trough and divergence (highlighting 2009 and 2010 Spain extreme deficits), and the recovery toward 2014.
+    - Example short annotations:
+      - near 2006–2007 Spain: “Strong surplus years for Spain (2006–07)”
+      - near 2009 Spain point: “Sharp fall in 2009: Spain −11.2%”
+      - near 2014: “Partial recovery by 2014”
+  - Placement: anchored to points with a short light connector/arrow that does not cross the chart heavily; callout boxes use a faint border and lightly tinted background matching the series color used for the annotated point (20% opacity).
+  - Word count & tone: annotations are slightly more descriptive than the title (consistent with WordCountAnnotation = 0.65); PresentValenced Subtext is mildly positive (0.22) so annotations may use mild, descriptive language (e.g., “sharp fall,” “recovery”) but avoid sensationalism.
+  - Reasoning: Annotation loading is high (0.65) and WordCountAnnotation is high (0.65) — the chart should contain a relatively high ratio of annotation text (compared to the title). Use anchor annotations to highlight the differences the user cares about. Lines loading (0.25) supports using light connector lines.
+
+- Source note and minimal credit (bottom-left, very small)
+  - Text: “Source: [data source], 1999–2014. Visualization: [designer/company]”
+  - Styling: very small, low-contrast text.
+  - Reasoning: Government source loading is strongly negative (−0.55); include a neutral source line but do not style or brand the chart to feel like government-produced material. Keep source unobtrusive to avoid government-like formality.
+
+Visual styling (color, highlights, arrows, axes, gridlines, and other stylistic features)
+- Color palette
+  - Spain line and markers: deep blue (hex #1f77b4).
+  - Euro‑Zone line and markers: muted orange (hex #ff7f0e).
+  - Difference band:
+    - Positive (Spain > EZ): semi-opaque green (hex #2ca02c, 18–25% opacity).
+    - Negative (Spain < EZ): semi-opaque red (hex #d62728, 18–25% opacity).
+  - Rationale: Style loading is slightly negative (−0.21) — avoid purely decorative palettes. Colors chosen are high-contrast and meaningful (blue/orange for distinct series; red/green for sign of difference) and used functionally rather than decoratively.
+
+- Lines and markers
+  - Line weight: 2 px for each series for clarity.
+  - Marker: small filled circle at each year (4–5 px).
+  - Marker border: 1 px white halo to separate from band fill.
+  - Rationale: Lines loading (0.25) is modest — use lines primarily for data, not heavy visual flourish. Halo around markers improves readability on the band.
+
+- Difference band rendering
+  - Render the band with gentle vertical clipping so it doubles as an indicator of magnitude and direction (opacity scaled slightly with absolute difference, but capped to avoid overpowering the chart).
+  - Rationale: Emphasizes the user’s requested focus on differences without adding an extra plot; this follows ReplaceMappings (0.33).
+
+- Grid, axes, and ticks
+  - X-axis: Years as ticks for every 1–2 years depending on spacing; small, low-contrast tick labels.
+  - Y-axis: Percent scale with ticks at sensible intervals (e.g., −12, −8, −4, 0, 4); gridlines thin and muted (light gray, 1 px).
+  - Axis labels: Y-axis labeled “% of GDP” (small, muted).
+  - Rationale: Keep axes functional and unobtrusive consistent with negative Style loading; avoid heavy axis ornamentation (no 3D effects, no overly thick grid).
+
+- Use of arrows and connector lines
+  - Very lightweight arrows (1 px, 30–40% opacity) used only to link annotation boxes to the corresponding points.
+  - Rationale: Lines (0.25) permit modest use for connectors; keep them delicate so annotations read as additions, not distractions.
+
+- Typography and hierarchy
+  - Title: Sans-serif, moderately bold, ~16–18 px (depends on final size).
+  - Subtitle: Sans-serif regular, ~12 px, lighter color.
+  - Value labels and annotations: Sans-serif, ~10–11 px with rounded white callout backgrounds.
+  - Footnote/source: Sans-serif, ~9 px, muted gray.
+  - Rationale: Keep text simple and readable. Minimize title verbosity while allowing annotations more words (per WordCountAnnotation).
+
+- Legend handling
+  - No traditional external legend. Use inline labels at series ends and colored swatches inside the small inline labels.
+  - Rationale: ReplaceMappings (0.33) and IdentifyValues (0.53) indicate in-place labeling is preferred and reduces cognitive switching.
+
+- Emphasis & visual hierarchy
+  - Primary focus: difference band and annotations on crisis years (2008–2010) — use slightly stronger color or slightly higher opacity for the band in that range to draw the eye.
+  - Secondary focus: the two series' lines and the end-of-line labels.
+  - Tertiary: all point value labels rendered in muted tone to avoid overpowering main visuals.
+  - Rationale: News loading (0.46) suggests a journalistic clarity, calling attention to the story (crisis divergence). PresentValenced Subtext (0.22) allows mild emotive framing but keep it factual.
+
+How each choice maps to the loadings and improves readability
+- High Annotation (0.65) and High WordCountAnnotation (0.65): inclusion of several anchored annotations with more words than the title, plus direct point labels; these clarify why particular years matter and support narrative reading.
+- IdentifyValues (0.53): label every data point numerically, so the reader can inspect exact differences without needing an external table.
+- News (0.46): composition emphasizes the narrative arc (surplus → crisis → recovery) through annotations and band highlighting, producing a journalistic, story-focused readability.
+- ReplaceMappings (0.33): inline labels and the difference band substitute for separate legends/tables, making the comparison immediate and lowering cognitive load.
+- Lines (0.25): connectors/arrows used sparingly to tie annotations to points; lines remain functional and minimal.
+- Subtitle (0.24) and PresentValenced Subtext (0.22): a short subtitle and concise emotionally-tinged annotation language provide context and minimal emotional framing without sensationalism.
+- Negative Government (−0.55): avoid government-style heavy branding, dense footers, or formal report layout; keep source as a small unobtrusive footnote instead of a prominent branded header.
+- Negative Style (−0.21): avoid purely decorative color schemes and ornamentation; color is used for functional encoding (series identity and sign of difference).
+- Negative Title WordCount (−0.63) and Title (−0.25): title kept very short to match the negative loading for title prominence/word count.
+
+Additional implementation notes (practical)
+- If space is limited, reduce label clutter by toggling less-critical value labels to lower opacity; keep labels for extreme years fully opaque.
+- Ensure contrast between band and lines is sufficient: give markers a white halo to remain legible on red/green fill.
+- If interactive output is possible, enable hover tooltips that repeat the point label + short annotation text to reduce on-chart text clutter while preserving IdentifyValues requirement.
+
+Summary
+- A focused, low-decorative dual-line chart with a sign-colored difference band, full per-point value labels, and 3 anchored annotations. Minimal, terse title and short subtitle; inline series labels replace a legend; source is unobtrusive. These choices directly reflect the high loadings for Annotation and IdentifyValues, moderate support for ReplaceMappings and News-style storytelling, and negative loadings against long titles, government styling, and decorative styling.

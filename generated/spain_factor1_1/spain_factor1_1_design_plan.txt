@@ -1,0 +1,84 @@
+Chart type
+- Dual-series time-series line chart (years on x-axis, budget balance as % of GDP on y-axis) with a subtle, single-area difference band between the two lines to emphasize periods where Spain is above/below the Euro‑Zone average.
+  - Reasoning: a line chart cleanly communicates trends and year-to-year differences required by the user focus. The difference band visually supports the goal of emphasizing differences without adding arrows or heavy annotation (Arrows loading = -0.24 → avoid arrows).
+
+Text structure (what text is included, exact content and placement)
+- Title (top-left, largest type; single line)
+  - Text: Government budget balance: Spain vs Euro‑Zone average (1999–2014)
+  - Reasoning: Title has high positive loading (Title = 0.53) — include a short, explicit primary heading so readers immediately know what is plotted.
+
+- Subtitle (directly under the title; medium weight, longer than title)
+  - Text: Budget surplus (+) / deficit (–) as % of GDP — divergence before and after the 2008 financial crisis, with Spain’s large swing in 2008–2010 highlighted
+  - Reasoning: Subtitle loading is high (Subtitle = 0.67) and WordCountSubtitle is also positive (0.51). A slightly longer, informative subtitle is supported — it orients the reader to the time frame, units, and the key comparison focus.
+
+- Legend (top-right inside the plot area, small compact)
+  - Entries: Spain (saturated blue line), Euro‑Zone average (muted gray line)
+  - Reasoning: Clear legend aligns with the need to compare two series (SummarizeConceptsVariables = 0.59). Keep it compact so it does not compete with title/subtitle (Caption will carry longer explanations).
+
+- Caption / metadata block (full-width, directly beneath the chart; multi-line)
+  - Content (concise, but complete):
+    - One-sentence variable description: “Variables shown: Spain and Euro‑Zone average government budget balance (percent of GDP). Positive = surplus; negative = deficit.” (Supports SummarizeConceptsVariables = 0.59)
+    - Data provenance & methods: “Data: provided dataset (annual general government balance, % of GDP, 1999–2014). Source: [insert official source, e.g., Eurostat/IMF] — include link in final version. No smoothing applied; values are annual.” (Supports PresentMetadata = 0.63)
+    - Short interpretive note (one sentence): “Spain ran surpluses in 2004–2007 and experienced a deep deficit in 2009 (–11.2%); the Euro‑Zone average displays smaller swings over the same period.” (Supports Caption = 0.69 and PresentValenced Subtext = 0.38; provides contextual emphasis without excessive emotional language)
+    - Revision / usage note: “Chart prepared for comparative analysis; verify official source before publication.” (Supports PresentMetadata)
+  - Reasoning: Caption has the strongest positive loading (0.69) and PresentMetadata is also strong (0.63). Put detailed explanatory and provenance information in the caption rather than as many in-plot annotations (WordCountAnnotation loading negative → minimize annotations).
+
+- Small footnote line (single short line, beneath caption)
+  - Content: “Unit: % of GDP; years: 1999–2014; plotted values are annual country and Euro‑Zone averages.”
+  - Reasoning: Reinforces metadata in a minimal way (PresentMetadata = 0.63), keeps the in-plot text economy (WordCountTotal modestly positive = 0.28).
+
+Visual styling and auxiliary elements
+- Colors and emphasis
+  - Spain: deep saturated blue (#1565C0 or similar), line weight 2.5 px (slightly thicker).
+  - Euro‑Zone average: neutral mid-gray (#9E9E9E), line weight 1.5 px (lighter).
+  - Reasoning: Emphasize Spain visually because the user asked to focus on differences between Spain and the Euro‑Zone; highlighting Spain through color saturation and weight directs attention without extra textual clutter. This choice is consistent with the emphasis on textual elements (Title/Subtitle/Caption) rather than decorative callouts (Arrows negative).
+
+- Baseline and grid
+  - Stronger horizontal baseline at y = 0 (0.5–1 px darker than grid) to make surplus vs deficit immediately legible.
+  - Light, unobtrusive horizontal gridlines at 2.5% increments to aid reading.
+  - Reasoning: Clear baseline supports comprehension of sign changes (surplus vs deficit), reducing need for many annotations (WordCountAnnotation negative) and improving readability.
+
+- Difference band (subtle, semi-transparent fill between the two lines)
+  - Fill color: when Spain > Euro‑Zone average → pale blue fill (Spain color at 12% opacity). When Spain < Euro‑Zone average → pale red/pink fill at same low opacity. Keep fills subtle so they don’t dominate.
+  - Reasoning: The difference band is an auxiliary visual that directly supports the user's stated focus (differences between Spain and Euro‑Zone). Because Arrows and heavy annotation are discouraged, the band is a lightweight way to encode comparative magnitude visually. Keep opacity low to avoid introducing strong emotional signals; but PresentValenced Subtext = 0.38 supports modestly valenced cues if needed.
+
+- Minimal direct annotations
+  - Avoid many boxed callouts or arrows (Arrows loading negative = -0.24; WordCountAnnotation negative-ish). Instead include at most one small inline label (no arrow) adjacent to the 2009 Spain point: “Spain −11.2% (2009)” with small font and muted halo so it is readable on top of the plot.
+  - Reasoning: Annotating a single extreme point gives useful orientation for the most important difference while respecting the negative loading on annotations. All other interpretive text belongs in the caption.
+
+- Highlighted period band (optional, very subtle)
+  - A faint vertical band across 2008–2010 (e.g., soft gray at 6–8% opacity) labeled only in the caption: "2008–2010: financial crisis period".
+  - Reasoning: PresentContext has a mildly positive loading (0.29 → near threshold). A faint band provides context without text overload—caption explains the significance, satisfying PresentContext and avoiding heavy in-plot labeling.
+
+- Legend and typography
+  - Typeface: Sans-serif (e.g., Inter/Helvetica/Arial).
+  - Title: 18–22 pt, Subtitle: 12–14 pt, Caption: 9–10 pt. Legend text 10–11 pt.
+  - Reasoning: Clear hierarchy supports Title/Subtitle/Caption emphasis (Title = 0.53; Subtitle = 0.67; Caption = 0.69).
+
+How each design decision is tied to specific loadings and improves clarity
+- Emphasize Title, Subtitle, Caption, and Metadata (Title 0.53; Subtitle 0.67; Caption 0.69; PresentMetadata 0.63; WordCountSubtitle 0.51)
+  - Action: Prominent title and longer subtitle + a detailed caption/metadata block beneath the chart containing variable definitions, units, and a concise interpretive sentence.
+  - Benefit: Readers get immediate orientation (title/subtitle) and deeper explanation (caption/metadata) without cluttering the plot. This aligns with the factor structure that prioritizes textual context and provenance.
+
+- Minimize in-plot annotation and directional marks (Arrows -0.24; WordCountAnnotation -0.27; CompareMappings -0.26)
+  - Action: Avoid arrows and extensive callouts; include only one small inline label for the largest outlier (2009 Spain). Keep interpretive mapping direct and literal (don’t over-translate variable mapping).
+  - Benefit: Keeps the chart visually clean and prevents distraction; the caption supplies the interpretation and mapping, which the loadings favor.
+
+- Emphasize the comparison visually but neutrally (SummarizeConceptsVariables 0.59; PresentValenced Subtext 0.38)
+  - Action: Make Spain visually stronger (color/weight) and add a subtle difference band where Spain is above or below the Euro‑Zone average. Use a mild valenced cue (pale red fill for worse deficits) only at low opacity and always paired with a neutral caption tone.
+  - Benefit: Directs user attention to the requested comparative differences while respecting the dataset’s need for clear variable labels and provenance. The slight valenced cue is supported by PresentValenced Subtext but kept restrained.
+
+- Position provenance and data method in the caption rather than the plot (PresentMetadata 0.63; News 0.47; Blog/Media negative)
+  - Action: Include an explicit metadata line in the caption: units, years, method, and an instruction to replace the placeholder with the official source (e.g., Eurostat/IMF). Use an objective, news-style tone rather than “bloggy” language.
+  - Benefit: Ensures the chart is publishable in a news-style context (News = 0.47) and avoids the weaker signals associated with blog/media origins (Blog = -0.37; Media = -0.31). Metadata presence improves trust and reproducibility.
+
+Final content examples (to drop into chart)
+- Title: Government budget balance: Spain vs Euro‑Zone average (1999–2014)
+- Subtitle: Budget surplus (+) / deficit (–) as % of GDP — divergence before and after the 2008 financial crisis
+- Caption (multi-line):
+  - “Lines show government budget balance (percent of GDP) for Spain and the Euro‑Zone average, 1999–2014. Positive values indicate surplus; negative indicate deficit. Variables: ‘Spain’ = national general government balance; ‘Euro‑Zone average’ = aggregated average. Data: provided dataset (annual values). Source: [insert official source such as Eurostat/IMF]. Notable: Spain ran surpluses 2004–2007 and a deep deficit in 2009 (−11.2% of GDP).”
+- Minimal in-plot label: “Spain −11.2% (2009)” placed near the 2009 point only.
+- Footnote line: “Unit: % of GDP. Chart prepared for comparative analysis; verify official source before publication.”
+
+Summary
+- Provide a clean dual-line time series with a subtle difference band and strong textual support below the figure. Emphasize title/subtitle/caption/metadata (high-loading elements) and avoid arrows, heavy annotations, or blog/media styling (negative loadings). The design highlights the Spain vs Euro‑Zone differences while keeping the plot uncluttered and fully documented.

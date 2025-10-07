@@ -1,0 +1,80 @@
+Design Plan — “Budget deficit and surplus compared between Spain and the Euro Zone (1999–2014)”
+
+1) Chart type
+- Dual-series time-line (smoothed straight-line) chart with two distinct lines: Spain and Euro‑Zone average. Rationale: emphasizes direct, year-by-year comparison (CompareValues loading 0.45) while keeping temporal trend visible for summarization of peaks/troughs (SummarizeValues 0.36).
+
+2) Overall layout and hierarchy
+- Title (top, bold): “Spain vs Euro‑Zone: Budget balance (% of GDP), 1999–2014”
+  - Purpose: clear immediate frame for the viewer; short and factual to keep subtitle minimal (WordCountSubtitle ≤ -0.3).
+- Subtitle (one short line, centered under title): “Annual general government balance; negative = deficit, positive = surplus”
+  - Keep extremely brief because WordCountSubtitle is negative (≤ -0.3).
+- Chart area occupies majority of canvas; legend and small source/metadata block in footer.
+- Government logo (small) in top-right corner and single-line source attribution in footer: e.g., “Source: [Official government finance agency / Eurostat]” (see Logos 0.52 and Government 0.43). Rationale: high loadings imply official sourcing and branding are expected and improve trust/recognition.
+
+3) Text structure (which textual elements are included, their content, and placement)
+- Title (top center) — as above.
+- Short subtitle (one line) — as above; avoid multi-sentence paragraph (Paragraph 0.26 low).
+- Legend (top-left inside plot): two labeled swatches — Spain, Euro‑Zone average. Keep compact to avoid subtitle bloat (WordCountSubtitle negative).
+- Key numeric callouts (annotations) anchored to specific years (see Annotations 0.32 and CompareValues 0.45):
+  - 2009 callout (placed just above/beside Spain’s 2009 point): “Spain −11.2% vs EZ −6.3% (2009): Spain −4.9 pp worse”
+  - 2006 callout (placed near Spain peak): “Spain +2.4% vs EZ +1.1% (2006): Spain +1.3 pp higher”
+  - Period summary callout (small box, lower-right inside plot): “1999–2014 averages: Spain ≈ −2.66% | Euro‑Zone ≈ −2.57%” (SummarizeValues 0.36 + WordCountTotal 0.54 — include a few short summary numbers)
+  - Short contextual tag (very short, attached to 2008–2010 region): “Global financial crisis” (PresentContext 0.32). Keep this to a 2–4 word anchor, not a paragraph.
+- Source/metadata (footer, small type): single-line: “Source: [agency]. Notes: % of GDP; annual data.” (PresentMetadata 0.22). Keep concise.
+
+Rationale for text choices:
+- Emphasize selective annotations (Annotations 0.32) and comparative numeric statements (CompareValues 0.45, SummarizeValues 0.36) rather than labeling every point (IdentifyValues 0.22 is low). This reduces clutter while calling attention to the most informative comparisons.
+- Keep subtitle short (WordCountSubtitle ≤ -0.3) and avoid long body paragraphs (Paragraph 0.26 moderate) but include several short annotations to satisfy the dataset tendency toward more words overall (WordCountTotal 0.54) without overwhelming a single area.
+
+4) Visual styling (colors, highlights, callouts, icons, lines)
+- Color palette (Style 0.56 — decorative use expected, but remain legible):
+  - Spain: warm saturated red (e.g., #C62828).
+  - Euro‑Zone: cool steel blue (e.g., #1976D2).
+  - Use a neutral light gray background for the plot area and unobtrusive gridlines.
+  - Keep color usage mainly aesthetic and for categorical distinction (Style high), but do not encode extra variables with color.
+- Lines and markers:
+  - Use solid lines for both series, 2.5–3 px stroke for Spain (slightly thicker) and 2 px for Euro‑Zone to create clear hierarchy (Spain is the primary focus).
+  - Mark every year with a small faint marker (4 px) but do not label all markers. Markers help readability but remain unobtrusive (IdentifyValues low).
+- Zero baseline:
+  - Emphasize the y = 0 horizontal line with a slightly darker stroke and subtle label “0 = balanced budget” to visually separate deficit vs surplus (Lines loading 0.3). This improves interpretability of positive vs negative values.
+- Callouts, circles, and leader lines:
+  - Use circular callout shapes (thin outline circle) around the 2006 and 2009 Spain points (Circles 0.31 + Annotation 0.32). Circle outline color = Spain red with 1.5 px stroke; fill = semi-transparent white (10%).
+  - Connect each circle to its annotation text with a thin, slightly curved leader line (Lines 0.3). Use subtle drop-shadow for callout text box to separate from plot.
+  - Keep callouts lightweight and limited to a small number of years (2–3) to avoid clutter (CompareValues 0.45 focus).
+- Icons:
+  - Place small icons (Icons 0.41) within the callout boxes: a downward red chevron or minus icon for 2009; an upward green chevron or plus icon for 2006. Icons should be small (12–14 px) and used only to reinforce meaning — not to encode additional data — keeping them minimal and decorative.
+- Typography:
+  - Title: strong sans-serif (e.g., 16–18 pt); subtitle: 10–12 pt; annotation text: 9–10 pt.
+  - Use bold for numerical values within annotation text to make comparisons immediately scannable.
+- Legend & grid:
+  - Compact legend with small line swatches and labels; gridlines light and dashed for year ticks; y-axis tick labels every 2 or 4 percentage points depending on range.
+- Axis ranges & ticks:
+  - Y-axis range: from −12% to +3% to comfortably include the Spain −11.2 extreme; ticks at −12, −8, −4, 0, +2.
+  - X-axis: years labeled every other year (1999, 2001, …) to reduce visual clutter; include minor ticks for intermediate years.
+
+Rationale tying visual choices to loadings:
+- Annotations (0.32) + Circles (0.31) + Lines (0.3): use circular highlights and leader lines to select and explain the most salient comparison points (2009, 2006). This focuses attention where comparisons matter and reduces noise from labeling every point.
+- CompareValues (0.45) + SummarizeValues (0.36): provide direct numeric comparisons in callouts and a short period-average box so viewers can immediately see how Spain differs from the Euro‑Zone overall and at key moments.
+- Logos (0.52) + Government (0.43) + PresentMetadata (0.22): include a government logo and concise source line to increase credibility and meet expectation for official-sourced visuals.
+- Icons (0.41): small, meaningful pictograms reinforce the direction of change (surplus vs deficit) and make key callouts more scannable without clutter.
+- Style (0.56) & WordCountTotal (0.54): use a tasteful, branded color palette and multiple short annotations to match the dataset’s stylistic tendency; keep the text distributed across annotations rather than a single long paragraph.
+- WordCountSubtitle (≤ −0.3): enforce a very short subtitle; avoid long subheadings or descriptive subtitles.
+- PresentContext (0.32): add a brief contextual tag (e.g., “Global financial crisis”) near the 2008–2010 trough to link the dramatic drop to external events; keep it terse.
+
+5) Interactivity / export recommendations (optional usage notes)
+- If interactive: enable hover tooltips showing both Spain and Euro‑Zone values on every year; but keep persistent labels only for the 2–3 annotated years. This preserves on-screen clarity while allowing full identification on demand (supports low IdentifyValues 0.22).
+- Export settings for print: ensure annotations remain legible at intended print size; keep color contrast high for accessibility.
+
+6) Specific callouts to include (exact text examples)
+- 2009 annotation (near Spain point): “2009 — Spain: −11.2% | EZ: −6.3% → Spain −4.9 pp worse”
+- 2006 annotation (near Spain point): “2006 — Spain: +2.4% | EZ: +1.1% → Spain +1.3 pp higher”
+- Period summary box (lower-right): “1999–2014 averages: Spain ≈ −2.66% ; Euro‑Zone ≈ −2.57%”
+- Context tag (adjacent to trough region): “Global financial crisis (2008–09)”
+
+How these changes improve readability and visual quality (summary)
+- Prioritizes comparative insights (CompareValues 0.45) and high-impact annotations (Annotation 0.32, Circles 0.31) so viewers immediately see where Spain departs from the Euro‑Zone.
+- Avoids over-labeling (IdentifyValues 0.22 low) while still providing succinct, targeted summaries (SummarizeValues 0.36) and brief contextual cues (PresentContext 0.32).
+- Matches expected visual style and branding (Style 0.56, Logos 0.52, Government 0.43) to boost trust and recognizability while keeping decoration functional rather than distracting.
+- Keeps subtitle minimal (WordCountSubtitle ≤ -0.3) and distributes additional text as short annotations (WordCountTotal 0.54), balancing information density with clarity.
+
+End of design plan.

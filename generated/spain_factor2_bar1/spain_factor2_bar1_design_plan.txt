@@ -1,0 +1,88 @@
+Chart type
+- Paired (grouped) vertical bar chart by year (1999–2014), two bars per year: Spain and Euro‑Zone average. Bars placed side-by-side for each year to make differences immediately comparable. A horizontal zero baseline is emphasized so deficits (negative) vs surpluses (positive) are visually clear.
+
+Reasoning: user requested a paired bar chart over time; grouped bars make year-by-year differences explicit and easy to compare.
+
+Text structure
+- Title (very short, single line, centered, top): "Spain vs Euro‑Zone budget balance (1999–2014)". 
+  - Rationale: WordCountTitle loading = -0.63 (strong negative) and Title loading = -0.25 → keep title minimal to respect low title word share and de-emphasize long titles.
+
+- Subtitle (one short line, smaller, muted, immediately under title): "Percent of GDP — negative = deficit". 
+  - Rationale: Subtitle loading = 0.24 (slightly positive) → include a concise clarifying subtitle that orients the reader without adding verbosity.
+
+- Direct series labels (no separate legend): label each series directly near the last bar of each series (2014) with small colored label text "Spain" and "Euro‑Zone avg." aligned along the bar ends.
+  - Rationale: ReplaceMappings loading = 0.33 (positive) recommends unconventional replacements for conventional elements — replace a separate legend with direct labels to reduce eye travel and increase clarity.
+
+- Point labels on every bar: numeric labels with one decimal place (e.g., "-11.2") placed just above positive bars or just below negative bars (inside/outside placement chosen for readability).
+  - Rationale: IdentifyValues loading = 0.53 (strong positive) → identify and label all data points so viewers can read exact values without hovering or looking away.
+
+- Focus annotations (short anchored text boxes): include 3–5 concise annotations (2–6 words + numeric delta) highlighting the largest divergences and turning points:
+  - Example annotations to place near relevant years:
+    - 2006: "Spain +1.3 pp vs EZ" (or "Spain surplus; +1.3 pp gap")
+    - 2009: "Sharp gap: Spain −11.2 vs EZ −6.3" (short)
+    - 2014: "Narrower gap" (if applicable) or "Improving since 2013"
+  - Annotations are short, anchored to the relevant bars with a thin connector line (see visual styling).
+  - Rationale: Annotation loading = 0.65 and WordCountAnnotation = 0.65 (both strongly positive) → add in-display, short-form annotations to call out the most important comparisons; annotations can be somewhat more descriptive than the title but must stay compact.
+
+- Comparative label where appropriate: for years where Spain outperforms or underperforms materially (e.g., difference ≥ 2.0 percentage points), add a compact label between the pair: "+X pp" (if Spain better) or "−X pp" (if worse). Place these between the two bars horizontally, in a muted box.
+  - Rationale: CompareMappings loading = 0.26 (positive) → translate raw mapping into simple relational phrasing that emphasizes the differences the user cares about.
+
+- Footnote (one brief line, bottom-left, muted): data source phrased generically, e.g., "Source: national & Euro‑Area fiscal data" — avoid official seals or extended formal citations.
+  - Rationale: Government loading = -0.55 (strong negative) → de-emphasize government styling and long formal source block; keep source short and neutral. News loading = 0.46 (positive) supports concise, journalistic-style sourcing.
+
+Visual styling
+- Color encoding:
+  - Two accessible, contrastive colors that encode series (not decorative): Spain = medium warm color (e.g., burnt orange), Euro‑Zone average = muted blue. Use colorblind-friendly pair (e.g., ColorBrewer safe combo).
+  - Avoid brand-only or purely decorative palettes.
+  - Rationale: Style loading = -0.21 (slightly negative) → color should encode data clearly rather than be decorative; choose a functional palette.
+
+- Bar design:
+  - Solid fill with subtle edge (1px darker border for legibility). Same bar width for all years; small gap between grouped bars.
+  - Values labeled as described (one decimal).
+
+- Gridlines and axes:
+  - Horizontal gridlines at sensible steps (every 2.5 or 5 percentage points) with light, muted gray lines.
+  - Emphasize the zero baseline with a slightly darker horizontal line so positive/negative areas are clear.
+  - X-axis: years labeled every 1 year but use a compact typeface and moderate rotation only if needed for fit.
+  - Y-axis: percent scale with "%" sign on tick labels; keep axis ticks minimal.
+  - Rationale: Lines loading = 0.25 (positive) — use light structural lines, especially zero baseline, to aid reading without clutter.
+
+- Connectors / difference marks:
+  - Use thin, semi-transparent dashed lines or thin arrows sparingly to connect the two bars in a year when the annotation references the gap; e.g., a thin dashed line bridging the top of each bar with a small label in the middle showing the difference (e.g., "4.9 pp").
+  - Keep connectors light and unobtrusive (gray 50% opacity).
+  - Rationale: Lines and CompareMappings positive loadings support lightweight connectors that make comparisons explicit without overwhelming the chart.
+
+- Annotation styling:
+  - Small rounded rectangle callouts with a very subtle drop and muted background (e.g., 95% white with 10% stroke) and 10–15 px padding. Text size similar to subtitle/body, bolding the numeric part.
+  - Thin leader lines (1px) anchored to the bar tip or gap label. Avoid large arrows—use short arrowheads only where necessary.
+  - Place annotations to avoid occluding bars; use slight offset and a faint connecting line.
+  - Rationale: Annotation and WordCountAnnotation loadings strongly positive → include in-chart short explanatory annotations; keep them readable and integrated but not dominant.
+
+- Direct labeling vs legend:
+  - As noted, no floating legend. Instead, place small series labels adjacent to the final year bars and add tiny color squares next to the labels. For accessibility, include a small legend-like key only in a corner if space or export requires it (muted and optional).
+  - Rationale: ReplaceMappings positive supports direct labeling to reduce attention shifts and align with IdentifyValues.
+
+- Typography:
+  - Clean sans-serif (journalistic style), sizes: title (small), subtitle smaller, axis labels small, annotation text slightly larger than axis for legibility.
+  - Rationale: News loading = 0.46 suggests clear, journalistic readability. Keep title shortest per WordCountTitle negative loading.
+
+- Emphasis for user focus:
+  - Emphasize differences visually by subtly highlighting years with the largest differences (e.g., 2009–2010) with a faint vertical band behind the year group or slightly more saturated bar colors for that year pair. Do not use heavy backgrounds.
+  - Rationale: User wants to focus on differences; annotations and minimal background emphasis help guide attention without creating decorative noise (Style negative).
+
+Interaction / export considerations (if interactive)
+- Hover tooltip: replicate the bar label plus a one-sentence comparison (e.g., "Spain: −11.2% vs Euro‑Zone: −6.3% → Spain worse by 4.9 pp").
+  - Rationale: CompareMappings and IdentifyValues suggest providing quick interpretive text for comparisons; keep tooltips short.
+
+How each design decision ties to loadings (summary)
+- Annotation (0.65) & WordCountAnnotation (0.65): Add multiple short anchored annotations calling out major gaps/turning points; annotations can be slightly more explanatory than the title but remain concise.
+- IdentifyValues (0.53): Label every bar with numeric value to enable precise reading.
+- ReplaceMappings (0.33): Replace a conventional legend with direct labels near last-year bars and include small in-chart comparative labels between paired bars; this reduces eye movement and clarifies mappings.
+- News (0.46): Use journalistic clarity — clean type, concise subtitle, muted footnote, direct language in annotations.
+- CompareMappings (0.26) & Lines (0.25): Add short comparative labels (e.g., "+X pp") and lightweight connectors where they help illustrate gaps.
+- Subtitle (0.24) & PresentValenced Subtext (0.22): Include one brief subtitle for context; annotations may carry slight evaluative phrasing but remain factual.
+- Style (-0.21) & Title (-0.25) & WordCountTitle (-0.63): Avoid decorative styling and long headings; keep title minimal and ensure color is functional rather than purely aesthetic.
+- Government (-0.55): Avoid formal government styling, long source blocks, or official marks; use a neutral source line.
+
+Expected outcome
+- A compact, readable paired-bar chart that foregrounds year-by-year differences between Spain and the Euro‑Zone average through direct labeling, targeted annotations, and minimal but effective visual cues. The design emphasizes annotations and per-bar numeric labels (high-load features), keeps title and decorative styling minimal (negative-load features), and replaces a conventional legend with direct in-chart labels to improve clarity and focus on differences.

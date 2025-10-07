@@ -1,0 +1,67 @@
+Chart type
+- Horizontal, sorted bar chart (descending by value) showing individual bars for the named countries (U.S., China, Britain, France, Russia) plus one aggregated "Other countries" entry.  
+  Reasoning tied to loadings: IdentifyValues (0.53) favors direct visibility and point-specific comparison; horizontal bars make value labels easy to read. Sorting emphasizes comparisons between named countries (user request) and aligns with News (0.46) — clear, digestible ranking for a news-style audience.
+
+Data preprocessing and how "Other" is handled
+- Aggregate the nine "Other" records into a single muted bar labeled "Other countries (n=9) — range 7–60 USD, median ~18 USD" (show range and median as annotation). Also compute/display the aggregate summary (range and median) next to that bar.  
+  Reasoning tied to loadings: The user asked to de-emphasize "Other"; ReplaceMappings (0.33) supports an unconventional representation (grouping + summary instead of listing each). This reduces clutter and keeps focus on named countries while still communicating the distribution of Other values.
+
+Text structure (content, position, and relative emphasis)
+- Title (very short, top center-left): "Cellphone cost — 2019 (USD)" — one concise line.  
+  Reasoning tied to loadings: WordCountTitle (-0.63) is strongly negative; keep title minimal to comply with that loading.
+- Subtitle (single sentence, smaller weight, under title): "Named countries shown individually; remaining countries are aggregated (range, median indicated)." — short and factual.  
+  Reasoning tied to loadings: Subtitle loading is mildly positive (0.24); include a brief clarifying line but keep it compact to respect the negative title-word loading.
+- Value labels (IdentifyValues): Show each bar's numeric value at the end of the bar (e.g., "63.0"). All bars must have direct value labels.  
+  Reasoning tied to loadings: IdentifyValues (0.53) strongly recommends labeling every data point; direct labels remove guesswork and improve readability.
+- Annotations (anchored text boxes next to specific bars): Provide 2–3 short annotation callouts (placed inside or adjacent to the plotting area) with slightly longer than-title text (roughly 12–25 words each). Suggested annotations:
+  - U.S. (anchored to the U.S. bar): "U.S. highest among named countries at $63 — ~$13 more than China."  
+  - Russia (anchored to Russia bar): "Russia lowest among named countries at $4 — substantially lower than the sample median."  
+  - Aggregate Other (anchored to Other bar): "Other countries span $7–60 (median ≈ $18; mean ≈ $25). These values are aggregated to keep focus on named countries."  
+  Reasoning tied to loadings: Annotation (0.65) and WordCountAnnotation (0.65) are strongly positive: prioritize in-display text anchored to points and allow the annotations to contain more content than the title to clarify comparisons. Keep annotations concise but explanatory to support comparisons and context. PresentValenced Subtext is marginally positive (0.22) — use neutral, slightly emphatic wording (e.g., "highest", "lowest") without emotional language.
+- Omit legend and conventional axis labels where possible; replace them with direct labels and a minimal numeric scale marker.  
+  Reasoning tied to loadings: ReplaceMappings (0.33) supports replacing conventional mapping elements with direct encodings; this reduces cognitive load and makes comparisons immediate.
+
+Visual styling (color, lines, highlights, connectors, gridlines, typography)
+- Color palette and emphasis:
+  - Use a restrained, functional palette (color encodes emphasis, not decoration): choose a high-contrast, colorblind-safe accent for the named countries (e.g., deep blue) and a desaturated gray for the aggregated "Other" bar. Within the named countries, use a single accent hue with slightly stronger saturation for the highest value (U.S.) to subtly call attention.  
+  Reasoning tied to loadings: Style has a negative loading (-0.21), so avoid decorative color use; use color purposefully to indicate relevance (named vs aggregated). News (0.46) suggests clear contrast to draw attention quickly.
+- Gridlines and axes:
+  - Remove heavy axes and tick labels; include one thin, light horizontal gridline at meaningful intervals (e.g., every 20 USD) for scale reference, but keep them very subtle (low opacity). Add a single, small numeric scale at the top or side (e.g., "USD") to orient viewers.  
+  Reasoning tied to loadings: ReplaceMappings (0.33) and IdentifyValues (0.53) encourage replacing a busy axis with direct labels and minimal scaffolding. Lightweight gridlines help reading values without clutter.
+- Annotations and connector lines:
+  - Use thin, low-contrast connector lines or subtle arrows from annotation boxes to the relevant bars when an annotation is placed away from a bar. Keep connector lines short and unobtrusive; prefer internal placement (annotation inside or beside the bar) where possible.  
+  Reasoning tied to loadings: Lines loading (0.25) supports light use of line connectors; Annotation (0.65) supports anchored text. This combination clarifies which annotation matches which bar without visual noise.
+- Typography hierarchy:
+  - Title: bold, compact sans-serif, larger font but minimal words.  
+  - Subtitle: smaller, regular weight.  
+  - Value labels: medium-weight monospace or tabular number font for alignment if practical.  
+  - Annotation text: slightly smaller than title but larger than caption; allow annotation to be multi-phrase (short sentences).  
+  Reasoning tied to loadings: WordCountTitle (-0.63) requires short title; WordCountAnnotation (0.65) permits longer annotation text; clear typographic hierarchy supports quick scanning (News, IdentifyValues).
+- Decorative treatment:
+  - Avoid heavy decoration, gradients, 3D effects, or brand-style color schemes. Use flat color and subtle shadows only if needed for legibility.  
+  Reasoning tied to loadings: Style negative (-0.21) — avoid decoration that doesn't add meaning.
+
+Interaction / auxiliary visual elements (if interactive)
+- Hover/tooltip (optional): show exact value, country name, and a one-line note about rank relative to named countries (e.g., "2nd of named countries"). Keep tooltip text consistent with on-chart annotations.  
+  Reasoning tied to loadings: IdentifyValues (0.53) and Annotation (0.65) suggest privileging direct access to point-level detail; tooltips are auxiliary and should mirror annotation content.
+- Sorting and focus affordance: allow toggling to highlight pairwise comparisons (e.g., U.S. vs China, U.S. vs Britain) with a faint overlay or emphasis when a user selects a pair. If static, include one comparative annotation (U.S vs China) as recommended above.  
+  Reasoning tied to loadings: The user asked to focus on comparisons between named countries; CompareMappings (0.26) supports making comparisons explicit.
+
+How each major design decision maps to the specific loadings (concise mapping)
+- Annotation (0.65) + WordCountAnnotation (0.65): Put multiple anchored annotations with richer explanatory text (12–25 words) near key bars (U.S., Russia, Other aggregate). This improves comprehension of relative differences and supports the user's focus on comparisons.
+- IdentifyValues (0.53): Label every bar with its numeric value at the bar end for immediate reference and precise comparison.
+- WordCountTitle (-0.63) and Title (-0.25): Keep title extremely short; use subtitle for any necessary clarifying phrase, but keep subtitle concise (single short sentence).
+- ReplaceMappings (0.33): Replace a full axis/legend with direct labels, minimal gridlines, and an aggregated "Other" representation, reducing clutter while preserving interpretability.
+- News (0.46): Favor a clear, direct visual language, punchy annotations, and quick ranking; style supports rapid understanding suitable for news-style communication.
+- Government (-0.55): Avoid formal, bureaucratic visual styling, seals, or heavy source-branding; present data in a neutral, journalistic visual language.
+- Style (-0.21): Avoid decorative-only color use; use color only to indicate focus (named vs aggregated) and highlight the top value.
+- Lines (0.25): Use thin connector lines sparingly for annotation callouts to link text to bars without clutter.
+- CompareMappings (0.26) and PresentValenced Subtext (0.22): Make comparisons explicit and factual (e.g., "U.S. $63 — ~13.5 above China") without emotive language.
+
+Final layout summary (visual arrangement)
+- Top-left: short title. Under it, one-line subtitle.  
+- Main area: horizontally arranged, descending bars (U.S. at top), each bar with value label at the end and country label at the left of the bar. Aggregated "Other countries" placed near the bottom in muted gray with an annotation showing range/median.  
+- Annotations: 2–3 anchored callouts positioned near their bars with thin connectors as needed.  
+- Minimal gridlines for scale; no legend; small source note/citation in fine print at the bottom (neutral phrasing, e.g., "Source: 2019 cost survey").
+
+This plan balances the strong statistical signal to use annotations and point labels, de-emphasizes decorative title verbosity, minimizes "Other" clutter via aggregation, and preserves clear comparative messaging for the named countries as requested.

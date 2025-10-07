@@ -1,0 +1,88 @@
+Design Plan
+
+1) Chart type
+- Horizontal, sorted bar chart (bars run left→right; bars ordered descending by value).
+  - Reasoning (CompareValues 0.45, SummarizeValues 0.36): horizontal bars make value comparisons between named countries immediately legible and make annotated differences easy to place. Sorting by value emphasizes ranking and supports direct comparison.
+
+2) Data treatment & grouping
+- Collapse all "Other" entries into a single, low-contrast “Other (various)” group (show aggregate count or leave as a single faint row); explicitly display only the five named countries as primary rows (U.S., China, Britain, France, Russia).
+  - Reasoning (user preference + CompareValues 0.45): user mainly wants comparisons between named countries; Aggregating and de-emphasizing Other reduces clutter while preserving overall context.
+  - Visual effect: one faint “Other (various)” bar placed with a pale label and optional small marker indicating there are multiple observations underlying it.
+
+3) Text structure (what text appears, content, placement)
+- Title (prominent, single line, top center-left): “Cellphone service cost, 2019 (USD per month)”
+  - Reasoning (WordCountSubtitle -0.30): keep subtitle minimal/omit long subtitle; title conveys topic and year succinctly.
+- Subtitle: omit or keep to a single short phrase only if necessary (max 6–7 words), e.g., “Average monthly plan price”
+  - Reasoning (WordCountSubtitle -0.30): subtitle must be short or omitted per strong negative loading.
+- Primary annotations (short, inline): attach 1–2-word value labels at the end of each named-country bar showing the numeric value (e.g., “$63”), plus one concise comparative annotation for key pairs (see below).
+  - Reasoning (Annotation 0.32, IdentifyValues 0.22 [secondary]): annotations are favored; annotate values for named countries to support direct comparisons (CompareValues 0.45).
+- Comparative callouts (small anchored annotations, max 1 sentence each): place 2–3 short callouts near the most relevant comparisons, for example:
+  - Next to U.S.: “Highest — $63 (≈ $13.5 more than China)”
+  - Between Russia and Britain: “Russia is ~15.8× cheaper than the U.S.”
+  - Reasoning (CompareValues 0.45, SummarizeValues 0.36): succinct comparative text communicates key relationships without a paragraph.
+- Context / metadata (small footnote, bottom-left): single-line context such as “Prices in USD; 2019. Source: [Agency name].” Keep to one short sentence.
+  - Reasoning (PresentContext 0.32, PresentMetadata 0.22, Government 0.43): include brief contextual and source info in small type so viewers can assess comparability and provenance.
+- Source & logo (bottom-right or top-left): include small government logo plus short source line “Source: [Government agency name]”.
+  - Reasoning (Logos 0.52, Government 0.43): prominent source identification and logo are indicated by the loadings; this supports credibility and origin recognition without crowding the chart.
+- Avoid paragraph text blocks: do not include large body text or extended paragraphs.
+  - Reasoning (Paragraph 0.26 low; WordCountSubtitle -0.30): long paragraphs are unnecessary and conflict with the negative subtitle loading.
+
+4) Visual styling and auxiliary elements
+- Color & emphasis:
+  - Use a neutral, desaturated gray for the “Other (various)” bar(s) to visually de-emphasize them.
+  - Use a single saturated highlight color (e.g., deep blue or dark teal) for all named-country bars so color signals focal status rather than encoding value gradients; keep all named countries in the same highlight family to avoid implying additional data encodings.
+  - Accent color (contrasting) reserved for the single top value (U.S.) if extra emphasis is desired—use subtly (e.g., slightly heavier bar edge).
+  - Reasoning (Style 0.56): color will be decorative/branding-oriented; using a restrained palette keeps the aesthetic strong without mis-encoding numerical differences. Using one highlight color for named countries maintains visual hierarchy and avoids confusion.
+- Labels and typography:
+  - Numeric labels placed at the right end of each bar in bold, compact type (e.g., “$63”).
+  - Country labels left-aligned of the bars with small country flag icons for named countries only (icon size small, baseline-aligned).
+  - Use a clear sans-serif font; title slightly larger, annotations small but readable, source metadata smallest.
+  - Reasoning (Icons 0.41, Annotation 0.32): small pictorial cues (flags) help identify named countries quickly; concise numeric labels plus annotations enhance comparison readability.
+- Icons:
+  - Small flag icon or country ISO icon next to named-country labels; optional small phone icon in the title line for context.
+  - Reasoning (Icons 0.41): pictorial symbols improve quick recognition and support the user focus on named countries.
+- Circles and lines (callouts):
+  - Use thin circular outlines (subtle, 2px stroke) to enclose the endpoint area of 2–3 focal bars (e.g., U.S., China, Russia) when making a comparative annotation; connect the circle to the annotation with a thin straight leader line.
+  - Leader lines should be light gray and unobtrusive, with short dashed style only if needed to avoid overlap.
+  - Reasoning (Circles 0.31, Lines 0.30, Annotation 0.32): circular callouts and leader lines anchor annotations to exact values while remaining non-intrusive—this supports precise comparisons without visual clutter.
+- Comparative visual aids:
+  - Optional thin difference connector between two compared bars (e.g., short bracket or double-arrow connecting U.S. and China endpoints) with a small inline label of the difference (“+$13.5”) or ratio (“×1.3”).
+  - Keep these connectors light and minimal; use only where annotations call out a specific comparison.
+  - Reasoning (CompareValues 0.45, SummarizeValues 0.36): small visual comparators make the relationships explicit and reduce cognitive load when reading numeric differences.
+- Layout and whitespace:
+  - Generous vertical spacing between bars for annotation room.
+  - Keep chart margins sufficient to avoid leader-line overlap with labels and logo.
+  - Reasoning: allows annotations, icons, and callouts to be cleanly placed (Annotation 0.32, Lines 0.30).
+
+5) Specific annotation content examples (concise)
+- Place these short strings as annotation text (1 line each) near the respective bars:
+  - U.S.: “U.S. — $63 (highest; +$13.5 vs China)”
+  - China: “China — $49.5”
+  - Britain: “Britain — $33”
+  - France: “France — $15”
+  - Russia: “Russia — $4 (lowest among named)”
+  - Other: “Other (various) — multiple observations, de-emphasized”
+  - Reasoning (CompareValues 0.45, SummarizeValues 0.36, Annotation 0.32): concrete, short comparisons make it easy to interpret ranks and differences without long explanatory text.
+
+6) Accessibility & export
+- Ensure color contrast is sufficient (WCAG AA) for highlight vs background and for de-emphasized gray.
+- Provide numeric labels in plain text (not only visual) for screen readers.
+  - Reasoning: good practice to preserve readability for all viewers; consistent with present metadata and context (PresentMetadata 0.22, PresentContext 0.32).
+
+7) How each major design decision maps to the loadings (summary)
+- Emphasize direct comparisons and computed differences (CompareValues 0.45, SummarizeValues 0.36): through sorted horizontal bars, numeric end labels, and small comparative callouts/connectors.
+- Use annotations, circles, and leader lines (Annotation 0.32, Circles 0.31, Lines 0.30): to anchor short, targeted explanatory text to the named country bars.
+- Include icons and a government logo (Icons 0.41, Logos 0.52, Government 0.43): small flags for immediate country recognition; government logo and short source line to reflect provenance.
+- Apply decorative style judiciously (Style 0.56): a restrained color palette and branding-style choices for visual polish while avoiding misleading data encoding.
+- Keep subtitle minimal/short (WordCountSubtitle -0.30): avoid long subtitles; use short title + concise annotations instead.
+- Include brief context and metadata (PresentContext 0.32, PresentMetadata 0.22): short footnote explaining year/currency/source so viewers have essential context without paragraph text.
+- De-prioritize Other entries visually and combine them into a low-contrast group to match the user’s intent and reduce clutter (user instruction supported by CompareValues and SummarizeValues).
+
+Implementation notes (visual specs)
+- Colors: highlight color #0D6EFD (or brand equivalent), secondary highlight for top value slightly darker; “Other” gray #D9D9D9; bar background / grid lines very light (#F2F2F2).
+- Circles: 2px stroke, transparent fill, same hue as bar but 30% opacity.
+- Labels: title 16–18pt, bar labels 11–12pt, annotations 10–11pt, footnote 9pt.
+- Logo: max height 28–36px, placed bottom-right with source text left-aligned to it.
+
+Outcome
+- Viewer sees a clean, readable ranked comparison of the named countries with clear numeric values and 1–2 short comparative insights. “Other” values are retained for fidelity but visually subdued. Annotations, icons, and a government source/logo provide credibility and quick interpretation consistent with the factor loadings.

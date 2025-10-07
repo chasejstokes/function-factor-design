@@ -1,0 +1,73 @@
+Chart type
+- Paired (grouped) vertical bar chart by year (x-axis = year 1999–2014). For each year show two adjacent bars: Spain (left) and Euro‑Zone average (right). Bars encode percent of GDP (negative below x‑axis). Reason: preserves the requested paired-bar over time format and makes direct year-by-year comparisons easy (supports CompareValues, Loading 0.45).
+
+Layout & composition
+- Canvas: landscape orientation with generous left/right margins to fit 16 years.
+- X-axis: evenly spaced year ticks labeled every year (small, unobtrusive).
+- Y-axis: symmetrical numeric scale in percentage points with 0 clearly marked; gridlines only at -12, -8, -4, 0, 4 to reduce clutter.
+- Bar width & spacing: medium narrow bars so both series are clearly adjacent; horizontal spacing consistent so eye tracks comparisons across years.
+- Optional small inset plot (bottom-right) showing a thin difference line (Spain minus Euro‑Zone) as a secondary cue (see “Lines” below). This keeps bars primary and adds an aggregation view (SummarizeValues 0.36; Lines 0.30).
+
+Text structure (what, where, and how long)
+- Title (top center, largest): "Spain vs Euro‑Zone: Budget deficit and surplus (1999–2014)". Reason: concise descriptive title that signals purpose (present context 0.32).
+- Subtitle (directly under title, very short — 6–8 words max): "Percent of GDP — annual". Rationale: WordCountSubtitle has a negative loading (-0.30) — keep subtitle terse; allocate most explanatory text elsewhere (WordCountTotal 0.54 encourages overall textual presence but not a long subtitle).
+- Legend (top-right, compact): two labeled swatches with small icon flags: Spain (red swatch + small Spanish flag icon), Euro‑Zone (blue swatch + small EU flag icon). Using icons supports Icons (0.41) and helps quick identification.
+- Selected annotations (anchored to bars): short sentence fragments (5–10 words) next to 3–4 key years (see "Annotations" below). Annotations are short-form and anchored — aligns with Annotation loading 0.32.
+- Summary panel (bottom-left or just below the chart): 2–3 bullet-like one-line statements (not paragraphs) that summarize the key comparative takeaways and numeric extremes (e.g., "Largest Spain deficit: 2009, -11.2% (vs EZ -6.3%, −4.9 pp)"). This satisfies SummarizeValues (0.36) and WordCountTotal (0.54) by providing concentrated textual summary without a long paragraph.
+- Source/metadata strip (bottom-right small type): include government logo plus one-line metadata: data source, brief note on measure (percent of GDP), year coverage, and last update. Logos and Government loadings are high (Logos 0.52, Government 0.43) so include an official logo + short source line.
+
+Visual styling and color
+- Color palette (informed styling, Style 0.56): two distinct, brand-friendly hues:
+  - Spain: deep Rioja red (saturated but not neon).
+  - Euro‑Zone: muted navy blue.
+  - Neutral/annotation accents: warm gray and a highlight amber for callouts.
+  Rationale: Style is important (0.56) — choose a polished, consistent aesthetic but keep high contrast between the two series for legibility (meets color style and readability).
+- Bar fill: solid color with a subtle 1–2 px darker border to separate adjacent bars; no heavy gradients (keeps look modern and readable).
+- Gridlines: very light (low contrast) so they don't compete with bars.
+- Fonts: sans-serif, consistent hierarchy. Title largest, annotations bold small caps, axis labels medium, summary and source small but legible.
+- Accessibility: ensure color contrast ratio meets WCAG for red and blue fills against white background; add patterns (thin diagonal hatch) as an optional accessibility fallback for the Spain series if needed.
+
+Comparative emphasis and annotations (Translate loadings into design)
+- Primary comparisons: show direct comparative callouts rather than labeling every bar. Because CompareValues (0.45) is highly positive but IdentifyValues (0.22) is lower, highlight comparisons rather than labeling every value.
+  - Annotate three to four most informative comparisons with short anchored annotations and subtle connector lines:
+    1. 2009 (largest Spain shortfall): annotation above/beside Spain bar: "Spain −11.2% (vs EZ −6.3%) = −4.9 pp" with a small circular halo around the Spain bar (Circles 0.31).
+    2. 2004 (largest Spain outperformance): "Spain +0.6% vs EZ −2.9% = +3.5 pp" with a circular highlight around the paired bars.
+    3. 2010 or 2011 to show persistent post‑crisis gap: a short note (one line) showing the gap in pp.
+  - Connectors: thin, slightly curved lines from annotation to the relevant bar(s) with a small circle terminator (Lines 0.30 + Circles 0.31). Keep connectors faint and unobtrusive.
+  Rationale: these targeted annotations satisfy Annotation (0.32), CompareValues (0.45), Circles (0.31) and Lines (0.30) while avoiding clutter from labeling every point.
+- Minimal per-bar labels: do not label every bar with its numeric value (IdentifyValues loading low at 0.22). Instead:
+  - Optionally show numeric labels when the absolute value exceeds a threshold (e.g., |value| > 5%) for emphasis (2008–2010); otherwise rely on axis and annotations. This balances readability with the loading profile.
+
+Auxiliary difference cue (optional, lightweight)
+- Small difference sparkline or thin line overlay: a thin dashed line plotted on a secondary axis or inset showing Spain − Euro for each year, plotted faintly behind or below bars (Lines 0.30 + SummarizeValues 0.36). Use amber or dark gray, small circular markers at extremes. Hover/tooltip could show exact pp difference in interactive versions.
+- Rationale: provides an aggregated, at-a-glance view of the year-by-year gap without removing the paired bars.
+
+Icons, Logos, and Source information
+- Place the government logo (small, upper-left or bottom-right) as the visualization origin identifier (Logos 0.52, Government 0.43). Keep it small so it signals provenance without dominating.
+- Use small country/region icons in the legend only (Icons 0.41). Keep icons flat and unobtrusive.
+- Source line: one-line metadata: "Source: [Government Agency], Fiscal accounts; measure: general government balance (% of GDP)." Keep as compact metadata (PresentMetadata 0.22 and Government 0.43).
+
+Present contextual information (concise)
+- Instead of a long paragraph, include a single-line contextual caption under the chart that situates the data: e.g., "Context: Spain’s post‑2008 fiscal shock widened its deficit relative to the Euro‑Zone average, peaking in 2009." (PresentContext 0.32). This gives helpful background without a long paragraph (Paragraph loading low).
+
+Visual hierarchy and emphasis decisions tied to loadings (explicit mapping)
+- Annotation (0.32): add short anchored annotations to key years — improves comprehension of key comparisons.
+- Circles (0.31): use circular halos to draw attention to extreme years (2004, 2009) — visually isolates critical comparisons.
+- CompareValues (0.45): show comparative text (pp differences) in annotations and optionally a small difference sparkline — directly communicates relative positions.
+- Icons (0.41) + Logos (0.52) + Government (0.43): show an official logo and use small country icons in the legend — communicates authoritative source and quick identification.
+- Lines (0.30): use subtle connector lines from annotations to bars and a faint difference line or inset — links explanatory text to data marks without clutter.
+- SummarizeValues (0.36) + WordCountTotal (0.54): include a short summary panel with 2–3 precise numeric takeaways; use the word budget strategically (concise total text rather than long subtitle).
+- Style (0.56): apply cohesive, branded color/styling treatment — polished visual style supports the overall communication and anticipated audience expectations (government/official output).
+- WordCountSubtitle (-0.30): keep subtitle very short; allocate words to annotations and the summary panel where they add value.
+
+Interaction and export recommendations (if applicable)
+- For interactive versions: hover tooltips showing exact value and year for each bar; clicking a year could reveal the Spain − EZ difference. Keep tooltips concise and aligned with on-chart annotations.
+- For static export: include the three anchored annotations and the summary panel so the core comparisons remain readable.
+
+How this improves readability and visual quality (summary)
+- Puts paired bars front-and-center so direct visual comparison is immediate (meets the user's focus).
+- Uses a small number of targeted annotations and circular highlights to call attention to the largest deviations, avoiding label overload (Annotation, Circles, CompareValues).
+- Keeps subtitles terse while allocating more words to functional summaries and contextual cues (WordCountSubtitle negative; WordCountTotal positive).
+- Uses tasteful branding and logos to signal authoritative government sourcing without overpowering the data (Logos, Government, Style).
+- Adds optional, subtle difference cues (line/inset) for readers who want an aggregated comparison across years (SummarizeValues, Lines).
+- Overall: a balanced, clean, government‑branded paired bar chart with targeted annotations and visual accents that directly communicate the Spain vs Euro‑Zone differences identified in the data.

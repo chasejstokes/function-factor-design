@@ -1,0 +1,97 @@
+Chart type
+- Primary: Dual-series line chart (Spain and Euro‑Zone average) across years 1999–2014.
+- Secondary (aligned, same x-axis): Small difference area chart (Spain minus Euro‑Zone) plotted as a thin band under the same x-axis (or as a small stacked bar/area panel directly under the main chart). This preserves direct visual comparison and also gives an immediate summary of when Spain outperformed or underperformed.
+
+Reasoning tied to loadings:
+- CompareValues (0.58): a dual-line + difference-band directly compares series and highlights relative positions year-by-year.
+- SummarizeValues (0.65) & SummarizeConceptsSynthesis (0.71): the difference band provides an aggregated visual summary of relative performance over time.
+
+Text structure (content and relative position)
+1. Title (top, bold, single line)
+   - Text: "Spain vs. Euro‑Zone: Budget Balance (% of GDP), 1999–2014"
+   - Rationale: AxisAxes loading (0.31) supports clear axis/title framing for numeric context.
+
+2. Subtitle (directly under title, one or two sentences — moderate length)
+   - Text (valenced, synthesis): "Spain swung from surpluses in the mid‑2000s to a dramatic deficit peak after the 2008 crisis; while the Euro‑Zone also fell, Spain’s losses were larger and more volatile."
+   - Rationale: Subtitle (0.38), WordCountSubtitle (0.45), PresentValenced Subtext (0.7), and SummarizeConceptsSynthesis (0.71) recommend a substantive, slightly valenced subtitle that synthesizes the main story and evokes the emotional scale of the swing.
+
+3. Legend (top‑right inside plotting area or above plot)
+   - Simple two‑item legend: Spain (solid line), Euro‑Zone average (solid line).
+   - Rationale: AxisAxes (0.31) and CompareValues (0.58) require immediate identification of series.
+
+4. Axis labels (below x-axis and left y-axis)
+   - X-axis: "Year"
+   - Y-axis: "Budget balance (% of GDP)"
+   - Rationale: AxisAxes (0.31) — clear axes and labels improve numeric interpretation.
+
+5. Selective data labels / callouts (sparse, near points)
+   - Label only 3 to 4 key points (no full point labeling): e.g., Spain 2004 (0.6), Spain 2006 (2.4 — peak surplus), Spain 2009 (−11.2 — deficit peak), and the year with the largest Spain‑vs‑EZ gap (2009: gap −4.9) and the largest positive gap (2004: gap +3.5). Place values in small tag boxes near the point.
+   - Rationale: IdentifyValues is slightly negative (−0.28) — avoid labeling every point. CompareValues (0.58) and SummarizeValues (0.65) favor selective labels that clarify comparative extremes.
+
+6. Summary statistics box (compact, top‑left or below legend)
+   - Content (3 lines):
+     - "Mean 1999–2014: Spain −2.66% GDP, Euro‑Zone −2.57% GDP"
+     - "Largest Spain deficit: 2009, −11.2% (Spain −4.9 pts vs Euro‑Zone)"
+     - "Largest Spain advantage: 2004, +3.5 pts vs Euro‑Zone"
+   - Rationale: SummarizeValues (0.65) & SummarizeConceptsSynthesis (0.71) call for a concise numeric synthesis. Placing it near the chart gives quick takeaways without cluttering the plot.
+
+7. Context footnote (small text, bottom)
+   - One sentence linking to events: "Sharp deterioration after 2008 reflects the global financial crisis and Spain’s banking/sovereign revenue shock."
+   - Rationale: PresentContext (0.34) supports brief contextual framing that helps interpret the differences.
+
+8. Attribution / data source (tiny, bottom-right)
+   - Plain source line (no social icons or informal language): "Source: [dataset], author calculation."
+   - Rationale: SocialMedia (−0.34) recommends avoiding social‑media styling; keep professional attribution.
+
+Visual styling (colors, highlights, annotations, and micro‑visual decisions)
+1. Color palette
+   - Spain: deep warm red (e.g., #C0392B)
+   - Euro‑Zone average: cool navy blue (e.g., #2C3E50)
+   - Difference area: diverging semi‑transparent fills: red tint for negative differences (Spain worse), teal/blue tint for positive differences (Spain better). Use low opacity (20–30%).
+   - Rationale: The strong PresentValenced Subtext (0.7) supports an emotionally resonant palette for Spain’s dramatic swings; compareValues (0.58) is assisted by high-contrast, color‑distinct series. Use a colorblind‑considerate pair (dark red vs dark blue) and check contrast for accessibility.
+
+2. Line and marker styling
+   - Line weights: Spain line thicker (2.5 px) to draw attention to the country of focus; Euro‑Zone line thinner (1.8 px).
+   - Markers: small solid circles only at the selected labeled points (2004, 2006, 2009, etc.); otherwise no markers to reduce clutter.
+   - Rationale: CompareValues (0.58) and IdentifyValues (−0.28) guide emphasis on series and only selective markers.
+
+3. Difference band
+   - Thin area band or thin bar chart directly under the x‑axis area with positive/negative diverging colors. Alternatively, draw a thin semi‑transparent fill between the two lines (if legible) showing where Spain is above/below the Euro‑Zone.
+   - Rationale: SummarizeValues (0.65) recommends a compact, aggregated visual of relative performance. The band makes the direction and magnitude of differences visually immediate.
+
+4. Gridlines and axes
+   - Horizontal gridlines: light (low‑contrast gray) at sensible major ticks (e.g., -12, -8, -4, 0, +4) to help reading percentages.
+   - Y-axis tick formatting: show one decimal if necessary, but prefer whole numbers where legible (e.g., −12, −8, −4, 0, 4).
+   - Rationale: AxisAxes (0.31) — clear, unobtrusive gridlines improve quantitative reading.
+
+5. Annotations and callouts
+   - Use small rounded rectangle callouts with a subtle drop shadow and no arrowheads to point to labeled years. Keep them short (1–2 lines) — e.g., "2009: Spain −11.2% (largest deficit)".
+   - Do not use large arrows or sweeping directional graphics.
+   - Rationale: Arrows loading is low (0.21) — avoid attention-grabbing arrows. PresentValenced Subtext (0.7) and CompareValues (0.58) support short, focused annotations to emphasize the narrative without clutter.
+
+6. Typography and layout
+   - Title: bold sans-serif (e.g., 18–20 pt)
+   - Subtitle: regular sans-serif (e.g., 11–12 pt), slightly lighter color than title to show hierarchy.
+   - Axis labels and ticks: 9–10 pt, high contrast.
+   - Summary box: slightly smaller than subtitle, contained in a light translucent rectangle to separate from plot.
+   - Rationale: AxisAxes (0.31) and SummarizeConceptsSynthesis (0.71) call for clear typographic hierarchy to make synthesis and numeric values readable.
+
+Design rules driven by loadings (explicit mapping)
+- Emphasize comparisons and high‑impact summaries (CompareValues 0.58; SummarizeValues 0.65; SummarizeConceptsSynthesis 0.71): dual lines + difference area + summary statistics box + selective extreme labels.
+- Provide contextual explanation (PresentContext 0.34): add a single-line footnote explaining the 2008 crisis to help interpretation.
+- Include a substantive, slightly emotional subtitle (PresentValenced Subtext 0.7; Subtitle 0.38; WordCountSubtitle 0.45): a longer subtitle that frames the narrative (Spain’s dramatic swing) helps immediate comprehension and communicates the chart’s takeaway.
+- Minimize full‑point labeling and social‑media cues (IdentifyValues −0.28 and SocialMedia −0.34): avoid labeling every point; avoid informal or social media styling (no logos, hashtags, or conversational tone).
+- Minimize use of arrows and intrusive directional devices (Arrows 0.21): use small boxed callouts and selective markers instead of arrowheads.
+
+How this improves readability and visual quality (summary)
+- Direct comparison is prioritized: two distinct, high‑contrast lines and a difference band make relative performance legible at a glance.
+- Cognitive load is reduced: selective annotation and a compact summary give the story and numbers without point‑by‑point clutter.
+- Contextual framing explains why differences occur and makes the valenced subtitle meaningful for readers.
+- Professional, non‑social‑media styling ensures credibility and clarity.
+
+Implementation notes for designers / developers
+- Data: use year as continuous x-axis; ensure the difference (Spain − Euro) is precomputed and used for the small area/band.
+- Accessibility: check color contrast and provide a text alternative (caption) that reproduces the summary box contents for screen readers.
+- Interactivity (optional): on hover, reveal value tooltips for both series and the difference; but do not default to showing all point labels. This keeps a clean static print while supporting exploration.
+
+End of design plan.

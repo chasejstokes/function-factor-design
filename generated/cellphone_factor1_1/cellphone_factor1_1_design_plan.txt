@@ -1,0 +1,70 @@
+Chart type
+- Horizontal grouped bar chart focused on named countries, with a single collapsed “Other (multiple countries)” bar to de‑emphasize individual Other entries. Bars sorted descending by cost so comparisons between named countries are immediate.
+  - Reasoning: Emphasize direct comparisons among named countries as requested. Collapsing Other prevents visual clutter and aligns with lower importance of “Other” entries.
+
+Text structure (content, position, and relative prominence)
+- Title (top center, largest, bold)
+  - Example text: Cellphone service cost, 2019 (USD)
+  - Linked loading: Title (0.53). A clear, short title improves immediate comprehension and matches the positive loading for Title.
+- Subtitle (directly below title, medium weight, moderately wordy)
+  - Example text: Selected named countries highlighted; “Other” entries collapsed into a single category (median shown). Values are reported in 2019 U.S. dollars.
+  - Linked loading: Subtitle (0.67) and WordCountSubtitle (0.51). Because subtitle loadings are high, include a more descriptive subtitle that clarifies scope, units, and the treatment of “Other.”
+- Chart body (bars, labels)
+  - Left axis: country label (named countries first, then “Other (multiple)” at bottom or end depending on sort). Right end of each bar: numeric value label (e.g., "63.0").
+  - Axis title below x-axis: Cost (USD)
+  - Linked loading: SummarizeConceptsVariables (0.59). Clear axis labels and inline numeric labels explicitly describe the variable being displayed, matching the strong loading for variable description.
+- Caption (below chart, full-width, smallest body text but readable)
+  - Content: 2–3 concise sentences summarizing main comparisons and a short evaluative takeaway. Example: “Among the highlighted countries, the U.S. has the highest reported cost (63.0 USD) and Russia the lowest (4.0 USD). The collapsed ‘Other’ category shows the median of remaining observations (XX.X USD) to reduce clutter. These numbers are reported in 2019 USD and are not adjusted for purchasing power.”
+  - Linked loading: Caption (0.69). Because Caption loading is the strongest positive, provide an explicit explanatory caption with the key takeaways and the treatment of Other entries to guide interpretation.
+- Metadata / source note (below caption, smallest, muted)
+  - Content: year, currency, how “Other” aggregated (median and n), measurement unit, and an explicit data‑source placeholder: “Data source: [insert authoritative source]. Method: values as reported in 2019 USD; Other aggregated by median (n = 8).”
+  - Linked loading: PresentMetadata (0.63). Present metadata prominently (but visually subordinate to caption) so readers can judge provenance and transformations.
+- Present‑valenced subtext (optional single short sentence in caption area, slightly emphasized)
+  - Example: “This gap indicates substantially higher consumer costs in the U.S. compared with several other countries shown.”
+  - Linked loading: PresentValenced Subtext (0.38). Include a brief evaluative sentence to capture the emotional/interpretive layer that the loading supports, but keep it concise and factual to avoid overstating.
+
+Visual styling (color, emphasis, auxiliary elements, and typographic hierarchy)
+- Color and emphasis
+  - Named countries: use one neutral, saturated color family (e.g., deep blue) for all named countries to facilitate direct visual comparison.
+  - Emphasize the single most salient country (U.S.) with a distinct accent color (e.g., orange) to draw immediate attention to the highest value.
+  - Collapsed “Other (multiple countries)”: light desaturated gray to de‑emphasize relative importance.
+  - Linked loadings: Subtitle/WordCountSubtitle (0.67, 0.51) and Caption (0.69). Visual emphasis complements textual emphasis—named countries should be visually prominent while Other is subdued to match user priority and positive loadings on explanatory text.
+- Ordering and spacing
+  - Sort by value (descending) so the highest-cost named country sits near the top (or left, if left-to-right reading), making comparisons immediate.
+  - Provide generous vertical spacing and consistent bar heights to avoid clutter.
+  - Linked loading: SummarizeConceptsVariables (0.59). Proper ordering and spacing make variable comparisons clearer.
+- Gridlines, axis, and labels
+  - Use light, unobtrusive vertical gridlines to support value assessment but keep them faint so they don’t dominate.
+  - Keep numeric tick marks at reasonable intervals (e.g., 0, 20, 40, 60, 80) and display each bar’s exact value at the bar end for precise comparison.
+  - Linked loading: Title/Variables loadings. This supports accurate interpretation without heavy annotation.
+- Annotations and auxiliary elements
+  - Do NOT use arrows or heavy callouts (Arrows loading = -0.24). Avoid decorative attention-guiding glyphs.
+  - Minimize in-chart annotation word count (WordCountAnnotation loading = -0.27). If a callout is needed, use a single short label (2–4 words) attached to the U.S. bar (e.g., “Highest cost”) in small type—no long explanatory annotation inside the chart.
+  - Linked loadings: Arrows negative; WordCountAnnotation negative. Keep annotations minimal and non-intrusive.
+- Distribution hint for collapsed Others (small, optional visual)
+  - Behind the “Other” label or beside its bar, show a compact set of small, faint tick marks or dots (no text) indicating the spread of Other values. Keep these marks muted and small so they are informational but not distracting.
+  - Linked loading: Because users asked to de-emphasize Others and the factor loadings favor metadata and caption, use a minimal visual hint rather than many labels—this follows the design principle of giving secondary information low visual weight.
+- Typography and hierarchy
+  - Title largest and bold; subtitle smaller and regular; axis labels medium; caption and metadata smallest and muted.
+  - Use a clean sans-serif typeface for legibility and a consistent scale so the caption and metadata are readable but visibly subordinate to chart content.
+  - Linked loading: Title/Subtitles/Caption loadings. The typographic hierarchy aligns textual emphasis with the model’s loadings.
+
+Decisions tied explicitly to negative loadings (minimization)
+- Avoid “bloggy” styling or promotional framing; present the display in a neutral, news‑style layout (News loading = 0.47 positive, Blog loading = -0.37 negative, Media loading = -0.31 negative). Cite an authoritative source in metadata rather than implying a blog origin. Use a succinct, factual tone and professional layout.
+  - Reasoning: The negative Blog/Media loadings indicate that blog-like or informal presentation should be minimized; instead, use a news/journalistic clarity style supported by the positive News loading.
+- Avoid heavy re-interpretation of mappings or over‑synthesizing labels (CompareMappings loading = -0.26 is modestly negative). Do not invent new variable mappings—label units plainly (USD, 2019).
+  - Reasoning: Keep mapping straightforward to avoid over-translation of variable meaning.
+
+How these choices improve readability and visual quality (summary)
+- Strong title, a moderately detailed subtitle, and a prominent caption satisfy the strong positive loadings for Title, Subtitle, and Caption—readers get scope, method, and takeaways without searching.
+- Presenting metadata directly beneath the caption answers provenance and transformation questions (PresentMetadata loading = 0.63), increasing trust and interpretability.
+- Emphasizing named countries with saturated color and desaturating Other matches the user’s intent to focus comparisons among named countries while keeping Other visible but deprioritized.
+- Minimal in-chart annotation and no arrows maintain a clean layout (negative loadings for annotation and arrows), while a short valenced sentence in the caption provides interpretive context supported by PresentValenced Subtext (0.38).
+- Sorting and numeric labels directly support quick numeric comparisons and precise reading, aligning with the positive loading for variable description.
+
+Implementation notes (practical)
+- Collapse all explicit “Other” rows into one aggregated value (use median) and include “n = X” in metadata; show the exact aggregation method in metadata text.
+- If you must include raw individual Other data elsewhere, put it in a downloadable table, not in the primary graphic.
+- Keep the chart export resolution high and maintain readable font sizes; caption and metadata should remain legible on common screen sizes.
+
+End of plan.

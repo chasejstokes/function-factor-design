@@ -1,0 +1,80 @@
+Chart type
+- Primary: Dual-line time series (Spain and Euro‑Zone average) across years 1999–2014.
+- Secondary (visual emphasis): Semi‑transparent divergence fill between the two lines (green where Spain > Euro average, red where Spain < Euro average). The divergence fill is a visual summary of the differences the user wants to focus on.
+Reasoning: The dual-line directly shows both series so readers can compare trajectories (addresses SummarizeConceptsVariables, Loading 0.59). The divergence fill visually encodes differences at a glance and supports a news-style, comparison-forward presentation (News 0.47). Because Arrows has a negative loading (-0.24), use no directional arrows; the fill communicates directionality without arrows.
+
+Text structure (content and relative position)
+1. Title (top, large, bold)
+   - Content: “Spain vs. Euro‑Zone: Budget Balance (% of GDP), 1999–2014”
+   - Reasoning: Title has strong positive loading (0.53). A short, factual title aligns with readers’ expectations in journalistic contexts (News 0.47) and establishes the display immediately.
+
+2. Subtitle (directly under title, smaller than title, single concise sentence)
+   - Content: “Annual budget surplus/deficit (positive = surplus). Emphasis: where Spain outperformed or lagged the Euro‑Zone average.”
+   - Length guidance: one short sentence; include the variable definition phrase as part of the subtitle to satisfy WordCountSubtitle positive loading (0.51) but keep it concise to avoid clutter.
+   - Reasoning: Subtitle is strongly positive (0.67) and WordCountSubtitle (0.51) indicates the subtitle is an important vehicle for quick context; use it to state timeframe and the variable meaning.
+
+3. In‑chart minimal annotation (sparse, targeted)
+   - Content: small callouts (one-line) only for the two most salient differences: 2006 (Spain’s peak relative surplus) and 2009 (largest relative deficit gap). Each callout: year + short phrase, e.g., “2009: Spain’s deficit far exceeds Euro average (–11.2% vs –6.3%).”
+   - Placement: unobtrusive, connected by a subtle leader line if necessary; otherwise place near the point with contrast background pill.
+   - Reasoning: WordCountAnnotation is mildly negative (–0.27) so avoid heavy annotation; provide only highly selective annotations that help interpret key differences without overwhelming the chart.
+
+4. Caption (below the chart, full-width)
+   - Content (two short paragraphs):
+     a) Data summary/synthesis (one clear sentence): “This chart shows annual general‑government balance as % of GDP for Spain (blue) and the Euro‑Zone average (gray). Positive values are surpluses; negative values are deficits.”
+     b) Key takeaway + modest valenced context (one sentence): “Spain outperformed the Euro Zone through the mid‑2000s before suffering a much larger collapse during the 2008–10 crisis — a divergence with fiscal and political consequences for Spain’s recovery.”
+   - Tone: factual with a restrained evaluative phrase (to satisfy PresentValenced Subtext loading 0.38 without over‑emotionalizing).
+   - Reasoning: Caption has the highest positive loading (0.69); use it to synthesize, provide context, and a mild evaluative interpretation. This reduces the need for heavy in‑plot text (aligns with negative WordCountAnnotation).
+
+5. Metadata block (small font, bottom-right or below caption)
+   - Content (compact): data source, definitions, unit, years covered, calculation notes (e.g., “Data: general government balance, % of GDP; Euro‑Zone is simple average of constituent countries; values rounded to one decimal; years 1999–2014.”) and a short note on transformations (if any).
+   - Reasoning: PresentMetadata is high (0.63). Readers expect clear provenance and variable definitions; putting this as a compact metadata block increases trust and clarity without cluttering the main visual.
+
+6. Legend (top-right inside plotting area or directly above chart)
+   - Content: two labeled swatches/lines: “Spain” (blue thick line) and “Euro‑Zone average” (muted gray thin line). Include small legend swatch for divergence fill (“Spain > Euro: green”, “Spain < Euro: red”).
+   - Reasoning: Title/Subtitle/Summary loadings indicate readers benefit from clear labels; concise legend supports quick identification.
+
+Visual styling and compositional details
+1. Color and line weights
+   - Spain line: strong, saturated blue (e.g., #1f77b4), line thickness 2.5 px.
+   - Euro‑Zone average: neutral desaturated gray (#7f7f7f), thinner line 1.5 px.
+   - Divergence fill: soft green (#7fc97f) for spans where Spain > Euro, soft red (#f28e8c) for spans where Spain < Euro; opacity ~25–35% so underlying lines remain visible.
+   - Reasoning: Color emphasis on Spain (user focus) ties to SummarizeConceptsVariables and Title importance; muted Euro color keeps it visible but subordinate. Diverging color fill makes differences immediately perceptible (aligns with user’s request to focus on differences) while staying tasteful for news contexts (News 0.47). Avoid decorative/brand colors (Blog and Media negative loadings — -0.37 and -0.31).
+
+2. Axes and gridlines
+   - Y‑axis labeled “Budget balance (% of GDP)” with tick interval 2 or 5 depending on range; include a bold dashed zero line across the chart to mark surplus/deficit boundary.
+   - X‑axis: Year ticks at every 1–2 years labeled; use angled or horizontal ticks that maintain legibility.
+   - Light horizontal gridlines at major ticks only; no heavy vertical gridlines.
+   - Reasoning: Clear axis labeling and the zero baseline assist comprehension of positive/negative values (SummarizeConceptsVariables 0.59). Clean grids aid reading without clutter.
+
+3. Point markers and emphasis
+   - Minimal markers: no marker for every data point (avoid clutter); show subtle markers only for annotated years (2006 and 2009) and the final year (2014) to highlight endpoints.
+   - Reasoning: WordCountAnnotation negative and Arrows negative — avoid visual clutter and directional cues; markers only where they support a concise textual callout.
+
+4. Typography and spacing
+   - Title bold sans‑serif (large), subtitle medium weight; caption and metadata small, legible type.
+   - Adequate white space between title, subtitle, plot, and caption to maintain hierarchy.
+   - Reasoning: High loadings on Title, Subtitle, Caption indicate textual hierarchy is important; clean typography supports fast scanning (aligns with News tone and PresentMetadata expectations).
+
+5. Auxiliary elements: minimal and integrated
+   - Avoid decorative boxes, big logos, or social‑media style badges (Blog and Media negative).
+   - Use a subtle boxed background only for the metadata block (light gray 5–10% tint) to separate it visually without shouting.
+   - Avoid arrows entirely; if a leader is necessary for the sparse annotations, use a thin, neutral-colored leader only.
+   - Reasoning: Minimize auxiliary visual noise since Arrows and blog/media features are discouraged; keep additions only where loadings indicate value (metadata box small because PresentMetadata is high).
+
+How each major recommendation maps to the loadings (brief)
+- Emphasize caption and metadata: Caption 0.69 and PresentMetadata 0.63 → include a strong explanatory caption and a compact metadata block to synthesize findings and provide provenance.
+- Prominent title and subtitle: Title 0.53 and Subtitle 0.67 (plus WordCountSubtitle 0.51) → a clear short title and a concise subtitle that defines the variable/timeframe.
+- Highlight variable definitions and comparisons in text, not in overloaded annotations: SummarizeConceptsVariables 0.59 and SummarizeConceptsSynthesis 0.23 → provide variable definition and a one‑line synthesis in caption/subtitle rather than many in‑chart explanatory labels.
+- Keep chart elements professional and newslike; avoid blogtypo/ornamentation: Blog −0.37 and Media −0.31 → avoid playful, branded, or decorative treatments.
+- Minimize arrows and heavy annotations: Arrows −0.24 and WordCountAnnotation −0.27 → use neither arrows nor many callouts; keep 1–3 concise annotations only for pivotal years.
+- Allow mild evaluative subtext in caption: PresentValenced Subtext 0.38 → one short sentence that conveys the significance of the divergence (e.g., crisis impact) without rhetorical flourish.
+- Prefer small, selective in‑plot emphasis over many elements: CompareMappings −0.26 (modest negative) suggests avoid elaborate rephrasing in the graphic; instead rely on short textual elements (subtitle + caption) for interpretation.
+
+Final layout summary (top to bottom)
+1. Title
+2. Subtitle (one sentence: variable definition + focus)
+3. Chart area: dual lines (Spain emphasized), divergence fill, dashed zero line, sparse markers & minimal callouts for 2006 and 2009, legend top-right
+4. Caption (two short sentences: data summary + key takeaway with mild valenced note)
+5. Metadata block (small, bottom-right or below caption) with source, units, and calculation notes
+
+This plan keeps the visualization focused on comparing Spain to the Euro‑Zone average, leverages high‑loading textual elements (caption, subtitle, metadata) for interpretation and provenance, emphasizes the Spain series visually, and avoids blog/media styling, arrows, and heavy in‑plot annotation per the negative loadings.

@@ -1,4 +1,4 @@
-Your task is to generate Python code that produces a chart consistent with the provided design plan and chart specifications.
+Your task is to generate Python code that produces a *static, non-interactive* chart consistent with the provided design plan and chart specifications.
 
 1. Implement the chart structure
 - Use the chart type specified in the design plan.
@@ -20,6 +20,7 @@ Your task is to generate Python code that produces a chart consistent with the p
 - Ensure that all library calls are valid and compatible with current versions of the referenced packages (e.g., Matplotlib, Plotly, Seaborn).
 - If necessary, include installation checks for required libraries.
 - The code must run successfully and render the chart without user modification.
+Note: 'seaborn-white' is not a valid package style for matplotlib.
 
 5. Output requirements
 - Respond only with the complete Python code block.

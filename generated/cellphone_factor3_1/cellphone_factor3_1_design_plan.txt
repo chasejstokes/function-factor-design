@@ -1,0 +1,79 @@
+Chart type
+- Primary: Horizontal grouped-focus bar chart with emphasis on named countries and muted presentation of "Other" entries.
+  - Render all entries as bars on the same scale so relative magnitudes are preserved, but visually de-emphasize the many "Other" bars (muted color, 40% opacity, thin stroke). Highlight the five named-country bars (Russia, France, Britain, China, U.S.) as the focal group with saturated color and larger bar thickness.
+  - Rationale: Strong CompareValues loading (0.45) indicates the visualization should support direct comparisons; a horizontal bar chart makes numeric differences easy to read. The user requested focus on named countries; de-emphasizing Other entries preserves context without competing for attention.
+
+Text structure (which elements, content, and position)
+- Title (single short line, centered at top-left quadrant)
+  - Content: "Cellphone service cost (2019, USD)"
+  - Rationale: WordCountSubtitle has a negative loading (-0.30) so keep the main heading concise and avoid a long subtitle. This short title gives context while respecting the subtitle-word-count constraint.
+- Subtitle: Omit or keep a single 6–8 word phrase only if needed
+  - If included, place immediately under the title in small type and limited to one short phrase, e.g., "Named countries emphasized; Others shown for context."
+  - Rationale: WordCountSubtitle negative — avoid long subtitle; WordCountTotal positive (0.54) supports compact annotations instead of a long subtitle.
+- Primary data labels: numeric value labels for the five named countries only (placed at end-of-bar inside/outside depending on space)
+  - Content: exact dollar amounts, e.g., "U.S. $63.0"
+  - Position: aligned to the right end of each highlighted bar, with a small circular callout behind the number (see Visual Styling).
+  - Rationale: IdentifyValues has modest loading (0.22) but CompareValues (0.45) and SummarizeValues (0.36) are higher — label the named points directly to facilitate comparison while not labeling all Other entries.
+- Short comparison annotations (short single-line annotations for key comparisons)
+  - Content examples and placement:
+    - Near U.S. bar: "Highest — $63.0 (≈ $13.5 more than China)"
+    - Near Russia bar: "Lowest named country — $4.0"
+    - Small summary box, top-right: "Named avg ≈ $33.0 • Range $4–$63"
+  - Rationale: Annotation loading (0.32) and SummarizeValues (0.36) support a few short, targeted annotations summarizing relationships and aggregates; keeping them short satisfies WordCountSubtitle negative but WordCountTotal positive (supporting several concise annotations).
+- Source/metadata line (small, lower-left), with optional logo at top-left
+  - Content: "Source: [Government agency or official dataset], 2019" (replace with actual source if available)
+  - Position: small text below the chart and a small logo (see Visual Styling) in the top-left corner of the full figure.
+  - Rationale: Government (0.43) and Logos (0.52) have high loadings — include clear source attribution in formal style. PresentMetadata (0.22) moderate: keep metadata short but present.
+
+Visual styling (color, highlights, arrows, icons, lines, circles)
+- Color and general style
+  - Palette: conservative, government-style palette (deep navy or desaturated blue for highlighted bars, neutral dark gray for text, light gray for Others). Accent color (e.g., government red or teal) for callout circles and summary box.
+  - Rationale: High Style loading (0.56) supports decorative/branding color use. Government (0.43) suggests conservative, formal colors to reflect official-looking presentation.
+- Emphasis on named countries
+  - Highlight the five named-country bars with a saturated fill and thicker bar height (e.g., 1.5× thicker than Other bars). Use a consistent accent stroke for these bars.
+  - Place small country-flag icons (or simple country initials if flags not available) to the left of each highlighted bar label.
+  - Rationale: Icons loading (0.41) supports adding pictorial cues; using flags helps quick identification of named countries and ties to Government-style infographics.
+- De-emphasize "Other" entries
+  - Render all "Other" bars in a uniform pale gray, reduced opacity (≈40%), and thinner bar height. Do not label Individual Other bars. Optionally aggregate Others visually by clustering them below the highlighted group or by showing them as a faint ridge to the right to indicate distribution.
+  - Rationale: The user requested Less relevance for "Other" entries; lower visual weight preserves context without cluttering comparisons.
+- Numeric callouts with circles and lines
+  - At the end of each highlighted bar, place a small circular callout (filled accent circle with white value text or outlined circle with value inside) to display the dollar value. If space is tight, connect value text to bar end with a thin leader line.
+  - Rationale: Circles loading (0.31) and Lines (0.30) support use of circular callouts with leader lines as clean, non-intrusive emphasis. Annotations (0.32) further justify inline numeric callouts to facilitate comparisons.
+- Comparative annotations and lightweight connectors
+  - Use 1–3 targeted annotation callouts (short single-line) to state the key comparisons (e.g., highest vs. second-highest, lowest named). Connect these with thin, subtle leader lines to the relevant bars; keep annotation boxes semi-transparent and small.
+  - Rationale: CompareValues (0.45) strongly supports explicit comparative text. Lines (0.30) and Annotation (0.32) justify lightweight connectors to tie text to bars without clutter.
+- Summary stat box
+  - Small, bordered summary card in the top-right: one or two lines with bold label (e.g., "Named average: $33.0 • Range: $4–$63").
+  - Rationale: SummarizeValues (0.36) suggests an aggregated numeric takeaway; WordCountTotal (0.54) supports multiple short textual elements rather than one long block.
+- Logo and metadata placement
+  - Small government logo (square, max 6% of chart width) at top-left aligned with title. Source text in small type below the x-axis or bottom-left.
+  - Rationale: Logos (0.52) and Government (0.43) are strongly loaded; presence of a small logo and short source line increases perceived authority and matches the factor structure.
+- Typography
+  - Use a clear sans-serif (e.g., Inter or Helvetica). Title: 16–18pt bold. Bar labels and annotations: 9–11pt. Summary box label bold 11pt.
+  - Rationale: Clear hierarchy improves readability and supports concise annotations encouraged by the loadings.
+
+Mapping of design choices to specific loadings (brief)
+- Annotation (0.32): Use short in-chart annotations tied to named countries (improves direct comparison readability).
+- Circles (0.31) + Lines (0.30): Use circular callouts for values and thin leader lines to connect annotations to bars (lightweight visual emphasis).
+- CompareValues (0.45) + SummarizeValues (0.36): Add targeted comparative annotations and a short summary stat box to state the main comparative takeaways (highest, lowest, average).
+- Icons (0.41): Add small country flags/initials next to highlighted labels to increase rapid identification.
+- Logos (0.52) + Government (0.43): Include a small authoritative logo and a short source line to reflect formal sourcing and strengthen credibility.
+- Style (0.56): Use a conservative yet polished color palette and subtle decorative touches (accent circles, summary card) to create an official, readable graphic.
+- WordCountTotal (0.54) and WordCountSubtitle (-0.30): Favor several concise, targeted annotations across the chart (supporting a higher total word count distributed in small units) while keeping title/subtitle extremely short.
+- PresentContext (0.32): Include a single-line contextual note (2019, USD) near the title so viewers understand measurement and year without a long paragraph.
+- De-emphasize long paragraphs (Paragraph loading 0.26 is low) and avoid labeling every Other entry (IdentifyValues loading lower than CompareValues), aligning with the user's instruction that "Other" countries are less relevant.
+
+Behavioral / interaction suggestions (if interactive)
+- Hover: reveal exact value and country name for Other entries (no persistent labels).
+- Click/filter: toggle “show only named countries” to remove Other bars from view for a cleaner comparison mode.
+- Rationale: These options keep the static design clean while allowing users who want more detail to access it without changing the main visual emphasis recommended by loadings.
+
+Expected readability improvements
+- Clear visual hierarchy (thicker colored bars, muted Others) makes named-country comparisons immediate.
+- Circular numeric callouts and short comparative annotations reduce the need to read axis ticks to determine differences (aligns with CompareValues, Annotation, Circles, Lines).
+- Short title + focused metadata and source elements satisfy the high Logo/Government/Style and WordCount constraints while preserving credibility.
+
+Implementation notes
+- Sort bars so named-country bars appear grouped together for immediate side-by-side comparison (e.g., place named countries at top in descending order) while keeping Other bars below or in a subdued cluster.
+- Ensure color contrast meets accessibility thresholds for text on callouts.
+- Keep the design modular: enable a variant with "collapse Others into a single aggregated bar" if further simplification is desired.

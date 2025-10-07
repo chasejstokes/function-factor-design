@@ -9,290 +9,290 @@
     },
     "Arrows": {
         "Category": "Visual Element",
-        "Definition": "Arrow directs the reader’s attention toward another part of the visualization or content.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Definition": "Arrow directs the reader's attention toward another part of the visualization or content.",
+        "Factor 1": -0.24,
+        "Factor 2": 0.19,
+        "Factor 3": 0.01,
+        "Factor 4": 0.21
     },
-    "Axis/Axes": {
+    "AxisAxes": {
         "Category": "Text Type",
         "Definition": "Title and labels along the axes of a display that provide information about the values or ranges being represented. In cases where the same axis configuration is used multiple times across faceted visualizations, the term may be pluralized to “axes.”",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": -0.04,
+        "Factor 2": -0.12,
+        "Factor 3": -0.05,
+        "Factor 4": 0.31
     },
     "Blog": {
         "Category": "Source",
         "Definition": "Chart originates from a blog post, often authored by individuals/organizations outside traditional journalism.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": -0.37,
+        "Factor 2": 0.07,
+        "Factor 3": 0.01,
+        "Factor 4": 0.19
     },
     "Caption": {
         "Category": "Text Type",
         "Definition": "Components of text typically found below the display. Often consists of explanatory or supplementary text about the visual elements presented.",
         "Factor 1": 0.69,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 2": -0.08,
+        "Factor 3": 0.15,
+        "Factor 4": 0.15
     },
     "Circles": {
         "Category": "Visual Element",
         "Definition": "Uses a circle or circular outline for emphasis or annotation, not circles as data marks (e.g., scatterplot points).",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.03,
+        "Factor 2": 0.14,
+        "Factor 3": 0.31,
+        "Factor 4": 0.11
     },
-    "Compare Mappings": {
+    "CompareMappings": {
         "Category": "Function",
         "Definition": "Translates a data mapping into more understandable or contextually relevant terms by rephrasing or interpreting technical, complex, or abstract data mappings into more relational language.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": -0.26,
+        "Factor 2": 0.26,
+        "Factor 3": 0.15,
+        "Factor 4": 0.08
     },
-    "Compare Values": {
+    "CompareValues": {
         "Category": "Function",
         "Definition": "Describes relationships among and between data points through direct comparison of points or groups. Includes the following subfunctions: Labels a subset of data points with the relevant value, category, or other point-specific information, highlighting them in comparison to the overall set of data points, States that one point or group has a value or position greater than another point or group or all other points or groups, States that one point or group has a value or position less than another point or group or all other points or groups.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": -0.03,
+        "Factor 2": -0.02,
+        "Factor 3": 0.45,
+        "Factor 4": 0.58
     },
     "Encoding": {
         "Category": "Color Use",
         "Definition": "Color acts as a data-encoding channel, such as matching text color to visual marks or categories within the visualization.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": -0.1,
+        "Factor 2": -0.03,
+        "Factor 3": 0.2,
+        "Factor 4": 0
     },
     "Flags": {
         "Category": "Visual Element",
         "Definition": "Adds a country flag icon or symbol used to annotate or emphasize content, distinct from data marks.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.12,
+        "Factor 2": 0.11,
+        "Factor 3": -0.08,
+        "Factor 4": 0.16
     },
     "Government": {
         "Category": "Source",
         "Definition": "Chart originates from an official government source, such as reports, websites, agencies, or public communications.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.1,
+        "Factor 2": -0.55,
+        "Factor 3": 0.43,
+        "Factor 4": 0
     },
     "Highlight": {
         "Category": "Color Use",
         "Definition": "Color draws attention to particular content, such as emphasizing a word or phrase in contrast to surrounding text.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.13,
+        "Factor 2": 0.02,
+        "Factor 3": 0.02,
+        "Factor 4": 0.11
     },
     "Icons": {
         "Category": "Visual Element",
         "Definition": "Uses pictorial symbol or small graphic to illustrate meaning (e.g., a warning symbol, social media icon), independent of data marks.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": -0.09,
+        "Factor 2": 0.1,
+        "Factor 3": 0.41,
+        "Factor 4": 0
     },
-    "Identify Values": {
+    "IdentifyValues": {
         "Category": "Function",
         "Definition": "Directly identifies and labels all data points with the relevant value, category, or other point-specific information. Serves as a reference for data values, rather than selective emphasis or comparison.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.17,
+        "Factor 2": 0.53,
+        "Factor 3": 0.22,
+        "Factor 4": -0.28
     },
     "Legend": {
         "Category": "Text Type",
         "Definition": "A key or guide within a display that explains the symbols, colors, or patterns used to represent different data categories or values. May be more flexible in position than other types of text.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.09,
+        "Factor 2": -0.19,
+        "Factor 3": 0.11,
+        "Factor 4": -0.15
     },
     "Lines": {
         "Category": "Visual Element",
         "Definition": "Uses a line as a connector, callout, or emphasis (not data lines such as trend lines or axes).",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": -0.02,
+        "Factor 2": 0.25,
+        "Factor 3": 0.3,
+        "Factor 4": 0.01
     },
     "Logos": {
         "Category": "Visual Element",
         "Definition": "Uses a logo graphic for branding or source identification, rather than data representation.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.11,
+        "Factor 2": 0.06,
+        "Factor 3": 0.52,
+        "Factor 4": 0
     },
     "Media": {
         "Category": "Source",
         "Definition": "Chart originates from media organizations broadly, including magazines and other non-news media content.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": -0.31,
+        "Factor 2": -0.08,
+        "Factor 3": 0.03,
+        "Factor 4": -0.05
     },
     "News": {
         "Category": "Source",
         "Definition": "Chart originates from journalistic news sources, such as newspapers, news websites, or newswire services.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.47,
+        "Factor 2": 0.46,
+        "Factor 3": -0.27,
+        "Factor 4": 0.15
     },
     "Paragraph": {
         "Category": "Text Type",
         "Definition": "A paragraph of text which describes additional information that may or may not be visually present in the display. Positioned in the \"body\" of the display but larger than a typical annotation. Often contains multiple full sentences and is set apart from the visual elements. Not directly tied to specific visual features.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.12,
+        "Factor 2": 0.03,
+        "Factor 3": 0.26,
+        "Factor 4": 0.03
     },
-    "Present Context": {
+    "PresentContext": {
         "Category": "Function",
         "Definition": "Integrates contextual information, including background knowledge about the world (such as geographic, cultural, and political relationships), knowledge about current events, and domain-specific information stemming from expertise in a particular field of research or scholarship.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.29,
+        "Factor 2": 0.12,
+        "Factor 3": 0.32,
+        "Factor 4": 0.34
     },
-    "Present Metadata": {
+    "PresentMetadata": {
         "Category": "Function",
         "Definition": "Provides information about the source of the data, the transformations applied to the data, the visualization elements, its purpose, the people involved in its creation, and its intended audience. Includes definitions of a data category, variable, or other terms used.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.63,
+        "Factor 2": 0.03,
+        "Factor 3": 0.22,
+        "Factor 4": 0.1
     },
-    "Present Valenced Subtext": {
+    "PresentValenced Subtext": {
         "Category": "Function",
         "Definition": "Promotes an emotional response, appealing to emotions, values, and personal experience. Conveys an emotional tone that would be diminished or lost in a more neutral phrasing.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.38,
+        "Factor 2": 0.22,
+        "Factor 3": -0.19,
+        "Factor 4": 0.7
     },
     "Rectangles": {
         "Category": "Visual Element",
         "Definition": "Rectangle is used as a container, background highlight, or bounding box (not rectangles used as data marks or legend swatches).",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.2,
+        "Factor 2": 0.03,
+        "Factor 3": -0.12,
+        "Factor 4": 0.18
     },
-    "Replace Mappings": {
+    "ReplaceMappings": {
         "Category": "Function",
         "Definition": "Provides an unconventional representation for a conventionally presented element used to establish the basic structure of data encoding when such an element (e.g., axis, legend) is omitted from the display.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.05,
+        "Factor 2": 0.33,
+        "Factor 3": 0.11,
+        "Factor 4": 0.14
     },
     "Scientific": {
         "Category": "Source",
         "Definition": "Chart originates from scientific research, scholarly publications, or other formal academic sources.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": -0.09,
+        "Factor 2": -0.08,
+        "Factor 3": -0.08,
+        "Factor 4": -0.1
     },
-    "Social Media": {
+    "SocialMedia": {
         "Category": "Source",
         "Definition": "Chart originates from social media platforms, including posts, comments, or other user-generated content.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": -0.06,
+        "Factor 2": -0.02,
+        "Factor 3": -0.05,
+        "Factor 4": -0.34
     },
     "Style": {
         "Category": "Color Use",
         "Definition": "Color is primarily for decorative or stylistic purposes (e.g., brand colors, aesthetic formatting), without encoding data or emphasis.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.01,
+        "Factor 2": -0.21,
+        "Factor 3": 0.56,
+        "Factor 4": -0.07
     },
     "Subtitle": {
         "Category": "Text Type",
         "Definition": "Secondary heading(s) to the display, typically displayed below the title. Often but not always longer than the title, with typeface smaller and lighter than the title.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.67,
+        "Factor 2": 0.24,
+        "Factor 3": -0.14,
+        "Factor 4": 0.38
     },
-    "Summarize Concepts (Synthesis)": {
+    "SummarizeConceptsSynthesis": {
         "Category": "Function",
         "Definition": "Provides a high-level summary of some or all aspects of the chart; Text provides data or information synthesis",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.23,
+        "Factor 2": 0.06,
+        "Factor 3": 0.19,
+        "Factor 4": 0.71
     },
-    "Summarize Concepts (Variables)": {
+    "SummarizeConceptsVariables": {
         "Category": "Function",
         "Definition": "Provides a high-level summary of some or all aspects of the chart; Text describes the variables displayed.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.59,
+        "Factor 2": -0.09,
+        "Factor 3": 0.21,
+        "Factor 4": 0.1
     },
-    "Summarize Values": {
+    "SummarizeValues": {
         "Category": "Function",
         "Definition": "Describes relationships among and between data points through aggregation or mathematical function. Includes the following subfunctions: Describes the change or difference occurring across a group or trend of data points, Computes a numerical value through addition of data values, sometimes reaching a total value, Computes a numerical value through subtraction of data values, Computes a numerical value through multiplication of data values, Computes a numerical value through division of data values, including percentages and proportions, Combines points or groups along a given dimension into a larger object. If the first selection in the text is a group, then the text is concatenating points to create the group. It is also possible for groups to be concatenated, depending on the other objects selected in the text and the context of the text, Selects and mentions specific point(s) as the main object(s) to describe or perform an operation on by filtering a larger object along a given dimension, Creates a subgroup by filtering a larger object along a given dimension. In this case, the prior object of operation must have been a group, rather than the set of data points as a whole, Computes a numerical value through a count of the number of data values in a given set.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.02,
+        "Factor 2": 0.06,
+        "Factor 3": 0.36,
+        "Factor 4": 0.65
     },
     "Title": {
         "Category": "Text Type",
         "Definition": "Primary heading(s) of the display, typically positioned at the top of the display. Often short-form text, rarely paragraphs or sentences.",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.53,
+        "Factor 2": -0.25,
+        "Factor 3": 0.19,
+        "Factor 4": 0.16
     },
-    "Total Word Count": {
+    "WordCountTotal": {
         "Category": "Derived",
         "Definition": "Total word count of the chart, including all OCR detectable text",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.28,
+        "Factor 2": 0.15,
+        "Factor 3": 0.54,
+        "Factor 4": 0.16
     },
-    "Word Count (Annotation)": {
+    "WordCountAnnotation": {
         "Category": "Derived",
         "Definition": "Ratio of annotation word count to total word count, normalized across the dataset used for the factor analysis",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": -0.27,
+        "Factor 2": 0.65,
+        "Factor 3": 0.15,
+        "Factor 4": -0.2
     },
-    "Word Count (Subtitle)": {
+    "WordCountSubtitle": {
         "Category": "Derived",
         "Definition": "Ratio of subtitle word count to total word count, normalized across the dataset used for the factor analysis",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": 0.51,
+        "Factor 2": 0.1,
+        "Factor 3": -0.3,
+        "Factor 4": 0.45
     },
-    "Word Count (Title)": {
+    "WordCountTitle": {
         "Category": "Derived",
         "Definition": "Ratio of title word count to total word count, normalized across the dataset used for the factor analysis",
-        "Factor 1": ,
-        "Factor 2": ,
-        "Factor 3": ,
-        "Factor 4":
+        "Factor 1": -0.06,
+        "Factor 2": -0.63,
+        "Factor 3": 0.02,
+        "Factor 4": -0.1
     }
 }
