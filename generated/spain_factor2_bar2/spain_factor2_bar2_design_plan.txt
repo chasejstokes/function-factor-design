@@ -1,0 +1,95 @@
+Chart type
+- Paired vertical bar chart (clustered bars) with year on the x‑axis and budget balance (% of GDP) on the y‑axis. Two bars per year: Spain (left) and Euro‑Zone average (right) where data exist. Reason: preserves the user’s requested paired comparison across time and makes year‑to‑year differences immediately visible.
+
+Canvas, aspect ratio, and layout
+- Aspect ratio: 3:4 (width:height = 3:4) — taller than wide to satisfy the request and give vertical room for annotations and large text. Reason: taller canvas reduces crowding of year labels and allows large annotation boxes (supports Annotation Loading 0.65 and WordCountAnnotation 0.65).
+- Margins: generous top margin for a short title, wide left margin to allow large y‑axis ticks, and extra right margin for annotations on the latest years. Reason: enables clear placement of value labels and anchored annotations without overlap.
+
+Text structure (content, order, size, and placement)
+- Title (very short): “Spain vs Euro‑Zone: Budget balance (% of GDP)”
+  - Placement: centered at top.
+  - Size: large, but short (e.g., slide context ~28–32 pt). Rationale: WordCountTitle Loading = -0.63 calls for a concise title; a short title improves legibility and anchor for the slide.
+- Subtitle / single-line caption (optional, one short line below title): “Paired bars show Spain (left) vs Euro‑Zone average (right); 2012–2014 are Spain targets.”
+  - Size: ~14–16 pt (smaller than title but readable). Rationale: Keep subtitle minimal because Subtitle loading is low (0.24) and WordCountTitle is negative; convey critical metadata succinctly.
+- Longer explanatory annotations (multiple, anchored to chart): place 2–4 annotation boxes around the chart (see Annotations below). Each annotation may be 12–25 words. Rationale: Annotation Loading 0.65 and WordCountAnnotation 0.65 favor more in‑chart explanatory text rather than long title/subtitle.
+- Axis labels and ticks:
+  - Y‑axis label: “Budget balance (% of GDP)” — short, ~18–20 pt.
+  - X‑axis ticks: years (1999–2014) rotated vertically or at 60° if needed; tick labels ~14–16 pt. Rationale: large text for presentation readability.
+- Value labels on bars (IdentifyValues Loading = 0.53):
+  - Place numeric values on every bar with one decimal (e.g., “-11.2”). For positive bars, label inside the bar near the top; for negative bars, place label just below the bar top (maintain contrast so text is readable).
+  - Size: ~12–14 pt bold. Reason: identify all data points directly (high loading), reducing reliance on legend/axis for precise reading.
+
+Legend and mapping decisions (ReplaceMappings Loading = 0.33; Style Loading negative)
+- No separate floating legend. Instead:
+  - Directly label the first year’s pair with small color swatches and text (“Spain” and “Euro‑Zone avg.”) placed above the first pair, and repeat subtle labels for the last pair if space issues occur.
+  - Use a very small, unobtrusive color key at the bottom-right only if necessary for accessibility.
+- Rationale: ReplaceMappings positive supports replacing a conventional external legend with in‑situ identifiers; Style negative (-0.21) discourages decorative colors and supports functional color use.
+
+Color, fill, and treatment of target/missing data
+- Color palette:
+  - Spain: medium saturated warm color (deep cerise or dark coral) to emphasize differences but not evoke sensationalism.
+  - Euro‑Zone average: desaturated cool color (slate blue / muted steel) less saturated than Spain’s color.
+  - Use colors with high contrast and good accessibility (check contrast ratio).
+  - Rationale: News Loading (0.46) suggests readable, attention‑directing colors for narrative emphasis; Style negative warns against purely decorative palettes—colors must encode meaning.
+- Target years (2012–2014 for Spain are targets, not actuals):
+  - Render Spain’s target bars with a lighter fill and subtle diagonal hatch pattern (e.g., 45° thin lines) and 60% opacity to visually distinguish them from actuals.
+  - Add a small annotation anchored near 2012–2014 that reads: “2012–2014: Spain’s fiscal targets (not reported as outturn).” This should be longer than the title (WordCountAnnotation positive).
+  - Rationale: Clearly communicates that these bars are planned targets (user stated), removing ambiguity.
+- Missing Euro‑Zone values (2012–2014 are NA):
+  - Do not draw Euro‑Zone bars for years with NA. Instead show a faint light gray vertical “no data” marker (a thin glyph or a small open circle at zero with a label “no data”) centered in the Euro‑Zone position for those years, or leave the space empty but include a concise legend note under the chart: “Euro‑Zone avg. not available after 2011.”
+  - Rationale: avoids misleading filled placeholders; keeps viewer attention on Spain while signaling absence of comparable data.
+
+Annotations and callouts (Annotation Loading = 0.65; WordCountAnnotation = 0.65)
+- Add anchored annotation boxes (light neutral background, thin border, small chevron arrow) near these points:
+  1. 2006–2007: “Pre‑crisis surpluses — Spain recorded positive balances in 2005–2007 (peak: 2.4% in 2006).” (12–20 words)
+  2. 2009: “Sharp reversal in 2009: Spain plunged to -11.2% amid the financial crisis.” (12–20 words)
+  3. 2012–2014 cluster: “2012–2014 shown as official Spain targets (not outturns). Euro‑Zone averages unavailable after 2011.” (20–30 words)
+- Styling of annotations: large readable font (~14–18 pt depending on available space), pale background rectangle with 1 px border and a thin arrow pointing to the relevant bar(s), shadow avoided.
+- Rationale: Annotation Loading strongly positive — add clarifying text inside the display to guide interpretation; WordCountAnnotation high allows richer explanatory content than a long title.
+
+Auxiliary visual elements (use sparingly)
+- Subtle connector line (very thin, light gray) between paired bars to visually emphasize the gap between Spain and Euro‑Zone bars for each year only where both exist. Keep opacity low so it’s a visual guide rather than dominant.
+  - Rationale: Lines Loading is low (0.25) so use minimally. The connector emphasizes pairwise difference without clutter.
+- Optional small, unobtrusive difference callout for the most extreme difference (2009): place a thin bracket or arrow between the pair and label “Gap: 4.9 p.p. vs Euro‑Zone” if computed difference is included. Only add if space allows and annotated carefully.
+  - Rationale: emphasises the user’s focus on differences while limiting extra elements per ReplaceMappings 0.33.
+
+Axes, gridlines, and baseline
+- Y axis: linear scale from e.g., -12% to +3% (or symmetric padding around min and max to avoid label crowding). Major ticks at every 2.5 or 5 percentage points depending on final extent. Tick labels large ~14–16 pt.
+- Zero baseline: bold horizontal line to separate deficits (below zero) from surpluses (above). Color: neutral dark gray.
+- Gridlines: very light gray, thin, only horizontal, to help read values without adding clutter.
+- Rationale: clarity in reading deficits vs surpluses supports IdentifyValues Loading and overall readability for presentation.
+
+Label format and numeric precision (IdentifyValues = 0.53)
+- Numeric format: one decimal place, include minus sign for deficits (e.g., “-11.2”).
+- Place values directly on bars so viewers do not need to cross‑reference axis ticks.
+- Rationale: direct labeling matches high IdentifyValues loading and simplifies comprehension in a presentation setting.
+
+Source and branding (Government Loading = -0.55)
+- Present any source attribution unobtrusively in small type at the bottom-left (e.g., “Source: national releases / Euro‑Zone aggregates”). Avoid government visual signifiers (seals, heavy institutional colors, or official typographic styles).
+- Rationale: Government loading negative implies minimizing heavy government styling; keep source visible but de‑emphasized.
+
+Accessibility and presentation readiness
+- Use high‑contrast colors and large fonts suitable for a screen presentation (title 28–32 pt, axis labels 18–20 pt, ticks and annotation text 14–18 pt).
+- Ensure color pairs are distinguishable for color‑vision deficiencies (verify with a simulation).
+- Provide an accessible caption text (short paragraph) in presenter notes that summarizes key findings (this is consistent with News loading = 0.46 — a brief narrative helps audience comprehension but keep it outside the title area).
+- Rationale: maximizes legibility and comprehension in a live presentation environment.
+
+How the plan aligns with specified loadings (brief mapping)
+- Annotation (0.65) / WordCountAnnotation (0.65): multiple anchored annotations with substantial explanatory copy; annotations are the primary place for richer text instead of a long title.
+- IdentifyValues (0.53): show numeric labels for every bar for precise reading.
+- News (0.46): use narrative caption and emphasis on interpretable differences (clear color emphasis for Spain) without sensational tone.
+- ReplaceMappings (0.33): remove the floating legend and prefer direct labels/in‑chart identification.
+- Government (-0.55): avoid government styling/branding and downplay formal seals or full‑page government layout.
+- WordCountTitle (-0.63): keep title extremely concise; place more explanation in annotations.
+
+Implementation notes (for the designer/developer)
+- Data handling: omit Euro‑Zone bars where value == NA; apply hatch + opacity style to Spain bars for 2012–2014 and add the target annotation.
+- Spacing: allow extra vertical room at the top for annotations; ensure bar clusters do not overlap annotation arrows.
+- Export: provide a high‑resolution slide image (PNG/SVG) sized to maintain the 3:4 aspect ratio; include the textual caption in presenter notes as a separate text block.
+
+Summary of visual priorities
+- Emphasize in‑chart annotations and direct value labels (high loadings).
+- Keep title short and non‑verbose (strong negative loading).
+- Replace legend with direct labeling (moderate positive).
+- Distinguish Spain targets visually and indicate missing Euro‑Zone data clearly.
+- Avoid heavy government branding; use functional color choices and large, presentation‑friendly type.

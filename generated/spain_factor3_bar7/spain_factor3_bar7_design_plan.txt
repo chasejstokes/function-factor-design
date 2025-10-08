@@ -1,0 +1,126 @@
+Chart type and layout
+- Paired vertical bar chart (clustered bars) by year (1999–2014), portrait orientation with at least a 3:4 aspect ratio (example canvas: 900 × 1200 px or 750 × 1000 px). Reason: requested paired bar format and “taller than wide” requirement.
+
+Primary visual hierarchy and focus
+- Primary visual focus: differences between Spain and Euro‑Zone average. Use side‑by‑side bars per year so the eye compares pairs easily.
+- Zero baseline emphasized with a thicker horizontal line (0% of GDP) so surplus vs deficit is immediately legible.
+
+Text structure (what is included, content, position — keep subtitle minimal)
+1. Title (top, centered-left)
+   - Text: “Spain vs Euro‑Zone average: Budget balance (% of GDP), 1999–2014”
+   - Size: very large for presentations (approx. 36–44 pt on the example canvas)
+   - Reasoning: WordCountTotal (0.54) and Style (0.56) suggest a chart with meaningful text and styling; make the title prominent for presentation readability.
+
+2. Subtitle (optional, very short)
+   - Text: “Annual budget balance, % of GDP”
+   - Size: smaller than title (approx. 18–22 pt)
+   - Reasoning: WordCountSubtitle loading is negative (-0.30) — keep subtitle minimal or drop it; here we keep one short clarifying phrase only.
+
+3. Legend with icons (top-right, horizontally aligned with title)
+   - Two entries: Spain (small Spain flag icon), Euro‑Zone average (small euro symbol or EU flag icon)
+   - Label text size: 20–22 pt
+   - Reasoning: Icons loading high (0.41) — use small pictorial symbols to make quick visual identification; keeps the legend compact and presentation‑friendly.
+
+4. Axis labels and ticks
+   - Y axis: “% of GDP” (left side), tick labels large (18–22 pt); ticks at sensible intervals e.g., from -12 to +3 with 2–3 point increments visible.
+   - X axis: years (1999–2014), tick labels large (16–18 pt), rotate slightly if needed for legibility but prefer horizontal for clarity.
+   - Reasoning: Large readable text for presentations and to support comparison function (CompareValues loading 0.45).
+
+5. Selected in‑chart annotations and summary block (see below)
+   - Positioned to avoid overlap with bars; annotation callouts placed to the side with connecting thin lines.
+
+6. Metadata and logo (bottom-left or bottom-right)
+   - Small block (14–16 pt): “Source: Ministry of Finance / Eurostat — data: budget balance as % of GDP. Chart prepared by [agency].”
+   - Add a modest government logo (top-left or bottom-left), sized so it’s visible but not dominant (approx. 60–90 px height).
+   - Reasoning: Logos (0.52) and Government (0.43) loadings are high — include official logo and source metadata to signal provenance and authority. PresentMetadata (0.22) supports a concise metadata block.
+
+Visual styling (colors, shapes, highlights, annotations — each tied to loadings)
+1. Color palette
+   - Spain bars: deep Spanish red (for identification).
+   - Euro‑Zone average: muted deep blue or navy (high contrast with red).
+   - Background: off‑white or very light neutral.
+   - Use subtle drop shadows or soft inner glow only if necessary for presentation clarity; avoid heavy gradients.
+   - Reasoning: Style loading (0.56) indicates decorative/stylistic use of color; apply tasteful/consistent styling while keeping data encoding clear.
+
+2. Bar styling
+   - Solid fill, slight corner radius for visual polish.
+   - Spain and Eurozone bars set to equal width; small gap between pairs so year pairs read as one unit.
+   - Reasoning: styling supports readability and visual appeal (Style 0.56) while keeping comparisons clear.
+
+3. Circles and halo highlights (use sparingly)
+   - Place a subtle circular halo (thin stroke, low opacity) around the paired bars for the most significant divergence year (2009) and one year where Spain most outperformed Euro zone average (2004).
+   - Circles sized to enclose the pair and a small margin.
+   - Reasoning: Circles loading (0.31) supports using circular emphasis to draw attention to key comparisons and maintain a light non‑intrusive emphasis.
+
+4. Lines / callouts
+   - Thin connecting leader lines from each halo or target bar to an annotation callout box. Lines subtle (1–1.5 px), color matched to the category color or neutral gray.
+   - Reasoning: Lines loading (0.30) supports connector lines for anchored annotations without cluttering the visual.
+
+5. Icons next to legend and in annotation boxes
+   - Small Spain flag and EU/euro symbol where helpful (legend and small callout boxes).
+   - Reasoning: Icons (0.41) support quick visual mapping and enhance clarity, consistent with high icon loading.
+
+Annotation and comparison details (driven by CompareValues 0.45 and SummarizeValues 0.36)
+- Do NOT label every bar value (IdentifyValues is low-ish 0.22). Instead, provide selective comparative annotations:
+  1. Highlight 2009 (largest Spain underperformance):
+     - Callout text: “2009 — Spain: -11.2% vs EZ: -6.3% → gap: -4.9 pp”
+     - Place circular halo around the 2009 pair; connect to a boxed annotation on the right with a thin line and a small Spain flag icon.
+     - Reasoning: CompareValues (0.45) calls for direct comparison statements and emphasis on relationships — use a callout to present the largest gap.
+  2. Highlight 2004 (largest Spain advantage):
+     - Callout text: “2004 — Spain: +0.6% vs EZ: -2.9% → gap: +3.5 pp”
+     - Use a second halo and callout aligned below or above the 2009 callout to avoid overlap.
+     - Reasoning: Show both extremes of divergence so the audience sees the range of differences.
+  3. Small inline difference markers for other notable years (optional, unobtrusive)
+     - For 2005 and 2010 (second largest differences), add small difference text near the top of the pair: “+3.1 pp” (2005) and “-3.5 pp” (2010).
+     - Reasoning: SummarizeValues (0.36) supports selective summary of important numeric relationships.
+
+Summary annotation block (anchored within the chart area or top-right under legend)
+- Short, bolded bullet lines (22–24 pt):
+  - “Mean Spain − Euro‑Zone (1999–2014): −0.09 pp (essentially similar)”
+  - “Years Spain > EZ: 8 | Years Spain < EZ: 8”
+  - “Largest gap: 2009 (Spain −11.2 vs EZ −6.3; gap −4.9 pp)”
+- Keep this one succinct paragraph/box, not a long paragraph.
+- Reasoning: SummarizeValues (0.36) and PresentContext (0.32) — provide concise numeric summary and context so viewers get an immediate takeaway. The WordCountTotal (0.54) supports a moderate amount of text overall but the WordCountSubtitle (-0.30) means the subtitle stays minimal.
+
+Metadata & provenance (small, bottom)
+- “Source: Ministry of Finance / Eurostat (official data). Chart: [agency]. Data: budget balance as % of GDP. Method: Annual reported values.”
+- Govt logo adjacent.
+- Reasoning: Government (0.43) and Logos (0.52) indicate inclusion of official branding and source details to support trust.
+
+Accessibility and legibility considerations
+- Large fonts for presentation (title 36–44 pt; axis labels 20–24 pt; tick labels 18–20 pt; annotation text 20–24 pt).
+- High contrast text on background; use patterned fill or light outline if someone uses grayscale copies.
+- Avoid encoding differences between countries only by hue that fails colorblind testing; red vs blue is acceptable but ensure direct-labeling via small icon/legend too.
+
+What to label vs what to leave out (driven by loadings)
+- Label only selected bars with exact comparisons (CompareValues high). Do not label every bar with its numeric value (IdentifyValues lower) — this prevents clutter while emphasizing comparisons.
+- Keep the subtitle minimal (WordCountSubtitle negative).
+- Use annotations, circles, and callouts exactly where there's a comparative point to make (Comparisons and Circles high) rather than decorative repetition.
+
+Interaction / animation suggestions for presentation (optional)
+- If animated slide: fade in bars year‑by‑year then pop the 2009 halo and callout to focus attention. Keep animations quick and subtle.
+- Reasoning: Annotations and compare emphasis should be introduced to guide discussion (Annotation 0.32; CompareValues 0.45).
+
+Data-driven specifics to show in the design
+- Compute and present the key figures in the annotation/summary:
+  - Mean difference (Spain − Euro zone) 1999–2014: −0.09 percentage points.
+  - Years Spain outperformed: 8; years underperformed: 8.
+  - Largest negative divergence: 2009 (gap −4.9 pp).
+  - Largest positive divergence for Spain: 2004 (gap +3.5 pp).
+- Reasoning: SummarizeValues (0.36) and CompareValues (0.45) favor concise numeric takeaways that frame interpretation.
+
+Why each major choice maps to loadings (concise mapping)
+- Strong annotations (Annotation 0.32) + compare text (CompareValues 0.45): include anchored callouts with explicit numerical gaps.
+- Circles (0.31) + Lines (0.30): halo + connector lines to highlight and point to the most relevant year pairs.
+- Icons (0.41): small country/euro icons in the legend and callouts for quick identification.
+- Logos (0.52) + Government (0.43): include a government logo and an explicit source/metadata block.
+- Style (0.56) + WordCountTotal (0.54): allow tasteful styling and enough textual elements (title, summary box, metadata) to tell the story — but enforce minimal subtitle due to WordCountSubtitle (−0.30).
+- PresentContext (0.32) & SummarizeValues (0.36): include a short contextual summary and numeric aggregate takeaways.
+
+Final placement summary (top→bottom)
+- Top: Title (left), short subtitle (under title, minimal), legend + icons (right)
+- Chart body: paired bars, zero baseline, highlighted years (2009 and 2004) with halos and callouts connected by thin lines
+- Right/top area under legend: concise summary box with mean difference and counts
+- Bottom: metadata and government logo
+
+This plan preserves visual clarity for presentation viewers, emphasizes the direct comparisons (the user’s core interest) with annotations and highlighted years, incorporates government provenance and tasteful styling (per loadings), keeps the subtitle intentionally short, and uses icons/circles/lines only where the loadings recommend them.

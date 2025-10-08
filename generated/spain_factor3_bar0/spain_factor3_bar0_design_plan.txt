@@ -1,0 +1,101 @@
+Chart type and layout
+- Chart type: Paired vertical bar chart (grouped bar chart) with year on the x-axis and budget balance (% of GDP) on the y-axis. Each year shows two adjacent bars: Spain (left) and Euro‑Zone average (right). Missing euro‑zone values displayed as intentionally blank/hatched placeholders.
+- Aspect ratio & canvas: Portrait orientation, at least 3:4 (taller than wide). Example canvas for presentation: 9 in width × 12 in height (3:4) or 8 in × 10.67 in (same ratio). This gives room for large text and vertical bars.
+- Grid & baseline: Light horizontal gridlines every 2 percentage points; a stronger zero baseline line (thicker, darker) to emphasize surplus vs deficit.
+- Y range: Set y-axis from −12.5 to +3.5 to fit the worst year (Spain −11.2) with some headroom for labels/annotations.
+
+Text structure (what is included, content, placement, and sizing for presentation)
+- Title (top-center, large): “Spain vs. Euro‑Zone: Budget Deficit and Surplus, 1999–2014”
+  - Reasoning tied to loadings: Government (0.43) + Logos (0.52) imply an authoritative, direct title. Large title improves legibility for presentations (recommend 28–36 pt depending on font).
+- Subtitle (short, directly under title, small/concise): “Final three Spain values are official targets; Euro‑Zone averages unavailable for 2012–2014”
+  - Reasoning tied to loadings: WordCountSubtitle is negative (−0.30) — keep subtitle short and to the point; PresentContext (0.32) requires a brief contextual note. Subtitle size: 14–16 pt.
+- Legend (top-right, compact): Two swatches labeled “Spain” and “Euro‑Zone average”. Include pattern/legend entries for “Spain (target)” and “Euro‑Zone unavailable” with hatch or outline symbols.
+  - Reasoning tied to loadings: Style (0.56) and Icons (0.41) support a clear, well‑styled legend. Keep the legend compact and readable (16–18 pt).
+- Axis labels and ticks:
+  - Y-axis label (vertical, left): “Budget balance (% of GDP)” — 16–18 pt.
+  - X-axis: Years displayed vertically or rotated 45° if needed, but given portrait space use horizontal year labels (14–16 pt) with every year shown for comparison.
+  - Tick numbers: 14–16 pt.
+  - Reasoning: Large text sizes are required for presentation legibility.
+- Source and metadata (bottom-left footer, small but readable): “Source: [relevant government source] — Euro‑Zone averages as reported / last three Spain values are government targets.”
+  - Include a small government logo at bottom-left or top-left (max ~6% of chart width). This is directly supported by Government (0.43) and Logos (0.52). Footer text size: 11–12 pt.
+  - Reasoning: PresentMetadata (0.22) and Government/Logos loadings justify a clear source line and branding. Keep this concise (no paragraph-length text).
+
+Visual styling and encoding decisions (color, annotations, icons, shapes, lines)
+- Color palette:
+  - Spain: deep brand red (e.g., #C62828).
+  - Euro‑Zone average: muted navy/blue (e.g., #1E5FA8).
+  - Use a restrained, government‑style palette (Style 0.56) — visually appealing but not decorative in a way that obscures meaning. Colors encode categories to aid quick reading.
+  - Bar fills: solid for actual values; Spain target bars shown with the same red but diagonal hatch overlay (45° thin hatch) and 60% opacity to indicate “target” vs actual.
+  - Euro‑Zone missing (2012–2014): pale outline or light gray chevron/hatch box with label “data unavailable” in legend. This visually signals absence rather than fabricating values.
+  - Reasoning: High Style loading supports decorative/brand styling; but because CompareValues (0.45) is also high, color must remain a clear category encoder to enable comparison.
+- Bar width & spacing:
+  - Moderate bar width (about 40–45% of each year’s group width) with 10% padding between paired bars; spacing between year groups larger to help the eye group pairs.
+  - Reasoning: Clear grouping supports direct comparison (CompareValues 0.45) and reduces clutter.
+- Highlights and callouts (selective and lightweight):
+  - Use concise inline annotations for selected years with large differences (select years: 2005–2007 where Spain is positive and Euro average negative; 2009–2011 where Spain much worse than Euro average). Put a short annotation (1 line, ≤6 words + numeric difference) anchored near the Spain bar with a thin connector line.
+    - Example annotation content: “Spain −11.2 vs EZ −6.3 → Diff: −4.9 pp (2009)”
+    - Annotation font size: 16–18 pt; use a semi‑opaque rounded rectangle background to ensure legibility.
+    - Reasoning: Annotation (0.32) and CompareValues (0.45) are strong — selective, short annotations highlight the comparisons the user wants to emphasize without adding long paragraphs (Paragraph 0.26 low, WordCountSubtitle negative).
+  - Circles (subtle) to emphasize the single largest differences: draw a thin circular halo (2 px stroke) around the Spain bar top for the largest gap year (2009). Color: same red but with 30% opacity stroke. Keep circles unobtrusive.
+    - Reasoning: Circles (0.31) loading supports using circular callouts for emphasis; keep them subtle to avoid distraction.
+  - Thin connector lines from annotations to bars (Lines 0.30): use soft gray thin lines with a small arrowhead pointing to the bar top where applicable.
+    - Reasoning: Lines help associate annotation to a particular bar (supports CompareValues and PresentContext).
+- Numeric labels and difference indicators:
+  - Show numeric value labels on top of Spain bars for all years (e.g., “−11.2”) and for Euro‑Zone where available. Label font 14–16 pt, bold for Spain to support emphasis.
+    - Reasoning: IdentifyValues is moderate (0.22), but CompareValues (0.45) and SummarizeValues (0.36) suggest selective labeling to make direct comparisons easy. Instead of labeling every point exhaustively, prioritize Spain labels and Euro‑Zone labels for years with notable divergences.
+  - For the most important comparison years (a handful, e.g., 2005, 2007, 2009, 2010), add a thin vertical bracket or a horizontal difference arrow between the tops of the paired bars with a small text showing the numeric difference (e.g., “Δ = 4.9 pp”). Keep these markers minimal and use a neutral gray with small text (14–15 pt).
+    - Reasoning: This directly supports CompareValues and SummarizeValues by spelling out differences visually and numerically.
+- Icons (sparingly): small, unobtrusive icons to the left of the title area: a small government crest/logo (as noted) and a tiny up/down arrow icon next to the subtitle explaining “targets” vs “actuals”. Do not decorate bars with icons.
+  - Reasoning: Icons (0.41) are present in the loadings; used sparingly they clarify meaning without clutter.
+- Typography:
+  - Use a clear sans-serif family suitable for screens and projection (e.g., Source Sans Pro, Open Sans, or Arial).
+  - Suggested sizes (adjust to final canvas): Title 28–36 pt; subtitle 14–16 pt; axis labels 16–18 pt; tick labels 14–16 pt; annotation text 16–18 pt; legend 16–18 pt; footer 11–12 pt.
+  - Reasoning: The user requested presentation legibility; large fonts align with that and with the need to present to an audience (Style & Government loadings support polished, authoritative typography).
+- Interaction of style and function:
+  - Because Style is highly weighted (0.56), design should be visually refined (consistent alignment, gentle shadows only if projector supports it), but not at the expense of clarity. Decorative elements are allowed but must support interpretability (e.g., hatches to encode “targets” and “missing data” rather than decorative textures).
+  - Reasoning: This balances the high Style score with strong CompareValues and Logos/Government requirements.
+
+Data‑specific visual cues and contextual notes (explicitly tied to data features)
+- Indicate target years (2012–2014 for Spain) with hatch fill and a small “target” label just above or inside the Spain bar for those years. Also change Spain bar opacity slightly (e.g., 90%) for targets to visually differentiate.
+  - Reasoning: PresentContext (0.32) requires noting that the final three are targets. Also better supports viewer interpretation.
+- Indicate missing Euro‑Zone data (2012–2014) by drawing an empty slot with a light dotted outline and the text “Euro‑Zone average — data unavailable” in the legend and a small footnote marker near the x-axis for those years. Optionally add a small gray “NA” inside the placeholder box.
+  - Reasoning: Prevents misinterpretation of blank space as zero; aligns with PresentMetadata and clarity.
+- Emphasize the most informative comparisons:
+  - Automatically compute and visually annotate the largest positive Spain vs Euro‑Zone differences and largest negative differences. For example:
+    - 2005–2007: Spain surplus vs EZ deficit — annotate as “Spain outperformed EZ by X pp”.
+    - 2009–2011: Spain underperformed significantly — annotate “Spain fell X pp below EZ”.
+  - Reasoning: CompareValues (0.45) and SummarizeValues (0.36) indicate the chart should highlight these comparisons and summaries rather than leaving the viewer to compute them mentally.
+
+Annotation policy (what gets annotated and why)
+- Use short, selective annotations rather than full paragraphs (Annotation 0.32, avoid Paragraph 0.26). Annotate:
+  - Top 4 comparison years with numeric Δ value and 1–4 word summary (e.g., “Largest gap”, “Recovery surplus”).
+  - Year ranges of trend (e.g., “2005–2007: Spain surpluses; EZ deficits”) as a small multi-year annotation aligned above those grouped years.
+  - Do not annotate every year — over-annotation increases WordCountTotal unnecessarily. Keep the total number of annotation words moderate to match WordCountTotal loading (0.54 suggests moderate text presence) while respecting the subtitle negative loading.
+- Use 1‑line annotations only and connector lines; avoid paragraph blocks.
+
+Accessibility & presentation considerations
+- High contrast between bars and background for projector rooms (avoid very light colors).
+- Ensure all numeric labels and annotations are at least 14 pt for legibility from a distance.
+- Use colorblind‑safe palette: red for Spain and blue for EZ are distinguishable; add pattern/hatch differences for targets or missing data so color alone is not required to interpret the chart.
+- Provide a short alt text/slide note for the presenter summarizing the main comparison points (e.g., “Spain had surpluses 2005–2007 while euro‑zone averaged deficits; Spain plunged most in 2009 to −11.2% vs EZ −6.3%”).
+  - Reasoning: PresentContext (0.32) and SummarizeValues (0.36) encourage presenting summarized context for audiences.
+
+How these decisions map to the provided loadings (brief mapping)
+- Annotation (0.32): include short, anchored annotations for key years — improves quick comprehension of comparisons.
+- Circles (0.31): use subtle circular highlights for the single largest gap year to draw attention without clutter.
+- CompareValues (0.45) & SummarizeValues (0.36): explicitly label and annotate numeric differences for key years and provide brief trend summary annotations.
+- Government (0.43) & Logos (0.52): include government logo and use a polished, authoritative visual style and clear source metadata.
+- Icons (0.41): small, purposeful icons in the title area/legend to reinforce meaning (targets, NA), used sparingly.
+- Lines (0.30): thin connector/callout lines from annotations to bars for clarity.
+- Style (0.56) & WordCountTotal (0.54): produce a visually polished chart with moderate, purposeful text overall — not verbose; WordCountSubtitle negative (−0.30) enforces a short subtitle.
+- PresentContext (0.32): include the contextual footnote about targets vs actuals and missing euro zone data for the last three years.
+- WordCountSubtitle (−0.30): keep subtitle short and informational rather than long descriptive prose.
+
+Deliverable checklist (what to produce or hand to a designer)
+- Portrait grouped bar chart file (vector preferred) sized to 3:4 or larger (e.g., 9×12 in).
+- Legend and short subtitle per above.
+- Government logo file and source line text for footer.
+- Layered annotations and connectors so they can be toggled on/off for different contexts (print vs slide).
+- A small presenter note (one or two bullets) summarizing the main comparisons and the target/NA caveat.
+
+This design plan balances the statistical loadings (emphasize annotations, logos, icons, compare/summarize values, and style) with the user’s instruction to focus on differences between Spain and the Euro‑Zone average and to make the chart presentation‑ready with large, legible text.

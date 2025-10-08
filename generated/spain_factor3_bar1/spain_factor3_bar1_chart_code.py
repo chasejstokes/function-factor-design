@@ -1,218 +1,219 @@
+import math
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-from matplotlib.patches import Circle, FancyBboxPatch, Rectangle, FancyArrowPatch, Ellipse
-from matplotlib.lines import Line2D
+import matplotlib.lines as mlines
+from matplotlib.patches import Rectangle, Circle
 import numpy as np
-import matplotlib as mpl
 
-# Data
+# Data setup
 years = np.array([1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014])
-spain = np.array([-1.2,-0.6,-0.4,-1.0,-0.8,0.6,1.3,2.4,1.9,-4.5,-11.2,-9.5,-7.8,-4.2,-5.0,-2.5])
-euro = np.array([-0.9,-0.4,-0.8,-1.6,-2.6,-2.9,-1.8,1.1,-0.8,-3.6,-6.3,-6.0,-4.1,-4.6,-3.8,-2.0])
-diff = spain - euro  # Spain minus Euro-Zone
+spain_vals = np.array([-1.4, -1.0, -0.6, -0.2, -0.3, -0.1, 1.3, 2.4, 1.9, -4.5, -11.2, -9.3, -8.9, -6.3, -4.5, -2.8])
+# Euro-zone has NA for last 3 years
+ez_vals = np.array([-1.4, 0.0, -1.8, -2.5, -3.1, -2.9, -2.4, -1.3, -0.7, -2.1, -6.3, -6.2, -4.1, np.nan, np.nan, np.nan])
 
-# Styling colors
-spain_color = "#8B1E1E"       # deep Rioja red
-spain_edge = "#5F1212"
-euro_color = "#17325B"        # muted navy
-euro_edge = "#0f2439"
-amber = "#D9822B"             # highlight amber
-warm_gray = "#777777"
-bg_color = "white"
+# Styling parameters (colors and fonts)
+bg_color = "#FAFBFC"
+spain_color = "#B22234"      # deep red
+ez_color = "#2E6DA4"         # muted steel blue
+accent_color = "#D4A017"     # warm gold for callouts
+placeholder_gray = "#BFBFBF" # for NA placeholders
 
-# Matplotlib rc settings for a clean, government-branded look
-mpl.rcParams.update({
-    "font.family": "sans-serif",
-    "font.sans-serif": ["DejaVu Sans", "Arial", "Liberation Sans"],
-    "figure.dpi": 100,
-    "axes.spines.top": False,
-    "axes.spines.right": False,
-    "axes.grid": False,
-    "axes.titlelocation": "center"
+plt.rcParams.update({
+    "figure.facecolor": bg_color,
+    "axes.facecolor": bg_color,
+    "savefig.facecolor": bg_color,
+    "font.family": "DejaVu Sans",
 })
 
-# Figure and axis
-fig = plt.figure(figsize=(14, 7), facecolor=bg_color)
-ax = fig.add_axes([0.07, 0.14, 0.86, 0.78], facecolor=bg_color)  # generous left/right margins
+# Figure: portrait, 6x8 inches (900x1200 px at 150 dpi)
+fig, ax = plt.subplots(figsize=(6,8), dpi=150)
+fig.subplots_adjust(top=0.88, left=0.10, right=0.96, bottom=0.12)
 
-x = np.arange(len(years))
-bar_w = 0.35
+# X positions for grouped bars
+n = len(years)
+ind = np.arange(n)
+width = 0.35
 
-# Plot bars
-bars_spain = ax.bar(x - bar_w/2, spain, width=bar_w, color=spain_color, edgecolor=spain_edge, linewidth=1.2,
-                    label="Spain", zorder=3, hatch=None)
-# subtle hatch accessibility fallback (commented out visually subtle)
-# for b in bars_spain:
-#     b.set_hatch('//')
-bars_euro = ax.bar(x + bar_w/2, euro, width=bar_w, color=euro_color, edgecolor=euro_edge, linewidth=1.2,
-                   label="Euro‑Zone average", zorder=3)
+# Plot actual Euro-zone bars only where data exists
+ez_mask = ~np.isnan(ez_vals)
+ax.bar(ind[ez_mask] - width/2, ez_vals[ez_mask], width=width,
+       color=ez_color, edgecolor='none', label='Euro‑Zone average', zorder=2)
 
-# Y-axis limits and gridlines (only at specified positions)
-ax.set_ylim(-12.5, 4.5)
-grid_y = [-12, -8, -4, 0, 4]
-for gy in grid_y:
-    ax.axhline(gy, color="#e6e6e6", linewidth=0.9 if gy != 0 else 1.4, zorder=0)
-# Emphasize zero line
-ax.axhline(0, color="#bdbdbd", linewidth=1.4, zorder=2)
+# Plot Spain bars (all years). For target years (2012-2014) use hatched, semi-transparent bars
+target_mask = years >= 2012
+# Actual Spain bars
+for i in range(n):
+    x = ind[i] + width/2
+    h = spain_vals[i]
+    if target_mask[i]:
+        # hatched to indicate target & semi-transparent
+        ax.bar(x, h, width=width, color=spain_color, edgecolor=spain_color,
+               alpha=0.6, hatch='///', zorder=3)
+    else:
+        ax.bar(x, h, width=width, color=spain_color, edgecolor='none', zorder=3)
 
-# X-axis ticks and labels
-ax.set_xticks(x)
-ax.set_xticklabels(years, fontsize=9, color=warm_gray)
-ax.tick_params(axis='x', which='both', length=0)
+# Euro-zone placeholder dashed rectangles for NA years (2012-2014)
+# Draw a light dashed rectangle where a bar would be (height aligned to Spain target for position only)
+for i in range(n):
+    if np.isnan(ez_vals[i]):
+        # draw dashed hollow rectangle matching where an EZ bar would be
+        x = ind[i] - width/2
+        # use the Spain bar height at that year as a reference for where the top should be (visual placeholder)
+        ref_h = spain_vals[i]
+        # rectangle y from 0 down/up to ref_h (handles negative or positive ref_h)
+        y0 = min(0, ref_h)
+        height = abs(ref_h - 0)
+        rect = Rectangle((x - 0.005, y0), width=width - 0.01, height=height,
+                         linewidth=1.2, edgecolor=placeholder_gray, facecolor='none',
+                         linestyle='--', zorder=1)
+        ax.add_patch(rect)
+        # small "no data" circle-dash icon above or near the placeholder
+        cx = x + (width/2)
+        cy = y0 + height/2
+        icon = Circle((x + width*0.1, y0 + (0.02 if ref_h >= 0 else -0.02)), radius=0.07,
+                      edgecolor=placeholder_gray, facecolor='none', linewidth=1.2, zorder=6, transform=ax.get_xaxis_transform())
+        # Because transform is axis transform, it's not ideal; instead place a tiny circle in data coords near top
+        icon = Circle((x + width*0.08, y0 + height*0.05), radius=0.18, edgecolor=placeholder_gray,
+                      facecolor='none', linewidth=1.2, zorder=6)
+        ax.add_patch(icon)
+        # small dash inside circle
+        ax.plot([x + width*0.0, x + width*0.16], [y0 + height*0.05, y0 + height*0.05], color=placeholder_gray, linewidth=1.2, zorder=7)
 
-# Y-axis labels
-ax.set_ylabel("Percent of GDP", fontsize=11, color=warm_gray)
-ax.set_yticks(grid_y)
-ax.set_yticklabels([f"{y}%" for y in grid_y], fontsize=10, color=warm_gray)
+# Axes limits and grid
+ax.set_ylim(-12.5, 3.0)
+ax.set_xlim(-0.6, n - 0.4)
+ax.yaxis.set_ticks(np.arange(-12, 4, 2))
+ax.grid(axis='y', linestyle='--', linewidth=0.7, color='#DDDDDD', zorder=0)
+ax.set_axisbelow(True)
+
+# X-axis labels: every year
+ax.set_xticks(ind)
+ax.set_xticklabels([str(y) for y in years], fontsize=14, rotation=90)
+ax.tick_params(axis='y', labelsize=14)
 
 # Title and subtitle
-title_text = "Spain vs Euro‑Zone: Budget deficit and surplus (1999–2014)"
-subtitle_text = "Percent of GDP — annual"
-ax.set_title(title_text, fontsize=16, fontweight='bold', pad=18)
-ax.text(0.5, 0.935, subtitle_text, transform=fig.transFigure, ha='center', fontsize=10, color=warm_gray)
+ax_title = "Spain vs Euro‑Zone: Budget Balance (% of GDP), 1999–2014"
+ax_sub = "Final 3 years are Spain targets"
 
-# Legend (compact) and small flag icons drawn as inset axes
-legend_handles = [
-    mpatches.Patch(color=spain_color, label='Spain', edgecolor=spain_edge),
-    mpatches.Patch(color=euro_color, label='Euro‑Zone average', edgecolor=euro_edge)
-]
-leg = ax.legend(handles=legend_handles, loc='upper right', bbox_to_anchor=(0.98, 0.98),
-                frameon=False, fontsize=9)
-# mini flags as tiny inset axes near legend (top-right)
-# Spain flag: horizontal stripes red-yellow-red
-ax_flag_sp = fig.add_axes([0.78, 0.86, 0.04, 0.03])
-ax_flag_sp.add_patch(Rectangle((0, 0.66), 1, 0.34, color="#C8102E"))
-ax_flag_sp.add_patch(Rectangle((0, 0.33), 1, 0.33, color="#FFD400"))
-ax_flag_sp.add_patch(Rectangle((0, 0.0), 1, 0.33, color="#C8102E"))
-ax_flag_sp.set_xticks([]); ax_flag_sp.set_yticks([])
-ax_flag_sp.set_frame_on(False)
+fig.suptitle(ax_title, fontsize=34, fontweight='bold', y=0.96)
+ax.annotate(ax_sub, xy=(0.5, 0.92), xycoords='figure fraction',
+            fontsize=15, ha='center')
 
-# EU flag: blue with circle of small yellow dots
-ax_flag_eu = fig.add_axes([0.86, 0.86, 0.04, 0.03])
-ax_flag_eu.add_patch(Rectangle((0, 0), 1, 1, color="#003399"))
-# approximate circle of stars with small dots
-theta = np.linspace(0, 2*np.pi, 12, endpoint=False)
-r = 0.32
-cx, cy = 0.5, 0.5
-for t in theta:
-    ax_flag_eu.add_patch(Circle((cx + r*np.cos(t), cy + r*np.sin(t)), 0.035, color="#FFCC00"))
-ax_flag_eu.set_xticks([]); ax_flag_eu.set_yticks([])
-ax_flag_eu.set_frame_on(False)
+# Contextual annotation block (top-left under title)
+context_text = "Data are % of GDP. 2012–2014 Euro‑zone average unavailable; Spain values are government targets (2012–2014)."
+ax.text(0.02, 0.87, context_text, transform=fig.transFigure, fontsize=16, ha='left', va='top')
 
-# Annotations for selected years: 2009 (largest Spain shortfall), 2004 (Spain outperformance), and 2011 (post-crisis gap)
-annotations = [
-    {
-        "year": 2009,
-        "text": "Spain −11.2% (vs EZ −6.3%) = −4.9 pp",
-        "idx": int(np.where(years == 2009)[0][0]),
-        "xytext": (-80, -30),
-        "align": "left"
-    },
-    {
-        "year": 2004,
-        "text": "Spain +0.6% vs EZ −2.9% = +3.5 pp",
-        "idx": int(np.where(years == 2004)[0][0]),
-        "xytext": (-10, 35),
-        "align": "center"
-    },
-    {
-        "year": 2011,
-        "text": "Post‑crisis gap remains: −3.7 pp",
-        "idx": int(np.where(years == 2011)[0][0]),
-        "xytext": (40, 10),
-        "align": "left"
-    }
-]
+# Legend (compact, upper-left)
+# Custom legend handles to reflect hatch/placeholder
+spain_patch = mpatches.Patch(facecolor=spain_color, edgecolor=spain_color, label='Spain', alpha=1.0)
+spain_target_patch = mpatches.Patch(facecolor=spain_color, edgecolor=spain_color, label='Spain (target)', hatch='///', alpha=0.6)
+ez_patch = mpatches.Patch(facecolor=ez_color, edgecolor=ez_color, label='Euro‑Zone average')
+ez_na_patch = mpatches.Patch(facecolor='none', edgecolor=placeholder_gray, linestyle='--', label='Euro‑Zone (data unavailable)')
+legend = ax.legend(handles=[spain_patch, spain_target_patch, ez_patch, ez_na_patch],
+                   loc='upper left', bbox_to_anchor=(0.01, 1.03), fontsize=16, frameon=False)
 
-for ann in annotations:
-    i = ann["idx"]
-    # coordinates of Spain bar top (end)
-    xbar = x[i] - bar_w/2
-    ybar = spain[i]
-    # Circular halo around the Spain bar tip (use Ellipse to better encircle tall bars)
-    if ybar < 0:
-        # center at bar tip
-        circ = Ellipse((xbar, ybar), width=0.9, height=2.2, edgecolor=amber, facecolor='none',
-                       linewidth=2.0, zorder=5)
-    else:
-        circ = Ellipse((xbar, ybar), width=0.9, height=1.2, edgecolor=amber, facecolor='none',
-                       linewidth=2.0, zorder=5)
+# Small government logo (monochrome rectangle) top-right
+logo_w = 0.055
+logo_h = 0.035
+logo_x = 0.92
+logo_y = 0.95
+# Axes for logo using figure coordinates
+fig.patches.append(Rectangle((logo_x, logo_y - logo_h), logo_w, logo_h, transform=fig.transFigure,
+                             facecolor='#444444', edgecolor='none', alpha=0.85, zorder=10))
+fig.text(logo_x + logo_w + 0.005, logo_y - logo_h/2, "Source: Government Agency", transform=fig.transFigure,
+         fontsize=12, va='center', color='#333333')
+
+# Selected years for annotations and highlights
+highlight_years = [2005, 2006, 2007, 2009, 2010, 2011, 2012, 2013, 2014]
+# Create small circles around selected paired bars and add connector lines and numeric labels
+for y in highlight_years:
+    idx = int(np.where(years == y)[0][0])
+    # center between the two bars for that year
+    x_spain = ind[idx] + width/2
+    x_ez = ind[idx] - width/2
+    sp_val = spain_vals[idx]
+    ez_val = ez_vals[idx]
+    # circle center roughly centered on the pair, slightly above the higher of the two bars to avoid covering bars
+    top_y = max(sp_val if not np.isnan(sp_val) else -12, ez_val if not np.isnan(ez_val) else -12)
+    circle_center_x = ind[idx]
+    circle_center_y = top_y + 0.9  # offset above the bar tops
+    circle_radius_x = width * 1.2
+    circle_radius_y = 1.4
+    # Use ellipse-like circle via Circle scaled might distort; keep as Circle with modest radius
+    circ = Circle((circle_center_x, circle_center_y), radius=0.9, edgecolor=accent_color,
+                  facecolor=accent_color, linewidth=1.5, alpha=0.12, zorder=4)
     ax.add_patch(circ)
-    # Connector line from halo to annotation text
-    # place text relative to figure in display coords
-    ann_x_disp, ann_y_disp = ax.transData.transform((xbar, ybar))
-    # target text position in data coords (offset)
-    text_offset = ann["xytext"]
-    # Convert display offset to data coordinates for the endpoint of the arrow
-    inv = ax.transData.inverted()
-    text_point_data = inv.transform((ann_x_disp + text_offset[0], ann_y_disp + text_offset[1]))
-    # curved arrow
-    arrow = FancyArrowPatch((xbar, ybar), (text_point_data[0], text_point_data[1]),
-                            connectionstyle="arc3,rad=0.18", arrowstyle="-", linewidth=1.0,
-                            color=warm_gray, zorder=4)
-    ax.add_patch(arrow)
-    # small circle terminator at bar
-    term = Circle((xbar, ybar), 0.055, color=amber, zorder=6, alpha=0.9)
-    ax.add_patch(term)
-    # add annotation text in a bbox
-    ax.text(text_point_data[0], text_point_data[1], ann["text"], fontsize=9, color=warm_gray,
-            ha='left' if ann["align"] == "left" else 'center', va='center',
-            bbox=dict(boxstyle="round,pad=0.3", facecolor="white", edgecolor="#e6e6e6", linewidth=0.7),
-            zorder=7)
+    # Connector line from annotation text to the circle (thin, subtle)
+    # Place annotation text near top-left for earlier years, top-right for later years to avoid overlap
+    if y in [2005,2006,2007]:
+        text_x = circle_center_x - 0.8
+        ha = 'right'
+    else:
+        text_x = circle_center_x + 0.8
+        ha = 'left'
+    text_y = circle_center_y + 0.5
+    # Compose annotation strings for specific years
+    if y in [2005,2006,2007]:
+        # Combined short annotation
+        if y == 2006:
+            diff = sp_val - ez_val
+            ann = f"Spain surplus vs EZ deficit\nΔ = {diff:.1f} pp ({y})"
+        else:
+            ann = "Spain surplus vs EZ deficit"
+    elif y == 2009:
+        ann = f"Crisis peak: Spain {sp_val:.1f}% vs EZ {ez_val:.1f}%"
+    elif y in [2010,2011]:
+        ann = f"{y}: Spain {sp_val:.1f}% vs EZ {ez_val:.1f}%"
+    else:  # target years 2012-2014
+        ann = "Target"
+    # Draw connector line
+    ax.annotate("", xy=(circle_center_x, circle_center_y - 0.6), xytext=(text_x, text_y),
+                arrowprops=dict(arrowstyle='-', color='#777777', linewidth=1.0, connectionstyle="arc3,rad=0.2"),
+                zorder=5)
+    # Add annotation text (multi-line where needed)
+    ax.text(text_x, text_y + 0.02, ann, fontsize=16, ha=ha, va='bottom', color='#333333', zorder=6)
+    # Numeric labels: add Spain and EZ numeric labels near their bars for these highlighted years
+    # Spain label
+    ax.text(x_spain, sp_val + (0.18 if sp_val >= 0 else -0.6), f"Spain {sp_val:+.1f}%", fontsize=13, ha='center', va='bottom' if sp_val >=0 else 'top', color=spain_color, fontweight='bold', zorder=7)
+    # Euro-zone label if present
+    if not np.isnan(ez_val):
+        ax.text(x_ez, ez_val + (0.18 if ez_val >= 0 else -0.6), f"EZ {ez_val:+.1f}%", fontsize=13, ha='center', va='bottom' if ez_val >=0 else 'top', color=ez_color, fontweight='bold', zorder=7)
+    else:
+        # mark data unavailable label near placeholder bar
+        ax.text(x_ez, (sp_val*0.35), "data unavailable", fontsize=11, ha='center', va='center', color=placeholder_gray, rotation=90, zorder=7)
 
-# Optionally label bars with numeric values when |value| > 5%
-for i, val in enumerate(spain):
-    if abs(val) > 5:
-        ax.text(x[i] - bar_w/2, val + (0.4 if val > 0 else -0.6), f"{val:.1f}%", ha='center', va='bottom' if val>0 else 'top',
-                fontsize=9, fontweight='bold', color=spain_color, zorder=6)
-for i, val in enumerate(euro):
-    if abs(val) > 5:
-        ax.text(x[i] + bar_w/2, val + (0.4 if val > 0 else -0.6), f"{val:.1f}%", ha='center', va='bottom' if val>0 else 'top',
-                fontsize=9, fontweight='bold', color=euro_color, zorder=6)
+    # Draw arrow between paired bars to show magnitude/direction if both exist
+    if not np.isnan(ez_val):
+        # arrow from EZ bar top to Spain bar top
+        start_y = ez_val
+        end_y = sp_val
+        # small offset horizontally to draw arrow between bars
+        arr_x = ind[idx]
+        # draw arrow with accent color, semi-transparent
+        ax.annotate("", xy=(arr_x + 0.15, end_y), xytext=(arr_x - 0.15, start_y),
+                    arrowprops=dict(arrowstyle='->,head_length=6,head_width=4', color=accent_color, linewidth=1.4, alpha=0.9),
+                    zorder=6)
+        # also add a small comparison label at mid-point
+        mid_y = (start_y + end_y)/2
+        diff_pp = sp_val - ez_val
+        ax.text(arr_x + 0.22, mid_y, f"{diff_pp:+.1f} pp", fontsize=12, color=accent_color, zorder=8)
 
-# Inset sparkline (bottom-right) for Spain - Euro difference
-ax_in = fig.add_axes([0.68, 0.12, 0.25, 0.16], facecolor='white')
-ax_in.plot(years, diff, color=amber, linewidth=1.6, zorder=6)
-ax_in.scatter(years, diff, color=amber, s=18, zorder=7)
-ax_in.axhline(0, color="#e0e0e0", linewidth=0.7)
-ax_in.set_xlim(years.min()-0.5, years.max()+0.5)
-ax_in.set_xticks([2000,2005,2010,2014])
-ax_in.set_xticklabels([2000,2005,2010,2014], fontsize=8, color=warm_gray)
-ax_in.set_yticks([])
-ax_in.set_title("Spain − Euro‑Zone (pp)", fontsize=9, color=warm_gray, pad=6)
-# highlight extremes with small markers
-imax = np.argmax(diff)
-imin = np.argmin(diff)
-ax_in.scatter(years[imax], diff[imax], color='#005B9A', s=35, edgecolor='white', zorder=8)
-ax_in.scatter(years[imin], diff[imin], color='#8B1E1E', s=35, edgecolor='white', zorder=8)
+# Footnote / source line bottom-left
+footnote = "Source: Government Agency. Data = % of GDP. Euro‑Zone averages missing 2012–2014."
+fig.text(0.01, 0.02, footnote, fontsize=12, ha='left', va='bottom', color='#333333')
 
-# Summary panel (bottom-left) with 2–3 bullet-like one-line statements
-summary_text = [
-    "• Largest Spain deficit: 2009, −11.2% (vs EZ −6.3% → −4.9 pp)",
-    "• Spain outperformed EZ most in 2004: +0.6% vs −2.9% (+3.5 pp)",
-    "• Post‑2008: persistent Spain deficit gap through 2011"
-]
-summary_box = FancyBboxPatch((0.07, 0.06), 0.43, 0.07, boxstyle="round,pad=0.02", transform=fig.transFigure,
-                             facecolor="#fbfbfb", edgecolor="#e6e6e6", linewidth=0.8, zorder=9)
-fig.patches.append(summary_box)  # add background box
-# place text inside
-for i, line in enumerate(summary_text):
-    fig.text(0.09, 0.125 - i*0.023, line, fontsize=9, color=warm_gray)
+# Axis label for Y
+ax.set_ylabel("Budget balance (% of GDP)", fontsize=18)
+ax.yaxis.set_label_coords(-0.07, 0.5)
 
-# Source/metadata strip (bottom-right) with small government logo
-# draw small 'logo' rectangle and source text
-logo_ax = fig.add_axes([0.86, 0.06, 0.06, 0.045], facecolor='none')
-logo_ax.add_patch(Rectangle((0.02, 0.12), 0.96, 0.76, color="#0b4f6c", ec="#073241", lw=0.8))
-logo_ax.text(0.5, 0.5, "GOV", color="white", ha="center", va="center", fontsize=9, fontweight='bold')
-logo_ax.axis('off')
+# Remove top and right spines for a cleaner look
+for spine in ['top','right']:
+    ax.spines[spine].set_visible(False)
+# Make left and bottom spines subtle
+ax.spines['left'].set_color('#444444')
+ax.spines['left'].set_linewidth(0.8)
+ax.spines['bottom'].set_color('#444444')
+ax.spines['bottom'].set_linewidth(0.8)
 
-source_line = "Source: Government Agency, Fiscal accounts; measure: general government balance (% of GDP). Coverage: 1999–2014. Last update: 2015"
-fig.text(0.74, 0.07, source_line, fontsize=8, color=warm_gray)
-
-# Contextual single-line caption under the chart
-context = "Context: Spain’s post‑2008 fiscal shock widened its deficit relative to the Euro‑Zone average, peaking in 2009."
-fig.text(0.5, 0.05, context, ha='center', fontsize=9, color=warm_gray)
-
-# Tighten layout and show
-plt.box(False)
-plt.savefig("generated/spain_factor3_bar1_design.png", dpi=300, bbox_inches="tight")
+# Tight layout adjustments and show
+plt.savefig("generated/spain_factor3_bar1/spain_factor3_bar1_design.png", dpi=300, bbox_inches="tight")

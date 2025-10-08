@@ -1,0 +1,107 @@
+Chart type
+- Vertical paired (side-by-side) bar chart by year (one pair of bars per year: Spain vs Euro‑Zone average). Rationale: pairing emphasizes direct year-by‑year comparison (ties to CompareValues Loading = 0.58).
+
+Canvas and layout
+- Aspect ratio: 3:4 (taller than wide). Recommended canvas size example for presentation: 900 × 1200 px (or any equivalent 3:4). Rationale: conforms to user requirement and gives vertical space for tall Y axis and large text (AxisAxes Loading = 0.31 supports clear axis layout).
+- Margins: generous top margin for title/subtitle and a bottom margin for footnote and data-source/context line.
+
+Data treatment and encoding rules
+- X axis: discrete years (1999 … 2014) with evenly spaced ticks. Use larger tick labels for legibility (see text sizes below).
+- Y axis: budget balance (% of GDP), centered zero baseline clearly marked. Bars extend above/below zero depending on sign.
+- For years 2012–2014 mark Spain values as "Target" (designated by patterned fill + label). Euro‑Zone average is NA for 2012–2014 — do not fabricate bars; leave those year positions empty for Euro‑Zone and add a subtle "no data" marker or light hatch legend entry. Rationale: PresentContext Loading = 0.34 and CompareValues Loading = 0.58 — the chart must communicate that the last three Spain values are targets and EZ averages are unavailable.
+- Do NOT label every bar with its numeric value (IdentifyValues Loading = -0.28 is slightly negative). Instead show value labels only for selected, comparison‑relevant years (examples below). This reduces clutter while supporting focused comparisons (CompareValues).
+
+Text structure (content, position, and how much text)
+- Title (top center, largest text)
+  - Content: "Spain vs Euro‑Zone: Budget balance (% of GDP), 1999–2014"
+  - Rationale: AxisAxes (0.31) and CompareValues (0.58) favor a clear, descriptive title that anchors the axis context.
+
+- Subtitle (directly below title, moderate-large type; a somewhat fuller subtitle as allowed by positive WordCountSubtitle Loading = 0.45 and Subtitle Loading = 0.38)
+  - Content (longer, explanatory): "Yearly general government balance. Last three years (2012–2014) are Spain’s policy targets; Euro‑Zone averages unavailable for those years."
+  - Rationale: Subtitle (0.38) and WordCountSubtitle (0.45) indicate including a substantive subtitle clarifying data scope and the target vs actual distinction.
+
+- Valenced subtext (single-line, italic or colored accent under subtitle; visually subordinate to subtitle)
+  - Content (concise, slightly emotive as supported by PresentValenced Subtext = 0.70): "Spain’s fiscal position swings from surpluses mid‑2000s to a dramatic post‑2008 deficit peak."
+  - Rationale: PresentValenced Subtext (0.70) strongly supports a brief, emotionally framed statement calling attention to the trend; keep it short to remain professional and presentation‑ready.
+
+- Legend (top‑right, immediately under title block or integrated to the right of the title)
+  - Entries: Spain (solid fill), Euro‑Zone avg. (solid fill), Spain (Targets) (patterned/hatched), Euro‑Zone: no data (small "n.a." icon).
+  - Rationale: AxisAxes encourages explicit labeling of series. Keep the legend compact and use color + small marker samples.
+
+- Selective value annotations (on‑chart, larger text than tick labels)
+  - Years annotated: 2006 (Spain peak surplus), 2009 (Spain worst deficit vs EZ), 2010–2011 (persisting large deficits), and a small callout for 2005–2007 period of Spain outperforming EZ. Example annotation text: "Spain: +2.4% (2006, peak surplus)" and "Spain: −11.2% (2009) — 4.9 pp below EZ avg (−6.3%)".
+  - Rationale: CompareValues (0.58) supports selective labeling to highlight comparisons; IdentifyValues negative suggests limiting the number of labels to those that matter most.
+
+- Synthesis box (compact summary box anchored top‑right or lower‑left inside plot area)
+  - Content (short bullet lines / numbers):
+    - "Span. avg (1999–2011): −2.45% GDP"
+    - "EZ avg (1999–2011): −2.68% GDP"
+    - "Spain max surplus: +2.4% (2006)"
+    - "Spain worst deficit: −11.2% (2009) — 4.9 pp worse than EZ"
+  - Rationale: SummarizeConceptsSynthesis (0.71) and SummarizeValues (0.65) strongly favor a short computed synthesis of the main trends and summary statistics. Present these numerics in a small boxed module so readers can quickly grasp aggregate differences.
+
+- Footnote / data source (bottom-left)
+  - Content: "Data: Government budget balance (% GDP). 2012–2014 are Spanish government targets; Euro‑Zone averages not available for 2012–2014."
+  - Rationale: PresentContext (0.34) calls for context and provenance; keep the text small but legible for a presentation.
+
+Visual styling (colors, shapes, lines, and auxiliary elements)
+- Color palette (colorblind-friendly):
+  - Spain: warm orange (example hex #D95F02).
+  - Euro‑Zone average: teal/blue‑green (example hex #1B9E77).
+  - Target bars: Spain target bars use the same Spain orange but with diagonal hatching and 40% opacity (or a lighter tint) and a thin dashed outline to indicate projection/target status.
+  - No-data indicator for Euro‑Zone (2012–2014): light gray circle with "n.a." in the legend; do not draw bars where data missing.
+  - Rationale: Distinct, accessible colors help compare categories quickly (CompareValues). Using the same hue for Spain target vs actual but different treatment helps viewers map relationship without adding a second color; targets require distinct styling (PresentContext).
+
+- Bar width and spacing
+  - Bars: moderate width, with small gap between the two bars in a pair and larger gap between year groups to help year grouping visually.
+  - Rationale: legibility and clear pairing for comparison (CompareValues).
+
+- Baseline and gridlines
+  - Emphasize zero baseline: thicker line (2 px) in dark gray; Y gridlines at sensible intervals (every 2–3 percentage points) drawn very lightly (10–15% opacity) to aid reading without clutter.
+  - Rationale: axis clarity is important (AxisAxes 0.31) and the zero line visually separates surplus/deficit.
+
+- Annotations and highlights (auxiliary elements kept minimal and subtle)
+  - Use small callout boxes (rounded rectangle, subtle drop shadow, thin connector line) to point to selected bars (2006, 2009, 2010/2011). Use no arrows or only a thin connector line; avoid bold arrows because Arrows Loading is small (0.21) and does not strongly justify large directional decorations.
+  - Use two subtle semi‑transparent bounding boxes to show two contextual periods:
+    - 2005–2007 (Spain outperformance period): pale warm overlay behind those year groups (low opacity).
+    - 2008–2011 (crisis period): pale cool overlay behind those year groups.
+  - Rationale: CompareValues (0.58) and PresentContext (0.34) support these minimal period highlights that make comparisons and context explicit. Overlays are lightweight and non‑intrusive.
+
+- Typography and font sizes (presentation ready, legible from a distance)
+  - Title: 30–36 pt (bold)
+  - Subtitle: 18–22 pt
+  - Valenced subtext: 16–18 pt (italic or semi‑bold)
+  - Axis labels: 16–18 pt
+  - Tick labels: 14–16 pt
+  - Legend: 16 pt
+  - Annotations: 14–16 pt (contrasting color or white text on small rounded boxes)
+  - Synthesis box: 14–16 pt
+  - Rationale: AxisAxes (0.31) requires legible axis text for presentation viewing; SummarizeConceptsSynthesis (0.71) warrants a readable summary box.
+
+Interaction/animation notes (if used in presentation software)
+- If animating between years or fading in annotations, keep transitions short and use fade/slide to focus viewer attention on annotations called out in the synthesis box. Do not use flashy animated arrows or social‑media style effects. Rationale: SocialMedia Loading = −0.34 (avoid social-media aesthetics).
+
+Explicit behavior tied to loadings (summary of how each loading informed a design decision)
+- SummarizeConceptsSynthesis (0.71) & SummarizeValues (0.65): Add a compact synthesis box with computed averages and extreme values to provide high‑level takeaways; include selective numeric comparison (e.g., 2009 gap of 4.9 pp).
+- PresentValenced Subtext (0.70): Add one brief, slightly valenced single line under the subtitle to communicate the emotional or policy significance of the post‑2008 swing (kept short to remain professional).
+- CompareValues (0.58): Emphasize year‑by‑year comparison visually (paired bars), annotate only comparison‑salient years (2005–2007, 2009, 2010–2011), and add period highlights for quick visual grouping.
+- WordCountSubtitle (0.45) & Subtitle (0.38): Include a fuller subtitle that explains the target vs actual difference and missing EZ data for 2012–2014.
+- PresentContext (0.34): Clearly mark targets and missing data, provide provenance in a footnote, and add two subtle period overlays to place performance in economic context.
+- AxisAxes (0.31): Use large, clear axis labels, an emphasized zero baseline, and readable ticks for presentation viewing.
+- Arrows (0.21): Low‑weight connectors only; avoid heavy arrows. Use thin connector lines for annotation callouts rather than bold directional arrows.
+- IdentifyValues (−0.28): Avoid labeling every bar; use selective labels for critical comparisons to reduce clutter.
+- SocialMedia (−0.34): Avoid social‑media styling (no emojis, exaggerated filters, or clickbait phrasing).
+
+Examples of on‑chart annotations (exact text/content to include)
+- Callout on 2006 Spain bar: "Spain +2.4% (peak surplus, 2006)"
+- Callout on 2009 Spain bar: "Spain −11.2% (2009) — 4.9 pp worse than EZ avg −6.3%"
+- Small period label (boxed, semi‑transparent) spanning 2005–2007: "Outperformance vs Euro‑Zone"
+- Small period label spanning 2008–2011: "Post‑crisis large deficits"
+- Synthesis box with the four short computed stats (see above).
+
+Final visual tone and accessibility
+- Professional, analytical tone — explicit about targets and missing data; not sensationalist despite valenced subtext.
+- Colorblind‑friendly palette and high-contrast text-to-background ratios.
+- All type sizes set for slide projection; no small 8–10 pt text.
+
+This plan converts the factor loadings into specific, presentation‑ready visual and textual choices: emphasize summary and comparative messaging (high-load factors), keep per‑bar numeric labeling minimal (negative IdentifyValues), include a substantive subtitle and a short valenced line (Subtitle, WordCountSubtitle, PresentValenced Subtext), and avoid social‑media styling (SocialMedia negative).

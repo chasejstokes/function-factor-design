@@ -1,175 +1,202 @@
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-import matplotlib.ticker as mticker
 import numpy as np
-from matplotlib import rcParams
+from matplotlib.patches import Rectangle, Patch
+from matplotlib.lines import Line2D
+from matplotlib.ticker import MultipleLocator, AutoMinorLocator
 
 # Data setup
-data = [
-    {"year": 1999, "spain": -1.2, "euro_zone_average": -0.9},
-    {"year": 2000, "spain": -0.6, "euro_zone_average": -0.4},
-    {"year": 2001, "spain": -0.4, "euro_zone_average": -0.8},
-    {"year": 2002, "spain": -1.0, "euro_zone_average": -1.6},
-    {"year": 2003, "spain": -0.8, "euro_zone_average": -2.6},
-    {"year": 2004, "spain": 0.6, "euro_zone_average": -2.9},
-    {"year": 2005, "spain": 1.3, "euro_zone_average": -1.8},
-    {"year": 2006, "spain": 2.4, "euro_zone_average": 1.1},
-    {"year": 2007, "spain": 1.9, "euro_zone_average": -0.8},
-    {"year": 2008, "spain": -4.5, "euro_zone_average": -3.6},
-    {"year": 2009, "spain": -11.2, "euro_zone_average": -6.3},
-    {"year": 2010, "spain": -9.5, "euro_zone_average": -6.0},
-    {"year": 2011, "spain": -7.8, "euro_zone_average": -4.1},
-    {"year": 2012, "spain": -4.2, "euro_zone_average": -4.6},
-    {"year": 2013, "spain": -5.0, "euro_zone_average": -3.8},
-    {"year": 2014, "spain": -2.5, "euro_zone_average": -2.0}
-]
+years = np.array([
+    1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
+    2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014
+])
+spain = np.array([-1.4, -1.0, -0.6, -0.2, -0.3, -0.1, 1.3, 2.4, 1.9,
+                  -4.5, -11.2, -9.3, -8.9, -6.3, -4.5, -2.8])
+# Use np.nan to represent missing EZ values
+ez = np.array([-1.4, 0.0, -1.8, -2.5, -3.1, -2.9, -2.4, -1.3,
+               -0.7, -2.1, -6.3, -6.2, -4.1, np.nan, np.nan, np.nan])
 
-years = [d["year"] for d in data]
-spain_vals = np.array([d["spain"] for d in data])
-ez_vals = np.array([d["euro_zone_average"] for d in data])
+# Colors and style choices
+color_spain = "#d95f02"       # deep orange
+color_ez = "#6c7aa0"          # desaturated cool (muted blue/gray)
+shade_missing = "#efefef"     # very light gray for EZ-unavailable columns
+hatch_style = "///"           # diagonal hatch for Spain targets (2012-2014)
 
-# Compute averages for the caption
-avg_spain = spain_vals.mean()
-avg_ez = ez_vals.mean()
+# Figure: portrait orientation, presentation resolution
+fig_width, fig_height = 6, 8   # inches
+dpi = 150
+fig, ax = plt.subplots(figsize=(fig_width, fig_height), dpi=dpi)
 
-# Colors and styling
-color_spain = "#C6453B"   # warm saturated
-color_ez = "#3B7BC6"      # cool muted
-grid_color = "#E6E6E6"
-zero_line_color = "#4D4D4D"  # dark gray for baseline
-callout_box_face = "#F2F2F2"  # very pale gray for callouts
-callout_edge = "#BFBFBF"
+# X positions for grouped bars
+x = np.arange(len(years))
+bar_width = 0.36
 
-# Helper to slightly darken a hex color for bar edge
-def darker(hexcolor, factor=0.85):
-    hexcolor = hexcolor.lstrip('#')
-    r = int(hexcolor[0:2], 16)
-    g = int(hexcolor[2:4], 16)
-    b = int(hexcolor[4:6], 16)
-    r = max(0, int(r * factor))
-    g = max(0, int(g * factor))
-    b = max(0, int(b * factor))
-    return f"#{r:02x}{g:02x}{b:02x}"
+# Y-axis limits per spec
+ymin, ymax = -12.5, 3.5
+ax.set_ylim(ymin, ymax)
 
-edge_spain = darker(color_spain, 0.8)
-edge_ez = darker(color_ez, 0.9)
+# Draw background shaded columns for EZ missing years (2012-2014)
+missing_mask = np.isnan(ez)
+for xi, missing in zip(x, missing_mask):
+    if missing:
+        # cover slightly beyond the bar group width for visual separation
+        ax.axvspan(xi - 0.5, xi + 0.5, ymin=0, ymax=1,
+                   facecolor=shade_missing, alpha=0.6, zorder=0)
 
-# Figure setup
-rcParams.update({"font.size": 10})
-fig, ax = plt.subplots(figsize=(12, 6.5))
-fig.subplots_adjust(top=0.86, bottom=0.19, left=0.11, right=0.96)
+# Plot bars: Spain (including target years with hatch and translucency), Euro-zone where available
+bars_spain = []
+bars_ez = []
+for xi, s_val, ez_val, yr in zip(x, spain, ez, years):
+    # Spain bar; apply hatch + lower alpha for target years (2012-2014)
+    if yr >= 2012:
+        b_sp = ax.bar(xi - bar_width/2, s_val, width=bar_width,
+                      color=color_spain, alpha=0.30,
+                      edgecolor=color_spain, linewidth=0.8,
+                      hatch=hatch_style, zorder=3)
+    else:
+        b_sp = ax.bar(xi - bar_width/2, s_val, width=bar_width,
+                      color=color_spain, alpha=1.0,
+                      edgecolor=color_spain, linewidth=0.8, zorder=3)
+    bars_spain.append(b_sp[0])
+    # Euro-zone bar only if data available
+    if not np.isnan(ez_val):
+        b_ez = ax.bar(xi + bar_width/2, ez_val, width=bar_width,
+                      color=color_ez, alpha=1.0,
+                      edgecolor=color_ez, linewidth=0.8, zorder=3)
+        bars_ez.append(b_ez[0])
+    else:
+        bars_ez.append(None)
 
-# Positions for grouped bars
-n = len(years)
-indices = np.arange(n)
-bar_width = 0.35  # per-bar width
-offset = bar_width / 2.0
+# Axes styling per spec: thick high-contrast axis lines and ticks
+for spine in ['left', 'bottom', 'right', 'top']:
+    ax.spines[spine].set_linewidth(1.6)
+    ax.spines[spine].set_color("#222222")
 
-# Shaded band for global financial crisis (2008-2010)
-# find indices for years
-year_to_index = {y: i for i, y in enumerate(years)}
-start_idx = year_to_index[2008] - 0.5
-end_idx = year_to_index[2010] + 0.5
-ax.axvspan(start_idx, end_idx, color='lightgray', alpha=0.12, zorder=0)
+# Gridlines: horizontal lines for each major tick (every 2.5)
+ax.yaxis.set_major_locator(MultipleLocator(2.5))
+ax.yaxis.set_minor_locator(MultipleLocator(1.0))
+ax.xaxis.set_major_locator(plt.FixedLocator(x))
+ax.set_xticks(x)
+ax.set_xticklabels([str(int(y)) for y in years],
+                   fontsize=14, rotation=0)
+ax.tick_params(axis='y', which='major', length=7, width=1.5, labelsize=16)
+ax.tick_params(axis='y', which='minor', length=4, width=1.0)
+ax.tick_params(axis='x', which='major', length=6, width=1.2)
 
-# Draw bars (Spain left, EZ right)
-bars_spain = ax.bar(indices - offset, spain_vals, width=bar_width,
-                    color=color_spain, edgecolor=edge_spain, linewidth=1.2, zorder=3, label="Spain")
-bars_ez = ax.bar(indices + offset, ez_vals, width=bar_width,
-                 color=color_ez, edgecolor=edge_ez, linewidth=0.9, alpha=0.95, zorder=3, label="Euro‑Zone Average")
+ax.grid(axis='y', which='major', linestyle='-', linewidth=0.9, color='#d0d0d0', zorder=0)
+ax.set_ylabel("Fiscal balance (% of GDP)", fontsize=18, fontweight='regular', labelpad=12)
 
-# Zero baseline emphasized
-ax.axhline(0, color=zero_line_color, linewidth=1.5, zorder=4)
-
-# Horizontal gridlines at specific ticks
-yticks = [-12, -9, -6, -3, 0, 3]
-ax.set_yticks(yticks)
-ax.set_ylim(-12.5, 3.0)
-ax.yaxis.set_major_formatter(mticker.FormatStrFormatter('%.1f'))
-ax.grid(axis='y', color=grid_color, linewidth=0.9, zorder=0)
-
-# X-axis labels and ticks
-ax.set_xticks(indices)
-ax.set_xticklabels(years)
-ax.set_xlabel("Year", labelpad=8)
-ax.set_ylabel("Budget balance (% of GDP); positive = surplus, negative = deficit", labelpad=10, rotation=90)
+# Baseline at 0 thicker
+ax.axhline(0, color='#444444', linewidth=1.6, zorder=2)
 
 # Title and subtitle
-title_text = "Spain vs. Euro‑Zone: Budget Balance (% of GDP), 1999–2014"
-subtitle_text = ("Spain outperformed the euro‑zone average in the mid‑2000s but recorded substantially "
-                 "larger deficits after the 2008 crisis")
-ax.set_title(title_text, fontsize=14, fontweight='bold', pad=18)
-# Subtitle slightly smaller and medium weight placed under title
-fig.text(0.5, 0.915, subtitle_text, ha='center', va='center', fontsize=11)
+title = "Spain vs Euro‑Zone: Fiscal balance (% of GDP), 1999–2014"
+subtitle = ("Spain outperformed the euro‑zone average in the mid‑2000s, then plunged during the crisis; "
+            "2012–2014 show government targets, not reported EZ averages.")
+fig.suptitle(title, fontsize=34, fontweight='bold', y=0.975)
+ax.set_title(subtitle, fontsize=18, loc='center', pad=8, fontweight='normal')
 
-# Legend: compact inside top-right of plot area
-legend = ax.legend(loc='upper right', frameon=True, fontsize=9, framealpha=0.9,
-                   borderpad=0.4, handlelength=1.2, handletextpad=0.6)
-legend.get_frame().set_edgecolor("#DDDDDD")
-legend.get_frame().set_linewidth(0.8)
-legend.get_frame().set_facecolor("white")
+# Legend: create custom patches including hatch explanation and EZ-unavailable indicator
+legend_patches = [
+    Rectangle((0, 0), 1, 1, facecolor=color_spain, edgecolor=color_spain, label='Spain'),
+    Rectangle((0, 0), 1, 1, facecolor=color_ez, edgecolor=color_ez, label='Euro‑zone average'),
+    Rectangle((0, 0), 1, 1, facecolor=color_spain, edgecolor=color_spain, hatch=hatch_style, alpha=0.30, label='Spain targets (2012–2014)'),
+    Patch(facecolor=shade_missing, edgecolor='#cfcfcf', label='EZ data unavailable (2012–2014)')
+]
+legend = ax.legend(handles=legend_patches, loc='upper left', bbox_to_anchor=(0.01, 1.02),
+                   fontsize=14, frameon=False)
 
-# Selective numeric labels for extremes (2006 positive, 2009 negative for Spain)
-# 2006 label above Spain bar
-i2006 = year_to_index[2006]
-sp2006 = spain_vals[i2006]
-ax.annotate(f"+{sp2006:.1f}%", xy=(i2006 - offset, sp2006), xytext=(0, 4),
-            textcoords="offset points", ha='center', va='bottom', fontsize=9, fontweight='normal', color=edge_spain, zorder=6)
-# 2009 label below Spain bar
-i2009 = year_to_index[2009]
-sp2009 = spain_vals[i2009]
-ax.annotate(f"{sp2009:.1f}%", xy=(i2009 - offset, sp2009), xytext=(0, -6),
-            textcoords="offset points", ha='center', va='top', fontsize=9, fontweight='normal', color=edge_spain, zorder=6)
+# Selective numeric annotations
+# 2009: Spain -11.2 and EZ -6.3 with computed gap
+ix2009 = int(np.where(years == 2009)[0][0])
+sp2009 = spain[ix2009]
+ez2009 = ez[ix2009]
+gap_2009 = round(abs(sp2009 - ez2009), 1)  # 4.9
+# Points to annotate (bar tops)
+sp2009_top = sp2009
+ez2009_top = ez2009
 
-# Comparison callouts for 2006 and 2009
-# 2006: "Spain +1.3 pp above EZ" (Spain 2.4 vs EZ 1.1)
-diff_2006 = sp2006 - ez_vals[i2006]
-call_2006_text = f"Spain +{diff_2006:.1f} pp above EZ\n(2.4% vs 1.1%)"
-# Place the callout text in axes fraction coords to avoid overlap, with a subtle connector
-ax.annotate(call_2006_text,
-            xy=(i2006, sp2006), xycoords='data',
-            xytext=(0.66, 0.78), textcoords='axes fraction',
-            fontsize=9, ha='left', va='center',
-            bbox=dict(boxstyle="round,pad=0.4", fc=callout_box_face, ec=callout_edge, lw=0.7),
-            arrowprops=dict(arrowstyle='-', color="#7F7F7F", lw=0.8, shrinkA=0, shrinkB=0),
-            zorder=8)
+# Annotation box style (light rounded rectangle)
+bbox_style = dict(boxstyle="round,pad=0.4", fc="#ffffff", ec="#bdbdbd", lw=1)
 
-# Add small colored dot inside the callout to link to Spain color (placed in axes fraction)
-ax.scatter([0.635], [0.78], transform=ax.transAxes, s=30, c=[color_spain], edgecolors=[edge_spain], linewidths=0.8, zorder=9)
+# 2009 comparison callout
+ax.annotate(
+    f"2009: Spain {sp2009:.1f}% vs EZ {ez2009:.1f}%\nGap {gap_2009:.1f} pp",
+    xy=(ix2009, (sp2009 + ez2009) / 2.0),
+    xytext=(ix2009 + 1.1, -4.5),
+    arrowprops=dict(arrowstyle="->", linewidth=0.9, color="#555555", shrinkA=5, shrinkB=5),
+    fontsize=13,
+    bbox=bbox_style,
+    horizontalalignment='left',
+    verticalalignment='center',
+    zorder=6
+)
 
-# 2009: "Spain −4.9 pp worse than EZ" (Spain -11.2 vs EZ -6.3)
-diff_2009 = sp2009 - ez_vals[i2009]
-call_2009_text = f"Spain {diff_2009:.1f} pp worse than EZ\n(-11.2% vs -6.3%)"
-ax.annotate(call_2009_text,
-            xy=(i2009, sp2009), xycoords='data',
-            xytext=(0.28, 0.22), textcoords='axes fraction',
-            fontsize=9, ha='left', va='center',
-            bbox=dict(boxstyle="round,pad=0.4", fc=callout_box_face, ec=callout_edge, lw=0.7),
-            arrowprops=dict(arrowstyle='-', color="#7F7F7F", lw=0.8, shrinkA=0, shrinkB=0),
-            zorder=8)
-ax.scatter([0.31], [0.22], transform=ax.transAxes, s=30, c=[color_spain], edgecolors=[edge_spain], linewidths=0.8, zorder=9)
+# 2005-2007 surpluses callout (combined one-line summary)
+ix2005 = int(np.where(years == 2005)[0][0])
+ix2007 = int(np.where(years == 2007)[0][0])
+mid_2005_2007 = (ix2005 + ix2007) / 2.0
+ax.annotate(
+    "Surpluses in 2005–2007\n(Spain > 0; EZ negative)",
+    xy=(mid_2005_2007, 1.9),
+    xytext=(mid_2005_2007, 2.8),
+    arrowprops=dict(arrowstyle="-", linewidth=0.8, color="#555555", shrinkA=0, shrinkB=0),
+    fontsize=13,
+    bbox=bbox_style,
+    horizontalalignment='center',
+    verticalalignment='bottom',
+    zorder=6
+)
 
-# Minor styling tweaks
-for spine in ['top', 'right']:
-    ax.spines[spine].set_visible(False)
-ax.spines['left'].set_color(grid_color)
-ax.spines['bottom'].set_color(grid_color)
-ax.tick_params(axis='x', which='both', length=4)
-ax.tick_params(axis='y', which='both', length=4)
+# 2010-2011 notable deficits callout
+ix2010 = int(np.where(years == 2010)[0][0])
+ix2011 = int(np.where(years == 2011)[0][0])
+ax.annotate(
+    "Large deficits in 2010–2011",
+    xy=(ix2010 + 0.6, spain[ix2010]),
+    xytext=(ix2011 + 1.0, -10.5),
+    arrowprops=dict(arrowstyle="-", linewidth=0.8, color="#555555"),
+    fontsize=12.5,
+    bbox=bbox_style,
+    horizontalalignment='left',
+    verticalalignment='center',
+    zorder=6
+)
 
-# Executive summary caption below the chart (2-3 sentences)
-caption = (f"Across 1999–2014 average budget balances are similar (Spain ≈ {avg_spain:.2f}% GDP; "
-           f"Euro‑Zone ≈ {avg_ez:.2f}% GDP). Spain shows marked outperformance 2004–2007 "
-           f"(peaking at +2.4% in 2006) and far larger shortfalls in 2008–2010 (largest gap in 2009: "
-           f"Spain −11.2% vs EZ −6.3%, difference ≈ −4.9 percentage points).")
-fig.text(0.5, 0.08, caption, ha='center', va='center', fontsize=9)
+# 2012-2014 targets & EZ missing callout (lightweight, pointing to shaded region)
+ix2013 = int(np.where(years == 2013)[0][0])
+ax.annotate(
+    "2012–2014 are government targets;\nEZ averages not reported",
+    xy=(ix2013, spain[ix2013]),
+    xytext=(ix2013 + 1.2, -2.0),
+    arrowprops=dict(arrowstyle="-", linewidth=0.8, color="#555555"),
+    fontsize=13,
+    bbox=bbox_style,
+    horizontalalignment='left',
+    verticalalignment='center',
+    zorder=6
+)
 
-# Small footer note about shaded area
-fig.text(0.5, 0.045, "Shaded area = period of global financial crisis and major fiscal adjustments.", 
-         ha='center', va='center', fontsize=8, color="#4D4D4D")
+# Synthesis box (top-right of plot area inside axes)
+synth_text = (
+    r"• Peak Spain deficit: $\mathbf{-11.2\%}$ (2009).\n"
+    r"• Largest gap vs EZ: $\mathbf{4.9}$ percentage points (2009).\n"
+    r"• Spain ran small surpluses 2005–2007; subsequent deficits exceeded EZ where reported."
+)
+# Place inside axes at top-right
+ax.text(0.98, 0.94, synth_text,
+        transform=ax.transAxes,
+        fontsize=14,
+        ha='right', va='top',
+        bbox=dict(boxstyle="round,pad=0.6", fc="#ffffff", ec="#bdbdbd", lw=1),
+        zorder=7)
 
-# Footer small data source / method note
-fig.text(0.01, 0.02, "Data: budget balance (% of GDP). Method: percentage points (pp) difference = Spain − Euro‑Zone Average.",
-         ha='left', va='center', fontsize=7, color="#6E6E6E")
+# Footnote (bottom-left outside axes area)
+fig.text(0.02, 0.02,
+         "Notes: Euro‑zone averages not reported for 2012–2014. Spain 2012–2014 are government targets, not actual values. Source: [your source].",
+         fontsize=11, ha='left', va='bottom')
 
-plt.savefig("generated/spain_factor4_bar1_design.png", dpi=300, bbox_inches="tight")
+# Tight layout but leave room for suptitle
+plt.subplots_adjust(top=0.92, left=0.08, right=0.97, bottom=0.08)
+
+# Show plot
+plt.savefig("generated/spain_factor4_bar1/spain_factor4_bar1_design.png", dpi=300, bbox_inches="tight")

@@ -1,0 +1,98 @@
+Chart type
+- Paired vertical bar chart (grouped bar chart) across the x-axis = year (1999–2014). Each year shows two adjacent bars: Spain and Euro‑Zone average. Chart canvas in portrait orientation with aspect ratio at least 3:4 (e.g., 900 px wide × 1200 px high or any dimensions where height ≥ 4/3 × width).
+
+Text structure (what text is included, content, and position)
+- Title (very short): "Budget Balance (GDP %)"
+  - Position: centered at top margin.
+  - Rationale: WordCountTitle loading = -0.63 → keep the title extremely short to respect the strong negative loading on title word count. A short title keeps viewers’ attention on the data rather than a long heading.
+  - Font size: large but concise (e.g., 28–32 pt for slide/presentation).
+
+- Subtitle (concise, single line): "Spain vs. Euro‑Zone average, 1999–2014"
+  - Position: directly under the title, smaller than title.
+  - Rationale: Subtitle loading = 0.24 (small positive) → use a brief subtitle to give context without expanding the title; places context where users expect it while keeping title word count low.
+  - Font size: 16–18 pt.
+
+- Data value labels on each bar (IdentifyValues): numeric values shown as signed percentages, one decimal (e.g., "-11.2%").
+  - Position: placed at the tip of each bar; for negative bars label just below the bar endpoint (inside the negative region) with high-contrast text and a small white halo if needed.
+  - Rationale: IdentifyValues loading = 0.53 (strongly positive) → explicitly label every bar so viewers can read exact comparisons at a glance; improves precision and direct comparison.
+
+- Inline series labels (ReplaceMappings → avoid a separate legend): small colored text labels "Spain" and "Euro‑Zone avg" placed once at the left-most pair of bars (or repeated as small tags near the first instance) and/or printed directly on the top edge of the first bar of each series across the years.
+  - Position: small label tag (colored square + text) immediately above or beside the first year’s bars; for discoverability, repeat a faded tag in top-right corner near the chart title.
+  - Rationale: ReplaceMappings loading = 0.33 → omit the conventional legend and instead map colors directly to text on the chart, reducing eye movement and mapping ambiguity.
+
+- Annotations (anchored, short-form) — multiple targeted callouts:
+  - 2004–2007 (pre-crisis surplus run): short anchored annotation reading "Pre‑crisis surpluses (2004–2007): Spain > EZ avg" with a light, thin connector line to the 2006 pair.
+  - 2008–2010 (crisis spike): primary annotation for 2009 reading "2009: Spain −11.2% vs EZ −6.3% (largest gap)" with a short arrow pointing to Spain’s 2009 bar; second-line smaller note: "Crisis years deepen deficits".
+  - 2014 (end-of-series): short note "2014: deficits narrowed" or similar, anchored near the final pair.
+  - Rationale: Annotation and WordCountAnnotation loadings = 0.65 each (very high) → add clear, short annotations to explain the most important differences and historical turning points; allocate more words in annotations (relative to title) as the factor structure indicates annotations should be prominent.
+  - Style: annotations are short (6–12 words), high-contrast text, background micro-box with 60–80% opacity, and a thin connector line (Lines loading = 0.25, small positive) to their target bars.
+
+- Axis labels and scales:
+  - Y-axis: "Percent of GDP" with the sign convention noted (zero baseline emphasized).
+  - X-axis: years (every year labeled 1999–2014). Use vertical ticks; keep year labels medium-large.
+  - Rationale: CompareMappings loading = 0.26 (small positive) → make axis semantics explicit and human-readable; ensure viewers understand this is % of GDP and negative values are deficits.
+
+Visual styling and auxiliary elements
+- Colors:
+  - Spain: deep, moderately saturated red (e.g., dark crimson).
+  - Euro‑Zone average: deep, medium-saturated blue (e.g., navy).
+  - Use these two contrasting hues to support fast visual comparison; both are strong enough for projection and readable for common forms of color deficiency. Rationale: News loading = 0.46 suggests a clear, attention-getting palette; Style loading = -0.21 slightly negative on decorative color use, so colors should be functional (encode series) rather than decorative. Use only two series colors—no extra decorative colors.
+
+- Zero baseline emphasis:
+  - Draw the horizontal zero line as a thicker, darker rule (but not black) to help visually separate deficits (below zero) and surpluses (above zero). Rationale: improves immediate reading of sign and magnitude.
+
+- Gridlines:
+  - Light horizontal gridlines at sensible ticks (every 2 or 4 percentage points depending on the final chosen y-axis extent). Keep them subtle (very light gray). Rationale: aids value estimation without dominating the chart.
+
+- Bar treatment:
+  - Grouped bars with 60% of available width per group; narrow gutter between pairs and consistent spacing between years.
+  - Bars have slight corner radius (2–3 px) for clean modern look.
+  - No heavy drop shadows; keep flat for readability (Style negative).
+
+- Data labels styling:
+  - High-contrast text (white on dark bars or black on light area) with subtle halo to ensure legibility on both positive and negative bars.
+  - Font size: 12–14 pt (presentation-friendly); increase if display is large.
+
+- Annotation connectors and arrows:
+  - Use thin connecting lines with a small arrowhead only when needed to disambiguate which bar is annotated (supported by Lines loading = 0.25). Keep arrows lightweight and minimal—avoid thick graphic callouts.
+
+- Highlighting largest differences:
+  - For the single most extreme gap (2009), use a subtle box or halo behind the year group and a short text annotation as described above. Because Annotation loading is high, this makes narrative sense and directs attention to the key difference without overwhelming the chart.
+  - Keep the halo color a translucent warm gray to avoid clashing with series colors.
+
+- Legend omission:
+  - Do not place a traditional legend. Instead, rely on inline series labels and color-coded text near first bars and in the subtitle to map the colors. Rationale: ReplaceMappings positive; direct labels reduce cognitive load.
+
+- Avoid government-style decoration:
+  - Do not use governmental seals, formal report typefaces, or bureaucratic footers. Rationale: Government loading = -0.55 (strong negative) — the design should avoid formal government styling and instead be neutral/journalistic.
+
+Typography & sizing (presentation-ready)
+- Title: 28–32 pt, semi-bold.
+- Subtitle: 16–18 pt, regular.
+- Axis labels: 16–18 pt.
+- Year ticks: 14–16 pt.
+- Data labels on bars: 12–14 pt.
+- Annotation text: 14–16 pt for main annotations, 12–14 pt for secondary lines.
+- Typeface: clean sans-serif (e.g., Inter, Helvetica Neue, or Arial) for legibility in a presentation.
+
+Y-axis range and scaling
+- Set the y-axis from −12.5% to +3.0% (or tight pad around actual min/max) so the largest negative value (Spain −11.2%) is visible with slight breathing room, and positive maxima (Spain 2.4) remain clearly above zero. Rationale: ensures proportional visual impression of deficits vs surpluses and makes the 2009 outlier legible.
+
+Accessibility and contrast
+- Ensure text-to-background contrast meets accessible contrast ratios (especially for annotation boxes and data labels).
+- For viewers with color vision deficiencies, use patterned fills (light diagonal hatch) only if necessary—prefer strong color contrast and direct inline text labels first.
+
+How these choices map to the loadings (summary)
+- Annotation & WordCountAnnotation (0.65 each): Add multiple short anchored annotations and allocate more wording to annotations than to title. These explain the key differences (pre‑crisis surpluses, crisis years, 2009 peak deficit).
+- IdentifyValues (0.53): Label all bars with numeric values so comparisons are exact and immediate.
+- News (0.46): Use attention-focused but neutral journalistic styling—clear color contrasts and bold callouts—while avoiding formal government cues.
+- ReplaceMappings (0.33): Omit a standard legend; instead directly label series in-line on the chart for immediate color→label mapping.
+- CompareMappings (0.26) & Lines (0.25): Use short human-readable axis and small connector lines in annotations to translate and connect mappings to viewers.
+- Title word-count negative (WordCountTitle −0.63) and Government negative (−0.55): Keep the title extremely short and avoid formal government styling; put explanatory context in subtitle and annotations instead.
+
+Implementation notes
+- Aspect ratio: ensure canvas is taller than wide (minimum 3:4 portrait). Adjust font sizes proportionally if using larger canvas.
+- Export: produce a high-resolution PNG/PDF for presentation; keep vector export available for slides scaling.
+- Data precision: show one decimal place in labels to match data granularity.
+
+This plan centers the visual hierarchy on the data differences (annotations + value labels) while keeping title minimal and avoiding formal government styling—directly reflecting the provided factor loadings.

@@ -1,0 +1,98 @@
+Chart type
+- Paired (clustered) vertical bar chart by year (side-by-side bars for Spain and Euro‑Zone average for each year). Reason: preserves direct year-by-year comparison and supports direct value labeling recommended by loadings.
+
+Canvas & aspect ratio
+- Portrait orientation, minimum 3:4 aspect ratio (width:height = 3:4). Example canvas: 900 × 1200 px (or any portrait size maintaining 3:4 or taller) so bars and annotations have vertical room and text remains large for presentation.
+
+Overall visual approach (principles tied to loadings)
+- Emphasize annotations and in-bar/value labels (Annotation Loading 0.65; IdentifyValues Loading 0.53; WordCountAnnotation 0.65): use multiple anchored annotations and show numeric labels on every bar. These make differences immediately interpretable and meet the high annotation/value-loadings by shifting communicative weight from a long title to rich inline explanation.
+- Minimize title word count (WordCountTitle Loading -0.63): use a short, direct title only; place explanation in annotations rather than long title/subtitle.
+- De-emphasize government styling or seals (Government Loading -0.55): avoid official seals, heavy institutional frames, or government-branded color schemes; use neutral professional styling.
+- Replace conventional legend with inline mappings where possible (ReplaceMappings Loading 0.33): label bars directly instead of relying on a separate legend; if a small legend is included, keep it minimal.
+- Favor clear, journalistic clarity (News Loading 0.46): straightforward language in annotations and callouts with minimal decorative styling.
+
+Text structure (what text is included, content, position)
+- Title (short): centered at top, single line, large, concise.
+  - Text: Spain vs Euro‑Zone Budget Balance (%) 
+  - Rationale: short title aligns with negative WordCountTitle loading; keeps headline compact.
+- Subtitle: omit or very short single phrase below title (optional). If included, one brief contextual phrase: "1999–2014 (final 2012–2014 are targets)". Keep small and only one line. Rationale: Subtitle loading is low; avoid expanding title word count.
+- Annotations (prominent, anchored within chart area): Several multi‑sentence callouts placed near relevant bars/areas. Because WordCountAnnotation and Annotation loadings are high, annotations should contain more of the explanatory text that would otherwise bloat the title/subtitle. Key annotations to include:
+  1. Crisis peak (2009): anchored to Spain 2009 bar, callout text ~12–18 words: "Spain’s deficit jumps to -11.2% in 2009 — peak shortfall vs. Euro‑Zone." (place a subtle arrow from text to bar).
+  2. Mid-2000s divergence (2005–2007): anchored above the 2005–2007 cluster: "2005–2007: Spain moved into surplus while Euro‑Zone remained in deficit." (arrow/box spanning those years).
+  3. Missing Euro‑Zone data after 2011: anchored above/near the 2012–2014 group: "Euro‑Zone average data not available after 2011. Spain values shown are national targets for 2012–2014." (longer annotation permitted; explains missing data and target nature).
+  4. Zero baseline explanation (short): near y=0 axis: "Positive = surplus; Negative = deficit."
+  - Rationale: heavy reliance on annotations aligns with loadings; annotations explain dataset quirks (targets, missing values) without long title/subtitle.
+- Data labels (IdentifyValues): numeric labels placed on top/end of every bar (e.g., "-11.2%", "2.4%"). For missing Euro‑Zone values, place a small "n/a" label in place of a bar or no bar plus an annotation pointing this out.
+  - Rationale: IdentifyValues positive loading emphasizes labeling every data point for reference and comparison.
+
+Legend / mapping
+- Omit external legend where possible (ReplaceMappings 0.33 + IdentifyValues 0.53): instead, place small color labels inside or directly adjacent to the first bar of each series (e.g., small label "Spain" inside the first Spain bar and "Euro‑Zone avg" inside first Euro‑Zone bar). If a legend is absolutely necessary, use a very small 1-line legend at top-right.
+- Rationale: inline labeling reduces viewer eye movement and replaces a conventional legend per the ReplaceMappings loading.
+
+Bar encoding & handling missing / target values
+- Bars:
+  - Spain: solid saturated blue (accessible contrast).
+  - Euro‑Zone average: muted gray-blue (contrast but visually subordinate to Spain). Use consistent single solid fill, no decorative gradients (Style negative).
+- Missing euro-zone values (2012–2014): do NOT fabricate bars. Instead:
+  - Option A (preferred): leave the Euro‑Zone slot empty and place a pale dashed vertical filler only if needed to indicate pair shape, with "n/a" label and an anchored annotation explaining absence. Keep filler extremely light so it doesn’t compete.
+  - Option B (alternative): draw a hollow/diagonal‑hatched bar outline labeled "n/a" in gray.
+  - Rationale: ReplaceMappings supports unconventional indication of omitted elements, but Government/Style negative loadings recommend avoiding authoritative-looking placeholders; an unobtrusive visual cue plus annotation is clear and honest.
+- Target years (2012–2014 for Spain): visually indicate these are targets by rendering Spain bars with a slightly different treatment while keeping the same color:
+  - Use a subtle dashed border and slightly lighter fill (or a thin diagonal hatch overlay) and a suffix in the data label: e.g., "-2.8% (target)". Add a bounding vertical bracket or semi-transparent rectangular band behind 2012–2014 with a thin dashed outline and an annotation label "National targets". Keep these auxiliary elements light and unobtrusive.
+  - Rationale: differentiating target vs actual is essential for correct interpretation and aligns with annotation emphasis.
+
+Axes, grid, and baseline
+- Y-axis: percent scale covering at least -12% to +3% (or with slight padding). Place zero baseline as a strong horizontal axis line so positive/negative differences are immediately clear (annotation near 0 as noted).
+- X-axis: years 1999–2014 placed under each pair. To avoid clutter, show every year label but use large font and keep horizontal spacing adequate in portrait layout. If space is tight, show all ticks but use rotated/vertical year labels only if necessary; prefer no rotation given portrait vertical room.
+- Gridlines: subtle horizontal gridlines at every 2% or at key ticks (-10, -8, -6, -4, -2, 0, 2). Gridlines should be thin and light grey.
+- Rationale: clear baseline and gridlines support rapid reading of how far bars deviate from 0 and each other; aligns with news/journalistic clarity.
+
+Arrows/highlights and other auxiliary elements
+- Use lightweight arrows or leader lines only when tied to an annotation (Annotation loading 0.65). Each arrow is thin, color-matched to the annotation box border, and ends with a small rounded pointer—no heavy arrows.
+- Use a single subtle semi-transparent highlight (bounding box) to group 2012–2014 and label it "Targets" (as above). Keep the highlight unobtrusive and consistent with overall palette.
+- Avoid decorative flourishes, icons, or seals (Government and Style negative).
+
+Typography & sizes (presentation-ready)
+- Font family: clean sans-serif (e.g., Arial, Helvetica, or Source Sans). Avoid serif or ornate fonts.
+- Title: large, bold, ~36–44 pt (depending on canvas).
+- Subtitle (if used): ~20–24 pt, regular weight.
+- Axis titles: ~20–24 pt.
+- Axis ticks: ~18–20 pt.
+- Data labels on bars: ~16–20 pt, bold enough to read at a distance.
+- Annotation text boxes: ~18–22 pt (annotations are emphasized and should be large and readable).
+- Rationale: loadings emphasize annotations and value labels—these must be large for presentation visibility.
+
+Color palette and accessibility
+- Primary Spain color: medium-dark blue (e.g., #1f77b4).
+- Euro‑Zone: neutral slate/gray-blue (e.g., #7f8c8d).
+- Annotation boxes/borders: slightly warmer neutral (deep charcoal or desaturated orange) for contrast with bars while avoiding emotional valence (PresentValenced Subtext loading low).
+- Ensure color contrast meets readability standards; use patterned fill (thin hatching) for target bars for viewers with color vision deficiency.
+- Rationale: avoids decorative-only color usage (Style negative) and keeps focus on data differences.
+
+Interactivity / alternatives for slides
+- If interactive slide is possible, hovering over a bar reveals the annotation and an exact value tooltip; otherwise, ensure all critical info is present in static annotations and data labels.
+- Rationale: annotations and labels must carry the interpretive load per high annotation and identify-values loadings.
+
+Explicit ties to loadings (summary)
+- Annotation (0.65) & WordCountAnnotation (0.65): add multiple anchored annotations with substantive explanatory text; annotations carry dataset caveats (targets, missing euro-zone data) and interpretation (2009 crisis), improving comprehension and matching the high annotation emphasis.
+- IdentifyValues (0.53): label every bar with its numeric value to make exact comparisons immediate and reduce reliance on axis reading.
+- WordCountTitle (-0.63): keep the title concise to shift textual weight to annotations instead.
+- Government (-0.55): avoid government branding and authoritative visual motifs.
+- News (0.46): adopt clear, journalistic phrasing and layout—direct, explanatory annotations and high legibility.
+- ReplaceMappings (0.33): replace a conventional external legend with inline labels and unobtrusive indicators for missing data; use nonstandard but clear markers for NA and targets.
+- Lines (0.25) and CompareMappings (0.26): minor supportive role—use thin gridlines and optional subtle connector lines for annotation anchors only; avoid cluttering the design with extraneous connectors.
+- Style (-0.21): avoid decorative/colorful styling; stick to functional color and minimal decorative elements.
+
+Specific annotation text examples (place these verbatim in callouts)
+- Spain vs Euro‑Zone Budget Balance (%) [Title]
+- (Annotation near 2009 Spain bar) "2009: Spain deficit reaches -11.2% — largest gap of the period vs. Euro‑Zone."
+- (Annotation above 2005–2007 cluster) "2005–2007: Spain ran surpluses while the Euro‑Zone remained in deficit."
+- (Annotation spanning 2012–2014) "2012–2014: Spain national targets. Euro‑Zone average data unavailable after 2011."
+- (Near zero axis) "Positive = surplus; Negative = deficit."
+
+Final notes on implementation
+- Ensure all annotations and data labels are large and have sufficient contrast against the chart background.
+- Keep annotation leader lines thin and subtle; keep the chart uncluttered by placing annotations in available negative space.
+- Verify accessibility for color-blind viewers by checking contrast and providing patterned fills for the target years.
+
+This plan makes annotations and value labeling the primary textual and visual communicators (per factor loadings), keeps the title short, avoids government styling, uses inline mappings rather than a separate legend, and clearly differentiates target years and missing Euro‑Zone data while maintaining a clean, presentation-ready portrait layout.

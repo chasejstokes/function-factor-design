@@ -1,0 +1,106 @@
+Chart type and overall layout
+- Chart type: Paired (grouped) vertical bar chart by year, two bars per year (Spain, Euro‑Zone average). This directly supports year-to-year visual comparison.
+- Aspect ratio and orientation: Portrait, at least 3:4 (e.g., 900 px wide × 1200 px tall or 7.5" × 10" for print). Taller layout gives room for larger vertical bars, prominent annotations, and large text for presentations.
+- Canvas margins: generous top margin for a short title and minimal subtitle; left margin for numeric axis labels; right margin for annotations anchored to bars.
+
+Rationale tied to loadings:
+- Focus on temporal paired bars aligns with the user’s requested emphasis on differences. The portrait aspect preserves bar height and legibility for presentation screens (no loading needed).
+
+Axes, scale, and grid
+- Y axis: linear scale with clear ticks at integers or half-integers covering the full range (e.g., -12 to +3). Show faint, thin horizontal gridlines only at major ticks to aid value reading.
+- X axis: discrete years (1999–2014). Use large year labels rotated 0° (horizontal) and spaced for legibility. If space tight, show every other year and include small tick markers for intermediate years.
+- Unit label: small, concise unit placed once near the Y axis: “Balance (% of GDP)”. Keep this short because WordCountTitle loading is strongly negative.
+
+Rationale tied to loadings:
+- ReplaceMappings (0.33) and IdentifyValues (0.53) — rely more on direct labeling of bars than on an explanatory long axis legend; keep axis labels minimal but clear. Keeping the unit concise addresses WordCountTitle negative loading (-0.63).
+
+Bars and color treatment
+- Two-color, functional palette: Spain = medium blue (colorblind-safe), Euro‑Zone average = medium warm gray or orange‑brown (contrast vs blue). Use only colors that encode data distinctions, not decoration.
+- No decorative styling: flat fills, 1–2 px subtle stroke in a neutral gray to separate bars.
+- Bar order: within each year, place Spain on the left, Euro‑Zone on the right to make Spain-first comparisons consistent across years.
+- Group spacing: modest group padding so each year appears as a clear pair.
+
+Rationale tied to loadings:
+- Style negative loading (-0.21) — avoid decorative/brand colors; color is strictly functional. News (0.46) — clear high-contrast colors reminiscent of journalistic clarity.
+
+Direct labeling and legend choices
+- Omit a traditional legend. Use direct labels:
+  - Place a large numeric value label (e.g., “-11.2”) centered just above each bar for positive bars and centered just below the top edge (or inside) for negative bars, with a short “%” suppressed since unit is presented once.
+  - Add micro series label near the top of the first bar pair only: a small colored square + “Spain” and another + “Euro‑Zone avg.” placed discretely in the upper-right corner if needed for unfamiliar audiences.
+- Use large, high-contrast sans-serif type (e.g., 20–28 pt for data labels on a slide) to ensure readability from the back of a room.
+
+Rationale tied to loadings:
+- IdentifyValues (0.53) — explicitly label all data points to serve as direct reference. ReplaceMappings (0.33) — direct labeling replaces reliance on a legend or complex axis decoding.
+
+Title, subtitle, and text structure
+- Title (short, minimal prominence): one-line title, small-to-moderate weight, e.g., “Budget balance: Spain vs Euro‑Zone (1999–2014)”. Keep it short and concise to respect WordCountTitle negative loading (-0.63) and the slightly negative Title loading (-0.25).
+- Subtitle (very short, optional): one-line clarifier in smaller text under the title: “Balance as % of GDP — positive = surplus, negative = deficit.” This is the only place to explain sign meaning to support interpretation (CompareMappings loading 0.26).
+- Body text (annotations, data labels) should be larger than the title word count: increase annotation word budget (see annotations below), following WordCountAnnotation (0.65) and Annotation (0.65).
+
+Rationale tied to loadings:
+- WordCountAnnotation and Annotation strongly positive (0.65 each) — allocate more text budget to short, targeted annotations rather than a long title. Title size and word count should be reduced (WordCountTitle -0.63).
+
+Annotations and callouts (primary emphasis)
+- Include anchored, short annotations at 4–6 key years to highlight the most relevant differences and turning points:
+  - 2004–2007 (Spain surplus years): small callout pointing to 2006 bar: “Spain posts surplus (+2.4) while Euro average ≈ +1.1.”
+  - 2008–2011 (crisis years): highlight 2009 and 2010 with short annotation and subtle bounding halo: “2009–10: Spain’s deficit far exceeds Euro average (–11.2 vs –6.3).”
+  - 2014: small note on partial recovery: “2014: gap narrowed (Spain –2.5, Euro –2.0).”
+- Annotation style: short phrase (6–12 words), bolded numeric values, anchored to target bars with thin connecting lines (1 px) and a small rounded speech-box or soft halo around the text. Keep annotations compact and placed to minimize overlap with bars and labels; use arrows/lines only when necessary to clarify which bar.
+- Keep total annotation word count intentionally higher than title word count (concise but explanatory), in line with WordCountAnnotation positive loading.
+
+Rationale tied to loadings:
+- Annotation (0.65) and WordCountAnnotation (0.65) — prioritize short, anchored annotations that help the audience immediately interpret key differences. Lines (0.25) — use subtle connector lines for clarity, not heavy callouts. CompareMappings (0.26) — use brief interpretive phrasing to translate numbers (e.g., "exceeds", "narrowed").
+
+Emphasis and highlighting of differences
+- Visual emphasis: for the single largest divergence (2009 Spain –11.2 vs Euro –6.3), add a subtle translucent highlight behind that year’s pair (soft warm tint or slightly darker background band) and an annotation callout. Similarly, for the largest positive Spain surplus in 2006, add a small halo.
+- Do not overuse highlights — limit to the top 2–3 most informative years to preserve visual hierarchy.
+
+Rationale tied to loadings:
+- Annotation (0.65) and IdentifyValues (0.53) support these targeted highlights. ReplaceMappings (0.33) supports using visual cues instead of verbose legends. This focuses the viewer on differences without decorative excess (Style -0.21).
+
+Minimizing unwanted signals (government styling, decorative branding)
+- Avoid government seals, formal heraldic colors, or excessively formal typography; choose neutral journalistic typography (e.g., Helvetica/Arial or similar).
+- Avoid heavy top banners, ornamental borders, or long descriptive paragraphs.
+
+Rationale tied to loadings:
+- Government source negative loading (-0.55) — do not evoke official-government visual tropes. Style negative (-0.21) — avoid purely decorative elements.
+
+Tone and wording
+- Use factual, concise phrasing in annotations (mildly interpretive is okay due to PresentValenced Subtext 0.22, but keep it restrained). Example annotation text: “2009: Spain deficit –11.2 (Euro avg –6.3) — peak divergence.”
+- Keep explanatory text neutral and numeric-first: lead with the number, then short interpretation.
+
+Rationale tied to loadings:
+- News positive (0.46) — adopt concise, clear, slightly journalistic language. PresentValenced Subtext is small positive (0.22) — allow mild interpretation but avoid emotionally loaded language.
+
+Accessibility and presentation specs
+- Typography: sans-serif, high-contrast. Suggested sizes for a slide:
+  - Title: 28–32 pt (short)
+  - Subtitle: 18–20 pt
+  - Axis labels and years: 18–20 pt
+  - Data value labels: 20–24 pt (large enough to read in a presentation)
+  - Annotation text: 18–22 pt (visible and slightly larger word budget than title)
+- Colors: colorblind-safe palette (e.g., ColorBrewer recommendations). Check contrast ratios to meet accessibility standards.
+- Export: provide a high-resolution (300 dpi) PDF/PNG for slides.
+
+Rationale tied to loadings:
+- IdentifyValues and Annotation loadings require text to be easily readable; large font sizes improve legibility in presentation contexts.
+
+Summary of mapping loadings to concrete design decisions
+- Annotation (0.65) & WordCountAnnotation (0.65): include multiple anchored short annotations; allocate more words to annotations than the title; use thin connector lines.
+- IdentifyValues (0.53): label each bar with its numeric value (large, high-contrast).
+- ReplaceMappings (0.33): prefer direct labeling over a traditional legend; include a very short unit label instead of verbose axes explanation.
+- News (0.46): adopt a clear, journalistic visual language—high contrast, simple colors, concise text.
+- Government (-0.55) & Style (-0.21): avoid government branding and decorative color use; keep style functional.
+- WordCountTitle (-0.63) & Title (-0.25): keep title short and modest in prominence; let annotations carry interpretation.
+- Lines (0.25): use only thin, subtle connector lines for annotation anchoring.
+- CompareMappings (0.26) & Subtitle (0.24): include a one-line subtitle to clarify sign meaning and frame comparisons.
+
+Concrete layout example (for implementation)
+- Canvas: 900 × 1200 px.
+- Top: Title line (centered, 28–32 pt). Underneath: one-line subtitle (18–20 pt).
+- Main plotting area: centered vertical bar region occupying approx. 80% of canvas height.
+- Bars: grouped by year, left bar = Spain (blue), right bar = Euro (gray). Numeric label for each bar in 20–24 pt.
+- Annotations: 3–4 callouts placed around 2006, 2009–2010 cluster, 2014; thin 1 px connector lines, small rounded annotation boxes ~18–20 pt.
+- Right-upper corner: tiny direct color key only if needed (small squares + labels), otherwise rely on locally placed series labels at top of the first pair.
+
+This plan will emphasize the differences between Spain and the Euro‑Zone average, maximize immediate numeric readability (IdentifyValues), and use abundant, short anchored annotations (Annotation / WordCountAnnotation) to explain the most salient divergences, while keeping the title short and avoiding decorative or government-style elements.

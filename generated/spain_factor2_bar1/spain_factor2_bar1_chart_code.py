@@ -1,192 +1,244 @@
-import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.patches import FancyBboxPatch
-from matplotlib import ticker
-import matplotlib as mpl
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+import matplotlib.patheffects as path_effects
 
-# Data
-years = np.array([1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014])
-spain = np.array([-1.2, -0.6, -0.4, -1.0, -0.8, 0.6, 1.3, 2.4, 1.9, -4.5, -11.2, -9.5, -7.8, -4.2, -5.0, -2.5])
-ez = np.array([-0.9, -0.4, -0.8, -1.6, -2.6, -2.9, -1.8, 1.1, -0.8, -3.6, -6.3, -6.0, -4.1, -4.6, -3.8, -2.0])
+# Data setup
+years = np.array([
+    1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
+    2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014
+])
+spain_values = np.array([
+    -1.4, -1.0, -0.6, -0.2, -0.3, -0.1, 1.3, 2.4,
+    1.9, -4.5, -11.2, -9.3, -8.9, -6.3, -4.5, -2.8
+])
+# Euro-zone values: use np.nan for NA
+euro_values = np.array([
+    -1.4, 0.0, -1.8, -2.5, -3.1, -2.9, -2.4, -1.3,
+    -0.7, -2.1, -6.3, -6.2, -4.1, np.nan, np.nan, np.nan
+])
 
-# Colors (accessible, contrastive)
-color_spain = "#D95F02"   # burnt orange
-color_ez = "#4E79A7"      # muted blue
-edge_alpha = 0.9
+# Styling parameters
+spain_color = '#0B5FFF'   # dark blue
+euro_color = '#028F88'    # dark teal
+na_box_edge = '#BEBEBE'   # light gray for N/A placeholder
+fig_w, fig_h = 9, 12      # inches (900x1200 px at 100 dpi)
+dpi = 100
 
-# Setup figure
 plt.rcParams.update({
     "font.family": "sans-serif",
-    "font.sans-serif": ["DejaVu Sans", "Arial"],
-    "axes.grid": False
+    "font.sans-serif": ["DejaVu Sans", "Arial", "Helvetica"],
+    "axes.edgecolor": "#333333"
 })
-fig, ax = plt.subplots(figsize=(13,6))
 
-# X positions
+fig, ax = plt.subplots(figsize=(fig_w, fig_h), dpi=dpi)
+
+# X positions for pairs
 x = np.arange(len(years))
-bar_width = 0.38
+bar_width = 0.36
 offset = bar_width / 2.0
 
-# Background subtle highlight for 2009-2010 (largest differences)
-# Determine approximate x span for 2009-2010 groups
-idx_2009 = list(years).index(2009)
-idx_2010 = list(years).index(2010)
-x0 = x[idx_2009] - bar_width
-x1 = x[idx_2010] + bar_width
-ax.axvspan(x0 - 0.25, x1 + 0.25, color='grey', alpha=0.06, zorder=0)
+# Draw Euro-zone bars (where available)
+euro_mask = ~np.isnan(euro_values)
+ax.bar(x[euro_mask] + offset, euro_values[euro_mask],
+       width=bar_width, color=euro_color, edgecolor='none', zorder=2)
 
-# Bars
-bars_spain = ax.bar(x - offset, spain, width=bar_width, color=color_spain,
-                    edgecolor="k", linewidth=0.8, alpha=0.98, label='Spain', zorder=3)
-bars_ez = ax.bar(x + offset, ez, width=bar_width, color=color_ez,
-                 edgecolor="k", linewidth=0.8, alpha=0.98, label='Euro-Zone avg.', zorder=3)
+# Draw Spain bars
+# Determine which years are targets (2012-2014)
+target_years_mask = (years >= 2012)
+observed_mask = ~target_years_mask
 
-# Y limits and gridlines
-ymin = min(spain.min(), ez.min()) - 1.5
-ymax = max(spain.max(), ez.max()) + 1.5
-ax.set_ylim(ymin, ymax)
-# Horizontal gridlines every 2.5 percentage points
-major_step = 2.5
-ax.yaxis.set_major_locator(ticker.MultipleLocator(major_step))
-ax.grid(axis='y', color='#dddddd', linewidth=0.8, zorder=0)
-# Emphasize zero baseline
-ax.axhline(0, color='#888888', linewidth=1.6, zorder=4)
+# Observed Spain bars
+ax.bar(x[observed_mask] - offset, spain_values[observed_mask],
+       width=bar_width, color=spain_color, edgecolor='none', zorder=3)
 
-# X-axis ticks and labels
-ax.set_xticks(x)
-ax.set_xticklabels([str(y) for y in years], fontsize=9)
-ax.tick_params(axis='x', which='both', length=0)
+# Target Spain bars (2012-2014): semi-transparent with hatch and label above
+for xi, val, is_target in zip(x, spain_values, target_years_mask):
+    if is_target:
+        # Draw the bar with hatch and reduced opacity
+        ax.bar(xi - offset, val, width=bar_width,
+               color=spain_color, edgecolor='none', alpha=0.5,
+               hatch='///', zorder=3)
+        # Inline small label above each target bar
+        label_y = val + (0.6 if val >= 0 else -0.6)
+        # Position slightly above positive bars, slightly below negative bar tops (so it's readable)
+        ax.text(xi - offset, label_y, "Target (not actual)",
+                ha='center', va='bottom' if val >= 0 else 'top',
+                fontsize=10, color="#222222", alpha=0.9)
 
-# Y-axis percentage formatter
-def pct(x, pos):
-    # Add percent sign
-    return f"{x:.0f}%"
-ax.yaxis.set_major_formatter(ticker.FuncFormatter(pct))
-ax.tick_params(axis='y', labelsize=9)
+# Euro-zone NA placeholders for 2012-2014: dashed light gray outline box with "N/A"
+na_indices = np.where(np.isnan(euro_values))[0]
+# Box height center around 0, small and unobtrusive
+na_box_halfheight = 1.5  # percent points above/below zero
+for idx in na_indices:
+    box_x = (idx + offset) - bar_width / 2.0
+    rect = patches.Rectangle(
+        (box_x, -na_box_halfheight),
+        bar_width,
+        na_box_halfheight * 2,
+        linewidth=1.2,
+        edgecolor=na_box_edge,
+        facecolor='none',
+        linestyle=(0, (5, 5)),
+        zorder=1
+    )
+    ax.add_patch(rect)
+    # N/A centered
+    ax.text(idx + offset, 0, "N/A", ha='center', va='center',
+            fontsize=14, color="#666666", zorder=5)
+
+# Value labels for every bar (Spain and Euro-zone where present)
+def draw_value_label(xpos, ypos, text, positive):
+    txt = ax.text(xpos, ypos, text,
+                  ha='center', va='bottom' if positive else 'top',
+                  fontsize=16, fontweight='bold', color='#111111', zorder=6)
+    # Add halo for readability
+    txt.set_path_effects([path_effects.Stroke(linewidth=3, foreground='white'),
+                          path_effects.Normal()])
+
+# Spain labels
+for xi, val in zip(x, spain_values):
+    if val >= 0:
+        ypos = val + 0.25
+        draw_value_label(xi - offset, ypos, f"{val:.1f}%", True)
+    else:
+        ypos = val - 0.25
+        draw_value_label(xi - offset, ypos, f"{val:.1f}%", False)
+
+# Euro-zone labels
+for xi, val in zip(x, euro_values):
+    if np.isnan(val):
+        continue
+    if val >= 0:
+        ypos = val + 0.25
+        draw_value_label(xi + offset, ypos, f"{val:.1f}%", True)
+    else:
+        ypos = val - 0.25
+        draw_value_label(xi + offset, ypos, f"{val:.1f}%", False)
 
 # Title and subtitle
-title_text = "Spain vs Euro‑Zone budget balance (1999–2014)"
-subtitle_text = "Percent of GDP — negative = deficit"
-ax.set_title(title_text, fontsize=13, fontweight='bold', pad=8)
-# Subtitle via text
-ax.text(0.5, 1.01, subtitle_text, transform=ax.transAxes, ha='center', va='bottom',
-        fontsize=10, color='#555555')
+title_text = "Budget balance: Spain vs Euro‑Zone"
+subtitle_text = "Percent of GDP, 1999–2014"
+ax.set_title(title_text, fontsize=34, fontweight='bold', pad=20)
+ax.text(0.01, 0.96, subtitle_text, transform=ax.transAxes,
+        fontsize=20, va='top', ha='left', color='#222222')
 
-# Remove top/right spines for cleaner look
+# Direct inline mapping chips and labels on the first year pair
+chip_y = 0.98  # relative axes coords
+chip_x_start = 0.01
+chip_size = 0.015
+# Spain chip
+ax.add_patch(patches.Rectangle(
+    (chip_x_start, chip_y - chip_size / 2),
+    chip_size, chip_size,
+    transform=fig.transFigure, color=spain_color, zorder=10
+))
+fig.text(chip_x_start + chip_size + 0.005, chip_y, "Spain",
+         transform=fig.transFigure, fontsize=14, va='center', fontweight='bold')
+# Euro-zone chip
+ez_chip_x = chip_x_start + 0.12
+ax.add_patch(patches.Rectangle(
+    (ez_chip_x, chip_y - chip_size / 2),
+    chip_size, chip_size,
+    transform=fig.transFigure, color=euro_color, zorder=10
+))
+fig.text(ez_chip_x + chip_size + 0.005, chip_y, "Euro‑Zone avg",
+         transform=fig.transFigure, fontsize=14, va='center', fontweight='bold')
+
+# Axis labels, ticks, grid
+ax.set_ylabel("Percent of GDP", fontsize=18)
+ax.set_xticks(x)
+ax.set_xticklabels([str(y) for y in years], fontsize=14, rotation=45)
+ax.tick_params(axis='y', labelsize=16)
+# Y limits and ticks
+ax.set_ylim(-12.5, 3.5)
+ax.set_yticks(np.arange(-12, 4, 2))
+ax.grid(axis='y', color='#CCCCCC', alpha=0.25, linewidth=1, zorder=0)
+# Emphasize zero baseline
+ax.axhline(0, color='#000000', linewidth=1.8, zorder=4)
+
+# Annotations with light connector lines
+# 1) 2006 (above 2006 Spain bar)
+year_idx = list(years).index(2006)
+ax.annotate(
+    "2005–2007: Spain posts surpluses while Euro‑Zone averages remain negative.",
+    xy=(year_idx - offset, spain_values[year_idx]),
+    xytext=(year_idx - 1.2, 2.6),
+    fontsize=16,
+    ha='left',
+    va='bottom',
+    bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="none", alpha=0.9),
+    arrowprops=dict(arrowstyle="-", color="#777777", linewidth=1, shrinkA=0, shrinkB=5),
+    zorder=8
+)
+
+# 2) 2009 (callout near 2009 pair)
+year_idx = list(years).index(2009)
+ax.annotate(
+    "2009 peak: Spain −11.2% vs Euro‑Zone −6.3%.",
+    xy=(year_idx + 0.1, spain_values[year_idx]),
+    xytext=(year_idx + 1.2, -7.5),
+    fontsize=16,
+    ha='left',
+    va='center',
+    bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="none", alpha=0.9),
+    arrowprops=dict(arrowstyle="-", color="#777777", linewidth=1, shrinkA=0, shrinkB=5),
+    zorder=8
+)
+
+# 3) 2011 (near 2011 bars)
+year_idx = list(years).index(2011)
+ax.annotate(
+    "2010–2011: deep deficits persist during recovery.",
+    xy=(year_idx - 0.1, spain_values[year_idx]),
+    xytext=(year_idx - 2.6, -9.8),
+    fontsize=16,
+    ha='left',
+    va='center',
+    bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="none", alpha=0.9),
+    arrowprops=dict(arrowstyle="-", color="#777777", linewidth=1, shrinkA=0, shrinkB=5),
+    zorder=8
+)
+
+# 4) 2012–2014 (near target bars)
+# Place one annotation pointing to the cluster of targets (around 2013)
+year_idx = list(years).index(2013)
+ax.annotate(
+    "2012–2014: Spain targets (not observed).",
+    xy=(year_idx - offset, spain_values[year_idx]),
+    xytext=(year_idx + 1.1, -3.0),
+    fontsize=16,
+    ha='left',
+    va='center',
+    bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="none", alpha=0.95),
+    arrowprops=dict(arrowstyle="-", color="#777777", linewidth=1, shrinkA=0, shrinkB=5),
+    zorder=8
+)
+
+# Short annotation pointing to an N/A placeholder: "Euro‑Zone avg unavailable"
+na_anno_idx = list(years).index(2013)
+ax.annotate(
+    "Euro‑Zone avg unavailable",
+    xy=(na_anno_idx + offset, 0.8),
+    xytext=(na_anno_idx + 2.0, 1.5),
+    fontsize=14,
+    ha='left',
+    va='center',
+    bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="none", alpha=0.95),
+    arrowprops=dict(arrowstyle="-", color="#777777", linewidth=1, shrinkA=0, shrinkB=5),
+    zorder=8
+)
+
+# Footnote / Data note at bottom center-left
+footnote = ("Note: 2012–2014 are Spain’s targets. Euro‑Zone average unavailable 2012–2014 (NA). "
+            "Data compiled from aggregated reporting.")
+fig.text(0.5, 0.02, footnote, ha='center', va='bottom', fontsize=12, color='#333333')
+
+# Layout adjustments
+plt.subplots_adjust(left=0.08, right=0.98, top=0.92, bottom=0.08)
+
+# Remove spines on top and right for cleaner look
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 
-# Value labels on every bar (one decimal), above positives, below negatives
-for rect in bars_spain:
-    h = rect.get_height()
-    xpos = rect.get_x() + rect.get_width() / 2
-    label = f"{h:.1f}"
-    if h >= 0:
-        va = 'bottom'
-        y = h + 0.12
-    else:
-        va = 'top'
-        y = h - 0.12
-    ax.text(xpos, y, label, ha='center', va=va, fontsize=8.5, zorder=6)
-
-for rect in bars_ez:
-    h = rect.get_height()
-    xpos = rect.get_x() + rect.get_width() / 2
-    label = f"{h:.1f}"
-    if h >= 0:
-        va = 'bottom'
-        y = h + 0.12
-    else:
-        va = 'top'
-        y = h - 0.12
-    ax.text(xpos, y, label, ha='center', va=va, fontsize=8.5, zorder=6)
-
-# Direct series labels near last-year bars (2014)
-last_idx = -1
-x_spain_last = x[last_idx] - offset
-x_ez_last = x[last_idx] + offset
-# small color squares
-square_size = 0.018  # in axis fraction (we'll transform)
-# Use annotation coordinates in data and transform with offset
-ax.text(x_spain_last + 0.6, spain[last_idx], " Spain", color='#333333',
-        fontsize=9, va='center', ha='left', bbox=dict(boxstyle="square,pad=0.2", facecolor='none', edgecolor='none'))
-ax.scatter([x_spain_last + 0.45], [spain[last_idx]], s=90, marker='s', color=color_spain, edgecolor='k', linewidth=0.6, zorder=7)
-
-ax.text(x_ez_last + 0.6, ez[last_idx], " Euro‑Zone avg.", color='#333333',
-        fontsize=9, va='center', ha='left', bbox=dict(boxstyle="square,pad=0.2", facecolor='none', edgecolor='none'))
-ax.scatter([x_ez_last + 0.45], [ez[last_idx]], s=90, marker='s', color=color_ez, edgecolor='k', linewidth=0.6, zorder=7)
-
-# Comparative labels between pairs where abs(diff) >= 2.0 (in percentage points)
-diffs = spain - ez
-for i, d in enumerate(diffs):
-    if abs(d) >= 2.0:
-        # position between the two bars horizontally
-        x_center = x[i]
-        # vertical position just above the higher bar tip (for positive) or just below the less negative (for negatives),
-        # aim to place in the middle of the two bar tops for clarity
-        top_sp = spain[i]
-        top_ez = ez[i]
-        y_text = (top_sp + top_ez) / 2.0
-        # Slight shift outward so not overlapping bars
-        # Create rounded rectangle box
-        txt = f"{d:+.1f} pp"
-        bbox_props = dict(boxstyle="round,pad=0.25", fc="#ffffff", ec="#cccccc", lw=0.6, alpha=0.9)
-        ax.text(x_center, y_text, txt, ha='center', va='center', fontsize=8.5, bbox=bbox_props, zorder=8)
-        # draw a thin dashed connector between the two bar tops
-        y0 = top_sp
-        y1 = top_ez
-        # Make connector slightly above/below the bars to avoid overlap
-        con_y0 = y0
-        con_y1 = y1
-        # draw line
-        ax.plot([x[i]-offset + bar_width/2.0, x[i]+offset - bar_width/2.0], [con_y0, con_y1],
-                color='#888888', linestyle='--', linewidth=0.9, alpha=0.45, zorder=7)
-
-# Focus annotations for 2006, 2009, 2014
-annotations = [
-    # (year index, text, xy for arrow (x,y at bar tip), text offset)
-    (list(years).index(2006),
-     f"Spain +{(spain[7]-ez[7]):.1f} pp vs EZ",
-     (x[7]-offset, spain[7]),
-     (-40, 18)),
-    (list(years).index(2009),
-     f"Sharp gap: Spain {spain[10]:+.1f} vs EZ {ez[10]:+.1f}",
-     (x[10]-offset, spain[10]),
-     (-10, -50)),
-    (list(years).index(2014),
-     "Improving since 2013",
-     (x[15]-offset, spain[15]),
-     (8, -40)),
-]
-
-for idx, text, (bx, by), (dx, dy) in annotations:
-    # Convert data coords to display for bbox placement
-    # We'll place text in axes fraction offset relative to data point
-    # Using annotate with FancyBboxPatch via bbox in annotate
-    ann = ax.annotate(
-        text,
-        xy=(bx, by),
-        xytext=(bx + dx/72.0, by + dy/72.0),  # small offset in inches scaled to data approx
-        textcoords='data',
-        fontsize=9,
-        ha='left' if dx>0 else 'right',
-        va='center',
-        bbox=dict(boxstyle="round,pad=0.4", facecolor="#ffffff", edgecolor="#dcdcdc", lw=0.8, alpha=0.95),
-        arrowprops=dict(arrowstyle='-', connectionstyle="angle,angleA=0,angleB=90,rad=3",
-                        color='#888888', linewidth=0.9, alpha=0.8),
-        zorder=9
-    )
-
-# Tighten layout and add footnote
-ax.text(0.01, -0.12, "Source: national & Euro‑Area fiscal data", transform=ax.transAxes,
-        fontsize=8.5, color='#666666', va='bottom')
-
-# Reduce chart margins so that right-side direct labels are visible
-plt.subplots_adjust(left=0.06, right=0.95, top=0.88, bottom=0.14)
-
-# Minor aesthetic tweaks
-for spine in ['left','bottom']:
-    ax.spines[spine].set_color('#aaaaaa')
-
-# Show the plot
-plt.savefig("generated/spain_factor2_bar1_design.png", dpi=300, bbox_inches="tight")
+plt.savefig("generated/spain_factor2_bar1/spain_factor2_bar1_design.png", dpi=300, bbox_inches="tight")

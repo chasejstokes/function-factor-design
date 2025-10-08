@@ -1,0 +1,84 @@
+Chart type
+- Paired vertical bar chart (grouped bars) over a time x-axis (years). Each year shows two side-by-side bars: Spain and Euro‑Zone average. Bars extend above/below a horizontal zero baseline so surpluses (positive) and deficits (negative) are visually comparable.
+- Aspect ratio: 3:4 (width:height = 3:4), i.e., taller than wide, to give vertical room for negative/positive bars and large presentation text.
+
+Why: preserves the user's requested paired bar/time layout and gives space to read tall negative bars (e.g., 2009 Spain).
+
+Data handling decisions (driven by metadata and targets)
+- Unit label: y-axis labeled “Budget balance (% of GDP)” and a short legend entry: “Spain”, “Euro‑Zone average”.
+- For years where euro_zone_average is NA (2012–2014), omit the Euro‑Zone bar (leave that slot empty) and show Spain’s 2012–2014 bars with a distinct “target” styling (see styling below). Add one short metadata line in the caption clarifying: “2012–2014 are Spain’s official targets, not actual outturns.”
+- Include exact numeric tick marks every 5 percentage points (e.g., +5, 0, -5, -10, -15) and a horizontal gridline at 0.
+
+Why: PresentMetadata has a strong positive loading (0.63). Explicitly labeling units, explaining NA handling, and calling out target years are essential metadata items that improve interpretability and trustworthiness.
+
+Text structure (large enough for presentation)
+- Title (top center, largest): one short line. Example: “Spain vs Euro‑Zone: Budget Balance (% of GDP), 1999–2014.”
+  - Style: bold, 32–36 pt (presentation-sized).
+  - Reason: Title loading 0.53 — include a clear, prominent title to orient the audience immediately.
+- Subtitle (directly under title, slightly smaller): 1–2 clear sentences, moderately long allowed. Example: “Annual budget surplus/deficit as a share of GDP. Positive values = surplus; negative values = deficit. Data through 2011 are reported; 2012–2014 are Spain’s targets.”
+  - Style: 20–24 pt, regular weight, line-height increased for readability.
+  - Reason: Subtitle loading 0.67 and WordCountSubtitle 0.51 — a substantive subtitle is supported and useful to present necessary clarifications (especially about targets).
+- Legend (top-right, compact): shows color swatches and short variable descriptions:
+  - “Spain — government budget (% GDP, includes targets for 2012–2014)”
+  - “Euro‑Zone average — weighted average (% GDP)”
+  - Style: 16–18 pt.
+  - Reason: SummarizeConceptsVariables loading 0.59 — include explicit variable descriptions in the visible legend so readers don’t have to infer what bars mean.
+- Caption (below chart, visually separated by thin rule): a short paragraph with 2–3 sentences giving the source, note on targets and NA years, and a short interpretive line. Example:
+  - “Source: [data source]. Bars show annual budget balance as % of GDP. 2012–2014 are Spain’s official budget targets. The 2008–2011 period shows a marked divergence in Spain’s deficits versus the Euro‑Zone average.”
+  - Style: 14–16 pt (large for a caption in a slide), left-aligned, max 2–3 lines.
+  - Reason: Caption loading 0.69 (strong) and PresentMetadata 0.63 — the caption is a key place to provide both factual metadata and a concise interpretive note. Make it prominent and easily readable in a presentation.
+
+Visual styling and aesthetic decisions
+- Colors:
+  - Spain: blue (accessible, primary emphasis) — hex #1f77b4 (Color Blind–friendly).
+  - Euro‑Zone average: orange — hex #ff7f0e.
+  - Spain targets (2012–2014): same blue hue but with 40% opacity + 2 px dashed outline in the same blue to distinguish targets from reported data.
+  - Missing Euro‑Zone bars (2012–2014): no bar (empty space), but a faint light-gray “no data” marker in the background legend if desired.
+  - Reason: News loading 0.47 supports a clear, journalistic-looking palette. PresentValenced Subtext (0.38) suggests mild emphasis; using a single strong color for Spain highlights the country without sensational colors (avoid red) and keeps a neutral, professional tone.
+- Bar width & spacing:
+  - Bars grouped per year with moderate gap between years. Bar width chosen so each grouped pair fits comfortably; avoid clutter. Use subtle rounded bar caps for modern look.
+  - Reason: Improves legibility and focus on year-over-year differences.
+- Baseline & grid:
+  - Horizontal zero baseline thicker and darker than other gridlines; light gray horizontal gridlines at every 5 percentage points.
+  - Reason: Helps viewers judge deficits vs surpluses quickly.
+- Minimal annotations:
+  - Avoid many arrow or callout annotations (Arrows loading -0.24; WordCountAnnotation -0.27) — do not add directional arrows. Instead:
+  - Add two small, unobtrusive data labels only for the two most extreme Spain values: 2009 (-11.2) and 2010 (-9.3). Labels placed above/beside the bar tips in 12–14 pt bold. No other value labels.
+  - Reason: Annotation loadings trend negative; keep annotations minimal and reserved for the clearest outliers to preserve visual simplicity.
+- Contextual highlight (light, non-intrusive): use a translucent pale gray rectangle behind the years 2008–2011 to indicate the global/Euro‑Zone crisis period; place a small italic label above the plot area “Crisis period (2008–2011)” inside the rectangle in 12–14 pt.
+  - Reason: PresentContext loading 0.29 and PresentValenced Subtext 0.38 support a small amount of contextual highlighting. This auxiliary element is lightweight and helps viewers see the period of divergence without arrows or heavy callouts.
+- Legend & scales:
+  - Legend copy is concise; symbol swatches sized so they are legible at presentation distance. Y-axis ticks in 16–18 pt; x-axis year labels in 16–18 pt, rotated 0° or 45° only if space requires.
+  - Reason: Large text sizes driven by requirement to be readable on a slide and by positive loadings for Title/Subtitle/Caption and variable descriptions.
+
+Layout and spacing
+- Top area: title and subtitle centered; legend at the top-right of chart area (not in plot margins) so it’s visible immediately.
+- Middle: the plot area occupies the majority of the height to emphasize values; keep margins generous for large axis labels.
+- Bottom: caption separated by a thin rule; include source and the targets/NA note here.
+- Maintain whitespace to avoid crowding. Use type hierarchy and weight to guide attention: title > subtitle > legend > axis labels > caption.
+
+Interaction of design choices with loadings (concise mapping)
+- Emphasize caption and metadata (Caption 0.69; PresentMetadata 0.63): large, visible caption + explicit metadata about units, NA handling, and note that 2012–2014 are targets.
+- Prominent title and substantive subtitle (Title 0.53; Subtitle 0.67; WordCountSubtitle 0.51): short clear title and a moderately detailed subtitle that orients viewers and states the important caveats up-front.
+- Describe variables (SummarizeConceptsVariables 0.59): explicit legend text and y-axis label define what each series means (surplus vs deficit, % of GDP).
+- Give context sparingly (PresentContext 0.29; PresentValenced Subtext 0.38): a subtle shaded band and a short interpretive sentence in the caption point out the crisis/divergence period without dramatizing the chart.
+- Minimize provenance from non-journalistic sources (Blog -0.37; Media -0.31): avoid blog-style visual ornamentation or unnecessary branding; adopt a clean, news-style aesthetic with an explicit source line.
+- Avoid unnecessary arrows and heavy annotations (Arrows -0.24; WordCountAnnotation -0.27): minimal numeric labels only for extreme outliers; no directional arrows or many callouts.
+- Keep overall word count moderate but informative (WordCountTotal 0.28): enough explanatory text in subtitle/caption/legend to make the chart self-contained, but not verbose.
+
+Accessibility and presentation-ready details
+- Color choices are color-blind friendly (blue/orange).
+- Font: sans-serif (e.g., Arial/Helvetica/Inter UI) for high legibility in slides.
+- Provide an export-size recommendation: at least 1600 px wide by 2133 px high (3:4 aspect), or vector PDF/SVG for scaling.
+- Ensure contrast ratios for text and bars meet accessibility guidelines (dark text on light background).
+
+Deliverables checklist (what to include in the final figure)
+- Grouped vertical bar chart (1999–2014) with Spain (solid blue) and Euro‑Zone avg (solid orange) where available.
+- Spain 2012–2014 bars rendered as semi-transparent + dashed-outline to indicate “targets.”
+- Zero baseline and gridlines at 5% intervals.
+- Title (32–36 pt), subtitle (20–24 pt), legend (16–18 pt), axis ticks (16–18 pt), caption (14–16 pt).
+- Caption containing: data source, note on 2012–2014 targets, interpretive summary line calling out divergence period.
+- Minimal data labels on extreme Spain values (2009 and 2010).
+- Light translucent highlight band for 2008–2011 with a small contextual label.
+
+This plan aligns visual emphasis with the strongest positive loadings (caption, subtitle, metadata, variable descriptions, title) and avoids or minimizes elements with negative loadings (arrows, blog/media-style ornamentation, heavy annotations), while producing a clear, presentation-ready paired bar chart that highlights the Spain vs Euro‑Zone differences and properly marks Spain’s target years.

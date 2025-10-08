@@ -1,0 +1,83 @@
+Chart type
+- Paired vertical bar chart (clustered bars) by year, bars grouped by year on the x-axis. Aspect ratio: 3:4 (width:height) or taller (e.g., 1200 px wide × 1600 px high). Rationale: meeting the request and giving vertical space to stack large text and annotations; paired bars directly show year-by-year differences (matches user focus).
+
+Text structure (content, placement, and relative size — all sizes tuned for presentation viewing)
+- Title (very short, top center): "Spain vs Euro‑Zone Budget" — 28–32 pt, bold.
+  - Reasoning: WordCountTitle has a strong negative loading (-0.63) — keep the title very short and to the point to respect the factor that discourages long titles.
+- Subtitle (one line, immediately below title): "General government balance (% of GDP), 1999–2014. Last three Spain values are targets." — 16–18 pt, regular, slightly lighter weight than title.
+  - Reasoning: Subtitle loading is slightly positive (0.24) and can supply a single concise clarifier about targets and units without expanding title; keeps textual overhead low while giving essential context.
+- In-chart value labels (one label per bar): numeric value with sign and % (e.g., "-11.2%") placed at the tip of each bar (outside when bar extends above/below zero); 16–18 pt, high-contrast.
+  - Reasoning: IdentifyValues has a high positive loading (0.53). Directly labeling each bar makes exact values immediately visible, improving comprehension and supporting the user’s focus on differences.
+- Short interpretive annotations (anchored to specific years): 3–5 in-chart annotations, 18–20 pt. Examples:
+  - 2005–2007 (overperformance): "Spain surplus while EZ averages remain negative" (attached to 2005–2007 cluster).
+  - 2008–2011 (crisis spike): "Sharp Spain deficit during global crisis (2008–2011)" attached to 2009 bar with connector.
+  - 2012–2014 (targets): "Targets, not outturns — policy objectives" attached to the 2014 target bar cluster.
+  - Where both values exist, add a short delta annotation for 1–2 highlight years: e.g., "Spain −11.2 vs EZ −6.3 → Spain −4.9 pp worse".
+  - Reasoning: Annotation and WordCountAnnotation are strongly positive (0.65 each). The design should include and prioritize annotations; because the factor indicates importance of annotation word share, these annotations can be slightly more informative than mere labels while remaining short.
+- Legend: omit a separate floating legend. Instead, use one-line keyed labels integrated at the top-left inside the plotting area (left-justified), each with a small 14–16 pt color chip and short label ("Spain", "Euro‑Zone average"). If space is required, replace with direct series labels appended to the last bar of each series.
+  - Reasoning: ReplaceMappings has positive loading (0.33) — favor alternative mapping cues over a traditional separate legend. Direct labeling reduces visual search and ties colors to series immediately. Also aligns with IdentifyValues.
+
+Visual styling (color, marks, axes, gridlines, patterns, connectors)
+- Color palette: functional, non-decorative, high-contrast
+  - Spain: strong but neutral color such as deep blue (hex ~ #1f5fbf).
+  - Euro‑Zone average: neutral medium gray or muted orange (hex ~ #7f7f7f or #f08a3a). Prefer gray to avoid decorative branding.
+  - Targets (Spain 2012–2014): use same Spain hue with 40% opacity + thin diagonal hatch (or 12 px spacing diagonal lines) and a dashed bar outline.
+  - Reasoning: Style has a negative loading (-0.21) so avoid decorative/brand-only color choices. Use color functionally to distinguish series and target status. Hatch for targets encodes difference without decorative flourish.
+- Bars and spacing:
+  - Bar width: moderate (about 35–40% of group width) with 8–12 px gap between paired bars.
+  - Zero baseline: clear horizontal axis at 0% with a thicker zero line to emphasize sign change (deficit vs surplus).
+  - Negative bars extend downward, positive bars upward. Ensure symmetry and readable white space.
+  - Reasoning: Visual clarity for sign and magnitude differences improves discriminability of deficits vs surpluses.
+- Axes and tick labels:
+  - X-axis: years shown for every 1–2 years; label font 16–18 pt, rotated 0° (horizontal) if spacing allows given the tall layout; otherwise rotate −45° but only if necessary.
+  - Y-axis: % of GDP values every 2–4 percentage points; label font 16–18 pt. Omit redundant axis title if subtitle already states units.
+  - Reasoning: Keep axis labeling functional and minimal (ties to ReplaceMappings and IdentifyValues). Subtitle provides units, so avoid repeated long axis title (supports short title preference).
+- Gridlines:
+  - Light, thin horizontal gridlines (very low contrast, 1 px, 10–15% opacity) to aid value reading without clutter.
+  - Reasoning: Subtle guidelines improve readability without decorative emphasis.
+- Callout lines and connectors:
+  - Use thin, neutral callout lines (0.8–1 px, 30% opacity) from annotations to the relevant bars. Keep line color slightly darker than background but not saturated.
+  - Reasoning: Lines loading is slightly positive (0.25) — allow simple connectors to anchor annotations but keep them lightweight and unobtrusive.
+- Delta visual cues (for highlighting differences):
+  - For 2–4 most important years (choose e.g., 2005, 2009, 2010, 2014 target), show a small unobtrusive delta label near the group: "Spain − EZ = +X pp" in 14–16 pt, enclosed in a subtle rounded rectangle (5 px padding, 8% opacity fill).
+  - Reasoning: CompareMappings has a positive loading (0.26). Translating the two-series comparison into a simple "difference" label emphasizes the relational meaning and supports the user's stated focus on differences.
+- Missing data (Euro‑Zone average NA for 2012–2014):
+  - Do not fabricate bars. For EZ in 2012–2014 show a thin light-gray placeholder bar at 0 height with a small in-bar label "No data" or a centered "—" and tooltip/annotation describing absence. If printing, place a tiny superscript note and an in-chart annotation: "EZ average not available for 2012–2014."
+  - Reasoning: Transparent handling of NA respects clean visual communication and avoids government-like formal footnotes. It also supports the user’s interest in Spain-only targets in those years.
+- Data source note (small, low-contrast):
+  - One line at the bottom (9–11 pt): "Data: [source]. Spain 2012–2014 are policy targets." Keep very small and unobtrusive.
+  - Reasoning: Government has a negative loading (-0.55) — avoid heavy official styling or large methodological blocks. A succinct line satisfies provenance needs without adopting government report formality.
+
+Interaction / emphasis (if interactive)
+- Hover shows exact value and delta if both series present for that year. Clicking a target year toggles explanatory annotation.
+- Reasoning: Allows the annotations to remain prominent but unobtrusive; supports IdentifyValues and Annotation loadings.
+
+How each major design choice maps to specific loadings
+- Strong in-chart annotations and slightly higher annotation word share (Annotation 0.65; WordCountAnnotation 0.65): include 3–5 descriptive annotations with connectors and slightly extended wording to explain key contrasts and targets. This increases semantic clarity and follows the factor’s preference for embedded explanatory text.
+- Direct per-bar numeric labels (IdentifyValues 0.53): label every bar with its numeric percentage so readers can immediately compare magnitudes without searching axes or legend.
+- Short title and concise subtitle (WordCountTitle −0.63; Title −0.25; Subtitle +0.24): use a very short, punchy title and a single-line subtitle for units/context. This follows the loadings that penalize long titles but allow minimal supporting text.
+- Avoid government-style formal presentation (Government −0.55): do not include seals, long formal methodological footers, or heavy legalistic language; instead adopt a clean, journalistic explanatory style (News +0.46) — short callouts, plain language annotations.
+- Replace a separate legend with direct labeling or a tiny integrated key (ReplaceMappings +0.33): eliminate a floating legend and use direct in-chart identification to reduce visual steps needed to map colors to series.
+- Conservative, functional color use (Style −0.21): avoid decorative palettes or brand gradients; choose two distinct, neutral colors and hatch for targets.
+- Light connector lines permitted (Lines +0.25): use thin connectors for annotations, but keep them unobtrusive.
+
+Accessibility / presentation considerations
+- Fonts: sans-serif (e.g., Arial, Helvetica, or Inter), high contrast. Title 28–32 pt, subtitle 16–18 pt, axis ticks and bar labels 16–18 pt, annotation text 18–20 pt.
+- Sufficient spacing between grouped years so labels and annotations don’t overlap. Use vertical layout (taller than wide) to allow annotations without squeezing bars.
+- Print/slide-ready: ensure color palette has sufficient contrast for projection; supply a patterned alternative for printing or colorblind-safe palette if required.
+
+Outcome summary (how this improves readability)
+- Immediate numeric readability via per-bar labels (IdentifyValues).
+- Quick comprehension of key contrasts via annotated narrative callouts (Annotation + WordCountAnnotation) and delta labels (CompareMappings).
+- Clean, non-decorative visual encoding that avoids stylistic noise (Style negative) and avoids heavy government formatting (Government negative).
+- Alternative legend mapping and integrated labeling reduce visual search and align color to series immediately (ReplaceMappings).
+- Clear marking of targets and missing EZ data avoids misinterpretation and keeps the viewer focused on the Spain vs EZ differences as requested.
+
+Implementation checklist (for the designer/developer)
+- Set canvas to 3:4 (or taller). Place title+subtitle at top (sizes above).
+- Draw paired clusters per year, apply colors/hatches, label every bar.
+- Add 3–5 anchored annotations with thin connector lines; add 2–4 delta annotations for major years.
+- Remove floating legend or replace with integrated key/direct labels.
+- Add subtle zero-line emphasis and light horizontal gridlines.
+- Add small source/note line at bottom describing targets and missing EZ data.
+

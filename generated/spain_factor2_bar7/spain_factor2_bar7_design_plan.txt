@@ -1,0 +1,118 @@
+Chart type
+- Grouped (paired) vertical bar chart (two bars per year: Spain, Euro‑Zone average) plotted along the x‑axis of time (1999–2014).  
+- Output aspect ratio: at least 3:4 (taller than wide). Example export canvas: 900 × 1200 px (3:4); this keeps bars readable and leaves vertical room for annotations.
+
+Reasoning tied to loadings
+- High positive loadings: Annotation (0.65), WordCountAnnotation (0.65), IdentifyValues (0.53) → make annotations and data labels prominent and relatively wordy (for context), and directly label every bar with its numeric value.
+- Moderate positive: News (0.46), ReplaceMappings (0.33), CompareMappings (0.26), Lines (0.25), Subtitle (0.24) → adopt an accessible “news-style” explanatory tone, replace or minimize a separate legend with inline labeling, use light connector lines for callouts, and include a concise subtitle giving units/context.
+- Negative loadings: Government (−0.55), WordCountTitle (−0.63), Title (−0.25), Style (−0.21) → avoid official/governmental graphical flourishes and long titles; keep title short; avoid decorative/color-for-style choices (no gradients, no heavy branding).
+
+Text structure (what text appears, exact content and positions)
+- Title (top, single line, short; WordCountTitle negative → keep minimal):
+  - Text: "Budget balance — Spain vs Euro‑Zone (1999–2014)"
+  - Position: centered at very top
+  - Reasoning: negative title loading suggests short title; gives immediate context without taking word-count away from annotations.
+
+- Subtitle (below title, brief, descriptive; small positive loading supports a short subtitle):
+  - Text: "Share of GDP (negative = deficit)"
+  - Position: directly under the title, lighter weight
+  - Reasoning: clarifies units for a presentation audience without overburdening the title.
+
+- Axis labels:
+  - Y‑axis: "Percent of GDP" (left, vertical)
+  - X‑axis: Year ticks (1999–2014) placed along the bottom
+  - Reasoning: functional clarity — keep axis text large and obvious for presentation.
+
+- Series identification (ReplaceMappings positive → avoid conventional legend; use inline labels):
+  - Place small colored label chips with text “Spain” and “Euro‑Zone avg.” anchored near the leftmost clustered bars (1999), and again repeated discretely at the top-right as a backup. Alternatively, for static slides, include direct colored labels at the top of the first bar in each series.
+  - Reasoning: Replace a separate legend with inline series labels for faster visual mapping, consistent with ReplaceMappings.
+
+- Data labels (IdentifyValues high → label each bar):
+  - Every bar shows its numeric value (e.g., “−11.2%”) displayed close to the bar tip; for negative bars, place the label just above the bar tip outside the bar or, if inside, use high‑contrast text.
+  - Font size: large enough for presentation (see Typography below).
+  - Reasoning: direct identification of each value improves direct comparison and satisfies the IdentifyValues loading.
+
+- Annotations (Annotation and WordCountAnnotation high → multiple anchored annotations with relatively higher word count than title):
+  - Include 4 focused, anchored callouts (semi‑structured annotations) that explain major differences:
+    1. 2004: “Spain posts a surplus (+0.6%); Euro‑Zone remains in deficit (−2.9%).” — anchor to 2004 bars.
+    2. 2006: “Peak Spanish surplus (+2.4%) vs weak Euro average (+1.1%).” — anchor to 2006 Spain bar.
+    3. 2009–2010 crisis: two related notes or a combined note pointing to 2009–2010 cluster: “Financial crisis: Spain falls to −11.2% (2009) and remains markedly below Euro average, highlighting sharper short‑term deterioration.” — anchor with a bracket or subtle connector spanning 2009–2010 bars.
+    4. 2014: “Recovery trend: deficits reduce for both; Spain at −2.5% vs Euro −2.0%.” — anchor to 2014 cluster.
+  - Each annotation: 1–2 sentences (concise but explanatory), placed in a small rounded rectangle with 60–80% opacity white background and 1 px subtle border; connect to the relevant bars with a thin callout line where needed.
+  - Reasoning: high Annotation & WordCountAnnotation loadings suggest annotations should be present and relatively substantive; placing them anchored to the data supports narrative emphasis on differences.
+
+- Source note (small, unobtrusive):
+  - Text: “Source: [data provider, e.g., Eurostat]” (single line, bottom‑right, small size).
+  - Reasoning: Government negative implies avoid official-looking seals or heavy provenance emphasis — include a discreet source line only.
+
+Visual styling (color, highlights, lines, and other stylistic choices)
+- Color palette (Style negative → functional color use, not decorative):
+  - Spain: solid deep blue (e.g., #1f5fa8)
+  - Euro‑Zone average: neutral dark gray (e.g., #6e6e6e) or teal (if you prefer higher contrast) — keep saturation similar so neither appears “decorative.”
+  - Zero line: medium gray line emphasized (1.5 px) so positive vs negative bars read quickly.
+  - Background: white; gridlines: very light gray (1 px, dashed or dotted) for horizontal gridlines only to aid reading.
+  - Reasoning: avoid decorative colors and make color choices functional for quick category discrimination.
+
+- Bars and spacing:
+  - Bar width: moderately thick for presentation; leave generous spacing between yearly groups so paired bars are clearly paired (use group padding).
+  - Order within each pair: Spain on the left, Euro‑Zone on the right; consistent throughout.
+  - Rounded corners: small (2–3 px) acceptable, but avoid heavy stylization.
+  - Reasoning: clear pairing supports direct comparisons requested by user.
+
+- Data labels styling (IdentifyValues):
+  - Font color: white for labels inside dark bars, dark text when outside; add a subtle text shadow for legibility if inside bars.
+  - Value precision: one decimal place with percent sign (e.g., −11.2%).
+  - Positioning: place labels at bar tip to minimize eye travel and facilitate direct value reading.
+
+- Annotations and connector lines (Annotation and Lines loadings):
+  - Annotation boxes: semi‑opaque white rounded boxes with a thin neutral border; text color dark gray/black; font slightly smaller than axis labels but large enough for presentation.
+  - Connector lines: thin (1 px), matching the series color (or neutral gray if annotating a difference across both series), with a short arrowhead or simple dot indicating target. Keep connectors minimal and unobtrusive.
+  - When annotation refers to a difference (e.g., 2009 Spain vs Euro), use a subtle bracket spanning the two bars with a short callout statement.
+  - Reasoning: Lines loading is modestly positive — use only lightweight connectors to anchor annotations without clutter.
+
+- Legend replacement (ReplaceMappings):
+  - Inline colored chips and text near first cluster of bars (see Text Structure) to replace a floating legend.
+  - Reasoning: ReplaceMappings supports direct labeling in the visual space to reduce scanning time and improve comparison.
+
+- Axis and ticks:
+  - Y‑axis range: symmetric enough to show peaks and troughs; set lower bound to at least −12% (to fully show −11.2%) and upper bound to +3% or +4% to include 2.4% comfortably.
+  - Tick marks: show meaningful ticks every 2% (e.g., −12, −10, −8, −6, −4, −2, 0, 2) with tick labels in large font (14–16 pt equivalent).
+  - X‑axis labels: show every year but reduce clutter by using a slightly smaller font and increased vertical spacing; if cramped, show every other year with minor tick marks for intervening years. Data labels on bars mitigate need for heavy x‑axis labelling.
+  - Reasoning: axis readability is critical for presentation; balance label density against visual clutter.
+
+Typography and sizing (large enough for presentation)
+- Suggested font family: clean sans-serif (e.g., Helvetica Neue, Inter, or Arial).
+- Sizes (relative slide/panel; adjust for final canvas):
+  - Title: 28–34 pt
+  - Subtitle: 18–22 pt
+  - Axis labels: 16–18 pt
+  - Tick labels: 14–16 pt
+  - Data labels: 14–18 pt (bold for contrast)
+  - Annotation text: 14–16 pt (regular)
+  - Source text: 10–12 pt
+- Reasoning: Make text readable in a presentation room while keeping chart uncluttered.
+
+Emphasis on differences (user preference)
+- Visual emphasis on divergence years:
+  - Use annotations to call out years where Spain departs strongly from the Euro average (2004, 2006, 2009–2010, and 2014). For the crisis years, use a small bracket/area highlight (low‑opacity fill behind the two bars) to show the interval of extreme divergence.
+  - Use consistent coloring and direct labels so the reader can compare bars within each year instantly.
+  - Reasoning: The user prioritized differences between Spain and the Euro‑Zone average; pairing bars, direct labels, and anchored annotations maximize immediate readability and comparative insight.
+
+Accessibility and slide use
+- Ensure color contrast meets accessibility standards (contrast ratio > 4.5:1 between text and background). If necessary, swap gray for a darker tone to improve contrast.
+- When presenting, reveal annotations sequentially (if using animation) to guide the audience through the narrative (2004 → 2006 → 2009/2010 → 2014).
+- Reasoning: News-style readability and annotation prominence align with loadings and make the chart effective in a talk.
+
+Summary checklist (what to implement)
+- Grouped vertical bars 1999–2014, Spain left / Euro‑Zone right per year.
+- Canvas at least 3:4 (e.g., 900 × 1200 px).
+- Short title + short subtitle; avoid long title word counts.
+- Inline series labels near first bars (no floating legend).
+- Numeric data labels on every bar (one decimal, percent).
+- 4 anchored annotations with 1–2 sentences each; annotation boxes with thin connector lines/brackets to bars.
+- Functional, muted color palette (Spain deep blue; Euro gray/neutral).
+- Emphasized zero line and adequate y‑range to include −11.2%.
+- Large typography sized for presentation.
+- Small, unobtrusive source line (no governmental seals or heavy branding).
+
+Each recommendation above ties directly to the provided factor loadings: boost on‑chart annotations and data labels (Annotation, WordCountAnnotation, IdentifyValues), keep the title short (WordCountTitle negative), minimize decorative styling and government styling (Style negative, Government negative), replace legend with inline labels (ReplaceMappings), and use light connector lines and accessible explanatory text (Lines, News, CompareMappings).

@@ -26,26 +26,27 @@ chart_image1 = """
     {
         "topic": “Budget deficit and surplus compared between Spain and the Euro Zone as a whole”,
         "data": [
-            {"year": 1999, "spain": -1.2, "euro_zone_average": -0.9},
-            {"year": 2000, "spain": -0.6, "euro_zone_average": -0.4},
-            {"year": 2001, "spain": -0.4, "euro_zone_average": -0.8},
-            {"year": 2002, "spain": -1.0, "euro_zone_average": -1.6},
-            {"year": 2003, "spain": -0.8, "euro_zone_average": -2.6},
-            {"year": 2004, "spain": 0.6, "euro_zone_average": -2.9},
-            {"year": 2005, "spain": 1.3, "euro_zone_average": -1.8},
-            {"year": 2006, "spain": 2.4, "euro_zone_average": 1.1},
-            {"year": 2007, "spain": 1.9, "euro_zone_average": -0.8},
-            {"year": 2008, "spain": -4.5, "euro_zone_average": -3.6},
+            {"year": 1999, "spain": -1.4, "euro_zone_average": -1.4},
+            {"year": 2000, "spain": -1.0, "euro_zone_average": 0},
+            {"year": 2001, "spain": -0.6, "euro_zone_average": -1.8},
+            {"year": 2002, "spain": -0.2, "euro_zone_average": -2.5},
+            {"year": 2003, "spain": -0.3, "euro_zone_average": -3.1},
+            {"year": 2004, "spain": -0.1, "euro_zone_average": -2.9},
+            {"year": 2005, "spain": 1.3, "euro_zone_average": -2.4},
+            {"year": 2006, "spain": 2.4, "euro_zone_average": -1.3},
+            {"year": 2007, "spain": 1.9, "euro_zone_average": -0.7},
+            {"year": 2008, "spain": -4.5, "euro_zone_average": -2.1},
             {"year": 2009, "spain": -11.2, "euro_zone_average": -6.3},
-            {"year": 2010, "spain": -9.5, "euro_zone_average": -6.0},
-            {"year": 2011, "spain": -7.8, "euro_zone_average": -4.1},
-            {"year": 2012, "spain": -4.2, "euro_zone_average": -4.6},
-            {"year": 2013, "spain": -5.0, "euro_zone_average": -3.8},
-            {"year": 2014, "spain": -2.5, "euro_zone_average": -2.0}
+            {"year": 2010, "spain": -9.3, "euro_zone_average": -6.2},
+            {"year": 2011, "spain": -8.9, "euro_zone_average": -4.1},
+            {"year": 2012, "spain": -6.3, "euro_zone_average": NA},
+            {"year": 2013, "spain": -4.5, "euro_zone_average": NA},
+            {"year": 2014, "spain": -2.8, "euro_zone_average": NA}
         ]
     }
 
-    I mostly want to focus on the differences between Spain and the Euro-Zone Average values.
+    I mostly want to focus on the differences between Spain and the Euro-Zone Average values. 
+    The final 3 years of this dataset are Spain's economic targets for those years, not actual values.
     """
 
 
@@ -143,7 +144,8 @@ def design_plan_factor(chart_data, factor) -> str:
     }
 
     user_prompt = f"""Make a design plan for this data that fits with the attached variable loadings. 
-        It should be a paired bar chart over the x-axis of time.
+        It should be a paired bar chart over the x-axis of time and be in at least a 3:4 aspect ratio (taller than it is wide).
+        Make the text large enough to see in a presentation.
 
         LOADINGS:   
         {loadings}
@@ -155,7 +157,7 @@ def design_plan_factor(chart_data, factor) -> str:
 
 
 def generate_chart(design_plan, chart_info) -> str:
-    user_prompt = f"""Provide the code for a chart that follows the given design plan. 
+    user_prompt = f"""Write code for a chart that follows the given design plan. 
                     {design_plan}
                     
                     Here is the chart data.
@@ -189,6 +191,8 @@ def clean_code_response(code_response, img_name):
 def regenerate_chart_code(code, error):
     user_prompt = f"""The following Python code failed with an error. 
         Fix the error and return updated code that will run successfully.
+        It should be a paired bar chart over the x-axis of time and be in at least a 3:4 aspect ratio (taller than it is wide).
+        Make the text large enough to see in a presentation.
 
         ERROR: {error}
 
@@ -201,6 +205,9 @@ def regenerate_chart_code(code, error):
 
 
 def run_pipeline(image_info, factor, img_name):
+
+    # make directory
+    os.makedirs(os.path.join("generated", img_name), exist_ok=True)
 
     start = time.time()
     print(
@@ -275,8 +282,15 @@ if __name__ == "__main__":
 
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-    run_pipeline(chart_image1, 1, "spain_factor1_bar1")
-    run_pipeline(chart_image1, 2, "spain_factor2_bar1")
-    run_pipeline(chart_image1, 3, "spain_factor3_bar1")
-    run_pipeline(chart_image1, 4, "spain_factor4_bar1")
-    # run_pipeline(chart_image2, 4, "countries_factor4")
+    for i in range(0, 9):
+        print("-------------------------")
+        print("-------------------------")
+        print(f"--------- Run {i} ---------")
+        print("-------------------------")
+        print("-------------------------")
+        run_pipeline(chart_image1, 1, f"spain_factor1_bar{i}")
+        run_pipeline(chart_image1, 2, f"spain_factor2_bar{i}")
+        run_pipeline(chart_image1, 3, f"spain_factor3_bar{i}")
+        run_pipeline(chart_image1, 4, f"spain_factor4_bar{i}")
+
+    # run_pipeline(chart_image2, 4, "cellphone_factor4_2")

@@ -1,0 +1,83 @@
+Chart type and canvas
+- Chart type: Paired (grouped) vertical bar chart over time (one pair per year: Spain vs Euro‑Zone average). Bars extend above/below a shared zero baseline so surpluses appear above and deficits below.
+- Canvas / aspect: Portrait orientation, minimum 3:4 aspect ratio (width:height = 3:4). Example output size: 900 × 1200 px (or any taller-than-wide size maintaining ≥3:4). This produces a presentation-friendly, tall column that gives vertical room for negative values and large text.
+
+Overall layout and hierarchy
+- Top: Title (large), directly below: subtitle (moderate size).  
+- Chart area: grouped bars spanning the middle portion, with left Y axis (percent of GDP) and bottom X axis (year ticks).  
+- Right/top-right: compact legend (Spain, Euro Zone average).  
+- Bottom or lower-right: compact boxed synthesis (one- to two-sentence summary with the computed averages and the single-year maximum divergence).  
+- In-chart selective callouts: 2–3 lightweight callouts for the years with the largest divergences (2009 and 2004, optionally 2010 or 2011) with short numeric labels and a thin leader line (no heavy arrows).
+
+Text structure (content, position, tone; sizes for presentation)
+- Title (top center, 30–36 pt, bold):  
+  "Budget balance (% of GDP) — Spain vs Euro Zone average (1999–2014)"  
+  - Reasoning: AxisAxes loading = 0.31 supports clear axis/title labeling to orient readers; making the title large improves immediate comprehension and legibility at a distance.
+- Subtitle (below title, 18–22 pt, regular): one concise sentence (moderate length consistent with WordCountSubtitle loading):  
+  "Spain shows larger swings across the cycle, with a sharp plunge in 2009 and outperformance in the mid‑2000s."  
+  - Reasoning: Subtitle loading = 0.38 and WordCountSubtitle = 0.45 recommend including a moderate-length subtitle to add context without crowding; this frames the main visual takeaway.
+- Y axis label (left, 16–18 pt): "Budget balance (% of GDP)" with tick labels every 2.5 or 5 percentage points (e.g., -12, -10, -8, -6, -4, -2, 0, 2). Tick labels 14–16 pt.  
+  - Reasoning: AxisAxes (0.31) requires clear visible axes; larger axis labels and ticks improve readability in presentations.
+- X axis (bottom, year ticks every year, 14–16 pt): center the year labels under each pair; rotate 0°.  
+  - Reasoning: AxisAxes (0.31) — clear year labels help time comparisons.
+- Legend (top-right, 16–18 pt): two swatches: "Spain" and "Euro Zone average". Keep small and unobtrusive but legible.  
+  - Reasoning: CompareValues (0.58) — an immediate legend helps viewers map colors to the two series and supports direct comparison.
+
+Visual styling and encoding
+- Colors: use a colorblind‑friendly, high‑contrast pair: Spain = warm deep orange/red (hex ~#D1493E), Euro Zone average = cool deep teal/blue (hex ~#2A9D8F). Bars filled solid, no heavy patterns. Use consistent, saturated colors so paired bars read easily at a distance.  
+  - Reasoning: CompareValues (0.58) — color contrast supports side‑by‑side comparisons. Avoid social‑media-style decorative palettes (SocialMedia loading = -0.34).
+- Bar geometry: grouped vertical bars per year, narrow gap between two bars in a pair, larger gap between year groups. Bar width tuned so each year pair is easily separable with white space. Bars should align to a shared zero baseline so surpluses/deficits are visually comparable.  
+  - Reasoning: CompareValues (0.58) — grouping and zero baseline support direct visual comparisons across years and between series.
+- Gridlines: horizontal gridlines every major tick (muted light gray, 1 px, low contrast). No vertical gridlines.  
+  - Reasoning: AxisAxes (0.31) — horizontal guides improve reading values without cluttering.
+- Baseline and zero line: emphasize the zero baseline with a slightly bolder line (darker gray) so positive/negative distinctions are immediately clear.  
+  - Reasoning: CompareValues & AxisAxes — clear baseline improves comparative reading.
+
+Labeling and annotations (following the loadings)
+- Avoid labeling every single bar value (IdentifyValues loading = -0.28 suggests not to identify all points).  
+  - Implementation: Do NOT place numeric labels on every bar. This reduces clutter and honors the negative loading on full value identification.
+- Selective numeric labels (CompareValues = 0.58; SummarizeValues = 0.65): label only the most diagnostic years that show the largest divergences or policy interest: specifically label numeric values for 2004 (Spain: +0.6% vs EZ: -2.9% — Spain outperforms by 3.5 pp) and 2009 (Spain: -11.2% vs EZ: -6.3% — Spain underperforms by 4.9 pp). Optionally label the 2006 surplus year for Spain (2.4% vs 1.1%). Use small rounded boxes with the two numeric values (e.g., "Spain −11.2%  |  EZ −6.3%") placed just outside the bars, with a thin leader line. Label font 14–16 pt.  
+  - Reasoning: CompareValues and SummarizeValues strongly support emphasizing direct contrasts rather than enumerating all values. Selective labels highlight meaningful differences without clutter.
+- Callouts vs arrows: prefer small boxed callouts with thin leader lines (no heavy arrowheads). Limit to 2–3 callouts total. Keep callouts subtle (light background, thin border).  
+  - Reasoning: Arrows loading = 0.21 is low—use minimal leader lines instead of prominent arrows to avoid over-emphasizing directional cueing.
+
+Summary box and synthesis (high priority)
+- Place a small boxed synthesis area (lower-right or below the chart area) summarizing computed aggregates and the single-year max divergence. Text example (14–16 pt):  
+  "Synthesis (1999–2014): Spain average = −2.66% of GDP; Euro‑Zone average = −2.57% of GDP. Largest divergence: 2009 (Spain −11.2% vs EZ −6.3, gap = −4.9 pp). Spain shows bigger cyclical swings: stronger mid‑2000s surpluses and deeper crisis deficits."  
+  - Reasoning: SummarizeConceptsSynthesis (0.71) and SummarizeValues (0.65) strongly favor a short, high‑level synthesis. This boxed text gives the viewer the exact quantitative takeaway without labeling every bar.
+- Tone of the synthesis: slightly valenced, concise language acknowledging the dramatic swing (PresentValenced Subtext = 0.7) but avoid sensationalism or social‑media phrasing (SocialMedia = -0.34). Example phrase: "Spain experienced a dramatic swing into deficit during the 2008–2010 crisis."  
+  - Reasoning: PresentValenced Subtext loading (0.7) supports inclusion of some emotional emphasis; SocialMedia negative means keep professional tone.
+
+Interaction/hover (if interactive)
+- If interactive, show numeric tooltip on hover for any bar (value and year). Do not show default always‑visible labels.  
+  - Reasoning: IdentifyValues negative suggests avoiding always-visible value labels; interactivity allows value access on demand.
+
+Accessibility and presentation legibility
+- Fonts: clean sans‑serif (e.g., Helvetica/Arial/Inter). Title 30–36 pt; subtitle 18–22 pt; axis labels 16–18 pt; tick labels 14–16 pt; annotation text 14–16 pt. High contrast between text and background.
+- Contrast: ensure sufficient color contrast for bars against white background and for text against callout boxes.
+- Colorblind check: the chosen orange/red vs teal palette is distinguishable for most common forms of color vision deficiency; supplement with different fill opacities or subtle pattern only if required.
+
+Explicit mapping of design choices to loadings (brief)
+- Emphasize axes/title (AxisAxes = 0.31): large title, clear axis labels and ticks to orient readers.
+- Favor direct comparisons (CompareValues = 0.58): paired bars, high contrast colors, selective numeric callouts for the largest gaps, compact legend; grouping to support pairwise reading.
+- Avoid labeling every bar (IdentifyValues = -0.28): selective callouts only; tooltips for interactive versions.
+- Add contextual text (PresentContext = 0.34): subtitle and short synthesis box provide economic framing of the 2008–2010 crisis period.
+- Allow mild valenced phrasing (PresentValenced Subtext = 0.7): a concise, slightly emphatic sentence in the subtitle/synthesis acknowledges the dramatic swing while remaining professional (avoid emotive images or social style).
+- Provide high‑level synthesis and aggregated numbers (SummarizeConceptsSynthesis = 0.71; SummarizeValues = 0.65): include the computed 1999–2014 averages and the largest divergence year prominently in the synthesis box.
+- Use a moderate subtitle word count (WordCountSubtitle = 0.45): one concise sentence under the title to orient the viewer.
+- Avoid social‑media visual language (SocialMedia = -0.34): no hashtags, no platform stamps, no informal badges.
+
+Computed synthesis values to include verbatim
+- Spain average (1999–2014): −2.66% of GDP.  
+- Euro Zone average (1999–2014): −2.57% of GDP.  
+- Largest divergence: 2009 — Spain −11.2% vs Euro Zone −6.3% (gap = −4.9 percentage points).  
+- Example synthesis sentence: "Across 1999–2014 Spain averaged −2.66% of GDP vs −2.57% for the Euro Zone; the largest single‑year gap occurred in 2009 (Spain −11.2% vs EZ −6.3%)."
+
+Implementation notes (for the designer or dev)
+- Use the shared zero baseline and set Y limits to comfortably include the lowest bar (e.g., −12.5 to +3.5) with even tick spacing.  
+- Keep exactly 2 bars per year in a consistent order (Spain left, Euro Zone right) across all years. Show legend to reinforce the order.  
+- Keep callouts to a minimum and make them visually lightweight (thin leader, subtle fill). Avoid heavy arrows or decorative overlays.  
+- Ensure all text sizes meet legibility guidelines for slide projection (see font sizes above).
+
+Summary of the visual goal
+- Emphasize side‑by‑side comparison and the headline synthesis: Spain's average over the period is marginally worse than the Euro Zone as a whole, but Spain displays larger swings with the deepest crisis deficit in 2009. The chart design prioritizes clear axes, concise synthesis, and selective emphasis on the most informative years — reflecting the factor loadings that favor comparison and summary over exhaustive numeric labeling.
