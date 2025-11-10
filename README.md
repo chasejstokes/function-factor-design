@@ -28,7 +28,7 @@ By connecting factor loadings to visualization redesign, we can explore how LLMs
 
 ## Current Scope
 
-- Prototype scripts for calling GPT-5 and Gemini APIs.
+- Prototype scripts for calling GPT-5-mini.
 - Early integration with Python workflows.
 
 ---
